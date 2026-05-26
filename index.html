@@ -366,7 +366,13 @@
     font-size: 4rem;
     background: linear-gradient(135deg, #1a1a1a, #111);
     border-bottom: 1px solid rgba(255,255,255,0.04);
+    overflow: hidden;
   }
+  .produto-img img {
+    width: 100%; height: 100%; object-fit: cover;
+    transition: transform 0.3s;
+  }
+  .produto-card:hover .produto-img img { transform: scale(1.05); }
   .produto-info { padding: 1.2rem; }
   .produto-nome {
     font-family: 'Barlow Condensed', sans-serif;
@@ -722,7 +728,7 @@
 
   <div class="loja-grid">
     <div class="produto-card">
-      <div class="produto-img">💛</div>
+      <div class="produto-img"><img src="https://blogcopa2026.github.io/copa2026/imgCAMISA_AMARELA.webp" alt="Camisa Brasil Amarela" loading="lazy"></div>
       <div class="produto-info">
         <div class="produto-nome">Camisa Brasil Amarela — Copa 2026</div>
         <div class="produto-preco">R$ 89 <small>via Shopee</small></div>
@@ -730,7 +736,7 @@
       </div>
     </div>
     <div class="produto-card">
-      <div class="produto-img">💙</div>
+      <div class="produto-img"><img src="https://blogcopa2026.github.io/copa2026/imgCAMISA_AZUL.webp" alt="Camisa Brasil Azul" loading="lazy"></div>
       <div class="produto-info">
         <div class="produto-nome">Camisa Brasil Azul — Copa 2026</div>
         <div class="produto-preco">R$ 89 <small>via Shopee</small></div>
@@ -746,7 +752,7 @@
       </div>
     </div>
     <div class="produto-card">
-      <div class="produto-img">📒</div>
+      <div class="produto-img"><img src="https://blogcopa2026.github.io/copa2026/imgKIT_ALBUM.webp" alt="Álbum Panini Copa 2026" loading="lazy"></div>
       <div class="produto-info">
         <div class="produto-nome">Álbum Panini Copa 2026</div>
         <div class="produto-preco">R$ 25 <small>via Shopee</small></div>
@@ -826,7 +832,7 @@
       </div>
     </div>
     <div class="produto-card">
-      <div class="produto-img">📦</div>
+      <div class="produto-img"><img src="https://blogcopa2026.github.io/copa2026/imgALBUM_10ENV.webp" alt="100 Envelopes Panini" loading="lazy"></div>
       <div class="produto-info">
         <div class="produto-nome">100 Envelopes Panini Copa 2026</div>
         <div class="produto-preco">R$ 636 <small>via Shopee</small></div>
@@ -834,7 +840,7 @@
       </div>
     </div>
     <div class="produto-card">
-      <div class="produto-img">🎴</div>
+      <div class="produto-img"><img src="https://blogcopa2026.github.io/copa2026/imgFIGURINHA.webp" alt="Envelope Figurinha Panini" loading="lazy"></div>
       <div class="produto-info">
         <div class="produto-nome">Envelope Figurinha Panini — 7 cromos</div>
         <div class="produto-preco">R$ 7 <small>via Shopee</small></div>
@@ -842,7 +848,7 @@
       </div>
     </div>
     <div class="produto-card">
-      <div class="produto-img">👨‍👩‍👧‍👦</div>
+      <div class="produto-img"><img src="https://blogcopa2026.github.io/copa2026/imgKIT_FAMILIA.webp" alt="Kit Família Brasil" loading="lazy"></div>
       <div class="produto-info">
         <div class="produto-nome">Kit Família Brasil — Copa 2026</div>
         <div class="produto-preco">R$ 59 <small>via Shopee</small></div>
@@ -858,7 +864,7 @@
       </div>
     </div>
     <div class="produto-card">
-      <div class="produto-img">📒</div>
+      <div class="produto-img"><img src="https://blogcopa2026.github.io/copa2026/imgKIT_ALBUM.webp" alt="Álbum Panini Copa 2026" loading="lazy"></div>
       <div class="produto-info">
         <div class="produto-nome">Álbum Oficial + 10 Envelopes Panini</div>
         <div class="produto-preco">R$ 34 <small>via Shopee</small></div>
@@ -914,7 +920,7 @@
       </div>
     </div>
     <div class="produto-card">
-      <div class="produto-img">📒</div>
+      <div class="produto-img"><img src="https://blogcopa2026.github.io/copa2026/imgKIT_ALBUM.webp" alt="Álbum Panini Copa 2026" loading="lazy"></div>
       <div class="produto-info">
         <div class="produto-nome">Álbum + 70 Figurinhas 10 Pacotes Copa</div>
         <div class="produto-preco">R$ 38 <small>via Shopee</small></div>
