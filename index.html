@@ -1,0 +1,809 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Copa 2026 — Tudo sobre o Mundial</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Barlow:ital,wght@0,400;0,600;0,700;1,400&family=Barlow+Condensed:wght@500;700&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --verde: #00C853;
+    --amarelo: #FFD600;
+    --azul: #0D47A1;
+    --preto: #0A0A0A;
+    --cinza-escuro: #141414;
+    --cinza-mid: #1E1E1E;
+    --cinza-texto: #9E9E9E;
+    --branco: #F5F5F5;
+  }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    background: var(--preto);
+    color: var(--branco);
+    font-family: 'Barlow', sans-serif;
+    font-size: 16px;
+    line-height: 1.6;
+    overflow-x: hidden;
+  }
+
+  /* NAV */
+  nav {
+    position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 1rem 2rem;
+    background: rgba(10,10,10,0.92);
+    backdrop-filter: blur(12px);
+    border-bottom: 1px solid rgba(255,214,0,0.15);
+  }
+  .nav-logo {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 1.6rem;
+    letter-spacing: 2px;
+    color: var(--amarelo);
+  }
+  .nav-logo span { color: var(--verde); }
+  .nav-links { display: flex; gap: 2rem; list-style: none; }
+  .nav-links a {
+    color: var(--cinza-texto); text-decoration: none;
+    font-size: 0.85rem; font-weight: 600; letter-spacing: 1px;
+    text-transform: uppercase; transition: color 0.2s;
+  }
+  .nav-links a:hover { color: var(--amarelo); }
+  .nav-cta {
+    background: var(--amarelo); color: var(--preto);
+    padding: 0.5rem 1.2rem; border-radius: 4px;
+    font-weight: 700; font-size: 0.8rem; letter-spacing: 1px;
+    text-transform: uppercase; text-decoration: none;
+    transition: background 0.2s, transform 0.1s;
+  }
+  .nav-cta:hover { background: #fff; transform: scale(1.03); }
+
+  /* HERO */
+  .hero {
+    min-height: 100vh;
+    display: flex; flex-direction: column; justify-content: center;
+    padding: 7rem 2rem 4rem;
+    position: relative;
+    overflow: hidden;
+  }
+  .hero-bg {
+    position: absolute; inset: 0;
+    background:
+      radial-gradient(ellipse 60% 50% at 80% 50%, rgba(0,200,83,0.08) 0%, transparent 70%),
+      radial-gradient(ellipse 40% 60% at 20% 80%, rgba(13,71,161,0.12) 0%, transparent 70%);
+  }
+  .hero-noise {
+    position: absolute; inset: 0; opacity: 0.03;
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+    background-size: 128px;
+  }
+  .hero-tag {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 0.75rem; font-weight: 700; letter-spacing: 3px;
+    text-transform: uppercase; color: var(--verde);
+    margin-bottom: 1.2rem;
+    display: flex; align-items: center; gap: 8px;
+  }
+  .hero-tag::before {
+    content: ''; display: inline-block;
+    width: 28px; height: 2px; background: var(--verde);
+  }
+  .hero h1 {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: clamp(4rem, 10vw, 9rem);
+    line-height: 0.92;
+    letter-spacing: 2px;
+    max-width: 900px;
+    position: relative;
+    z-index: 1;
+  }
+  .hero h1 .linha-verde { color: var(--verde); }
+  .hero h1 .linha-amarela { color: var(--amarelo); }
+  .hero-sub {
+    margin-top: 1.5rem;
+    font-size: 1.1rem;
+    color: var(--cinza-texto);
+    max-width: 520px;
+    position: relative; z-index: 1;
+  }
+  .hero-actions {
+    margin-top: 2.5rem;
+    display: flex; gap: 1rem; flex-wrap: wrap;
+    position: relative; z-index: 1;
+  }
+  .btn-primary {
+    background: var(--amarelo); color: var(--preto);
+    padding: 0.85rem 2rem; border-radius: 4px;
+    font-weight: 700; font-size: 0.9rem; letter-spacing: 1px;
+    text-transform: uppercase; text-decoration: none;
+    transition: transform 0.15s, box-shadow 0.15s;
+    box-shadow: 0 0 0 0 rgba(255,214,0,0);
+  }
+  .btn-primary:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 32px rgba(255,214,0,0.3);
+  }
+  .btn-ghost {
+    border: 1px solid rgba(255,255,255,0.2); color: var(--branco);
+    padding: 0.85rem 2rem; border-radius: 4px;
+    font-weight: 600; font-size: 0.9rem; letter-spacing: 1px;
+    text-transform: uppercase; text-decoration: none;
+    transition: border-color 0.2s, color 0.2s;
+  }
+  .btn-ghost:hover { border-color: var(--verde); color: var(--verde); }
+
+  .hero-countdown {
+    margin-top: 3rem;
+    display: flex; gap: 1.5rem; flex-wrap: wrap;
+    position: relative; z-index: 1;
+  }
+  .countdown-item { text-align: center; }
+  .countdown-num {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 2.8rem; line-height: 1;
+    color: var(--branco);
+  }
+  .countdown-label {
+    font-size: 0.7rem; letter-spacing: 2px;
+    text-transform: uppercase; color: var(--cinza-texto);
+  }
+  .countdown-sep {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 2.8rem; color: var(--verde);
+    align-self: flex-start; margin-top: 0;
+    line-height: 1;
+  }
+
+  /* FAIXA */
+  .faixa {
+    background: var(--verde);
+    padding: 0.7rem 0;
+    overflow: hidden;
+    white-space: nowrap;
+  }
+  .faixa-inner {
+    display: inline-flex; gap: 3rem;
+    animation: scroll-faixa 25s linear infinite;
+    font-family: 'Barlow Condensed', sans-serif;
+    font-weight: 700; font-size: 0.85rem;
+    letter-spacing: 2px; text-transform: uppercase;
+    color: var(--preto);
+  }
+  @keyframes scroll-faixa {
+    from { transform: translateX(0); }
+    to { transform: translateX(-50%); }
+  }
+  .faixa-dot { color: rgba(0,0,0,0.3); }
+
+  /* SEÇÃO GENÉRICA */
+  section { padding: 5rem 2rem; max-width: 1200px; margin: 0 auto; }
+  .section-tag {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 0.7rem; font-weight: 700; letter-spacing: 3px;
+    text-transform: uppercase; color: var(--verde);
+    margin-bottom: 0.6rem;
+  }
+  .section-title {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: clamp(2.5rem, 5vw, 4rem);
+    line-height: 1; letter-spacing: 1px;
+    margin-bottom: 1rem;
+  }
+  .section-title span { color: var(--amarelo); }
+  .section-desc {
+    color: var(--cinza-texto); font-size: 1rem;
+    max-width: 500px; margin-bottom: 3rem;
+  }
+
+  /* CARDS NOTICIAS */
+  .noticias-grid {
+    display: grid;
+    grid-template-columns: 2fr 1fr;
+    grid-template-rows: auto auto;
+    gap: 1.5px;
+    background: rgba(255,255,255,0.06);
+    border-radius: 12px;
+    overflow: hidden;
+  }
+  .card-noticia {
+    background: var(--cinza-escuro);
+    padding: 2rem;
+    position: relative;
+    overflow: hidden;
+    cursor: pointer;
+    transition: background 0.2s;
+  }
+  .card-noticia:hover { background: var(--cinza-mid); }
+  .card-noticia.destaque {
+    grid-row: span 2;
+    min-height: 420px;
+    display: flex; flex-direction: column; justify-content: flex-end;
+  }
+  .card-noticia.destaque::before {
+    content: '';
+    position: absolute; inset: 0;
+    background: linear-gradient(to top, rgba(0,0,0,0.9) 0%, transparent 60%);
+    z-index: 1;
+  }
+  .card-img-placeholder {
+    position: absolute; inset: 0;
+    background: linear-gradient(135deg, #1a2a1a 0%, #0d1a0d 100%);
+    display: flex; align-items: center; justify-content: center;
+    font-size: 5rem; opacity: 0.15;
+  }
+  .card-noticia.destaque .card-img-placeholder { font-size: 10rem; }
+  .card-content { position: relative; z-index: 2; }
+  .card-categoria {
+    display: inline-block;
+    background: var(--verde); color: var(--preto);
+    font-size: 0.65rem; font-weight: 700; letter-spacing: 2px;
+    text-transform: uppercase; padding: 3px 10px; border-radius: 2px;
+    margin-bottom: 0.7rem;
+  }
+  .card-categoria.amarelo { background: var(--amarelo); }
+  .card-categoria.azul { background: #2979FF; color: #fff; }
+  .card-titulo {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 1.4rem; font-weight: 700; line-height: 1.2;
+    margin-bottom: 0.5rem;
+  }
+  .card-noticia.destaque .card-titulo { font-size: 2rem; }
+  .card-meta {
+    font-size: 0.75rem; color: var(--cinza-texto);
+    display: flex; gap: 1rem;
+  }
+
+  /* JOGOS DO DIA */
+  .jogos-section { background: var(--cinza-escuro); }
+  .jogos-section > * { max-width: 1200px; margin: 0 auto; }
+  .jogos-wrapper { padding: 5rem 2rem; max-width: 1200px; margin: 0 auto; }
+  .jogos-lista { display: flex; flex-direction: column; gap: 1px; background: rgba(255,255,255,0.06); border-radius: 12px; overflow: hidden; }
+  .jogo-item {
+    background: var(--preto);
+    display: grid;
+    grid-template-columns: 1fr auto 1fr auto;
+    align-items: center;
+    padding: 1.5rem 2rem;
+    gap: 1rem;
+    transition: background 0.2s;
+    cursor: pointer;
+  }
+  .jogo-item:hover { background: #111; }
+  .jogo-time {
+    display: flex; align-items: center; gap: 1rem;
+  }
+  .jogo-time.right { flex-direction: row-reverse; }
+  .bandeira {
+    width: 42px; height: 28px; border-radius: 3px;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 1.3rem; background: var(--cinza-mid);
+    flex-shrink: 0;
+  }
+  .time-nome {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 1.1rem; font-weight: 700; letter-spacing: 0.5px;
+  }
+  .jogo-centro { text-align: center; min-width: 90px; }
+  .placar {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 2rem; letter-spacing: 4px; color: var(--amarelo);
+  }
+  .horario {
+    font-size: 0.7rem; letter-spacing: 2px; color: var(--cinza-texto);
+    text-transform: uppercase;
+  }
+  .jogo-info { text-align: right; }
+  .jogo-fase {
+    font-size: 0.65rem; font-weight: 700; letter-spacing: 2px;
+    color: var(--cinza-texto); text-transform: uppercase;
+  }
+  .badge-ao-vivo {
+    display: inline-flex; align-items: center; gap: 4px;
+    background: rgba(0,200,83,0.15); color: var(--verde);
+    font-size: 0.65rem; font-weight: 700; letter-spacing: 1px;
+    padding: 3px 8px; border-radius: 12px; text-transform: uppercase;
+  }
+  .badge-ao-vivo::before {
+    content: ''; width: 6px; height: 6px; border-radius: 50%;
+    background: var(--verde);
+    animation: pulso 1.2s ease-in-out infinite;
+  }
+  @keyframes pulso {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0.2; }
+  }
+
+  /* ÁLBUM PANINI */
+  .album-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 1.5rem;
+  }
+  .album-card {
+    background: var(--cinza-escuro);
+    border: 1px solid rgba(255,255,255,0.06);
+    border-radius: 10px;
+    padding: 1.5rem;
+    text-align: center;
+    transition: border-color 0.2s, transform 0.2s;
+    cursor: pointer;
+  }
+  .album-card:hover {
+    border-color: var(--amarelo);
+    transform: translateY(-4px);
+  }
+  .album-icon {
+    font-size: 2.5rem; margin-bottom: 0.8rem; display: block;
+  }
+  .album-card h3 {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 1.1rem; font-weight: 700; margin-bottom: 0.4rem;
+  }
+  .album-card p { font-size: 0.85rem; color: var(--cinza-texto); }
+
+  /* LOJA */
+  .loja-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    gap: 1.5rem;
+  }
+  .produto-card {
+    background: var(--cinza-escuro);
+    border-radius: 10px;
+    overflow: hidden;
+    transition: transform 0.2s;
+    cursor: pointer;
+  }
+  .produto-card:hover { transform: translateY(-4px); }
+  .produto-img {
+    height: 180px;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 4rem;
+    background: linear-gradient(135deg, #1a1a1a, #111);
+    border-bottom: 1px solid rgba(255,255,255,0.04);
+  }
+  .produto-info { padding: 1.2rem; }
+  .produto-nome {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 1.1rem; font-weight: 700; margin-bottom: 0.3rem;
+  }
+  .produto-preco {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 1.5rem; color: var(--verde);
+  }
+  .produto-preco small {
+    font-family: 'Barlow', sans-serif;
+    font-size: 0.75rem; color: var(--cinza-texto);
+    font-weight: 400;
+  }
+  .btn-comprar {
+    display: block; width: 100%;
+    margin-top: 0.8rem;
+    background: transparent;
+    border: 1px solid rgba(255,255,255,0.12);
+    color: var(--branco);
+    padding: 0.6rem;
+    border-radius: 4px;
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 0.85rem; font-weight: 700; letter-spacing: 1px;
+    text-transform: uppercase; cursor: pointer;
+    transition: background 0.2s, border-color 0.2s;
+  }
+  .btn-comprar:hover { background: var(--amarelo); border-color: var(--amarelo); color: var(--preto); }
+
+  /* NEWSLETTER */
+  .newsletter-section {
+    background: var(--cinza-escuro);
+    border-top: 1px solid rgba(255,255,255,0.04);
+    border-bottom: 1px solid rgba(255,255,255,0.04);
+  }
+  .newsletter-wrapper {
+    max-width: 1200px; margin: 0 auto;
+    padding: 5rem 2rem;
+    display: grid; grid-template-columns: 1fr 1fr; gap: 3rem; align-items: center;
+  }
+  .newsletter-titulo {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 3rem; line-height: 1; letter-spacing: 1px;
+  }
+  .newsletter-titulo span { color: var(--amarelo); }
+  .newsletter-form { display: flex; gap: 0.5rem; }
+  .newsletter-input {
+    flex: 1;
+    background: rgba(255,255,255,0.06);
+    border: 1px solid rgba(255,255,255,0.1);
+    border-radius: 4px;
+    padding: 0.85rem 1rem;
+    color: var(--branco);
+    font-family: 'Barlow', sans-serif;
+    font-size: 0.9rem;
+    outline: none;
+    transition: border-color 0.2s;
+  }
+  .newsletter-input:focus { border-color: var(--verde); }
+  .newsletter-input::placeholder { color: var(--cinza-texto); }
+  .btn-newsletter {
+    background: var(--verde); color: var(--preto);
+    border: none; padding: 0.85rem 1.5rem;
+    border-radius: 4px; cursor: pointer;
+    font-family: 'Barlow Condensed', sans-serif;
+    font-weight: 700; font-size: 0.9rem; letter-spacing: 1px;
+    text-transform: uppercase;
+    transition: background 0.2s;
+  }
+  .btn-newsletter:hover { background: #00E676; }
+
+  /* FOOTER */
+  footer {
+    padding: 3rem 2rem;
+    max-width: 1200px; margin: 0 auto;
+    display: flex; justify-content: space-between; align-items: center;
+    flex-wrap: wrap; gap: 1rem;
+    border-top: 1px solid rgba(255,255,255,0.06);
+  }
+  .footer-logo {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 1.4rem; letter-spacing: 2px; color: var(--amarelo);
+  }
+  .footer-logo span { color: var(--verde); }
+  .footer-links { display: flex; gap: 1.5rem; flex-wrap: wrap; }
+  .footer-links a {
+    color: var(--cinza-texto); text-decoration: none;
+    font-size: 0.8rem; transition: color 0.2s;
+  }
+  .footer-links a:hover { color: var(--branco); }
+  .footer-copy { font-size: 0.75rem; color: var(--cinza-texto); }
+
+  /* ANIMAÇÕES DE ENTRADA */
+  .fade-in {
+    opacity: 0; transform: translateY(24px);
+    animation: fadeInUp 0.6s ease forwards;
+  }
+  .fade-in:nth-child(1) { animation-delay: 0.1s; }
+  .fade-in:nth-child(2) { animation-delay: 0.2s; }
+  .fade-in:nth-child(3) { animation-delay: 0.3s; }
+  .fade-in:nth-child(4) { animation-delay: 0.4s; }
+  @keyframes fadeInUp {
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  @media (max-width: 768px) {
+    .nav-links { display: none; }
+    .noticias-grid { grid-template-columns: 1fr; }
+    .card-noticia.destaque { grid-row: auto; }
+    .newsletter-wrapper { grid-template-columns: 1fr; }
+    .newsletter-form { flex-direction: column; }
+    .jogo-item { grid-template-columns: 1fr auto 1fr; }
+    .jogo-info { display: none; }
+    footer { flex-direction: column; text-align: center; }
+  }
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <div class="nav-logo">Copa<span>2026</span></div>
+  <ul class="nav-links">
+    <li><a href="#jogos">Jogos</a></li>
+    <li><a href="#noticias">Notícias</a></li>
+    <li><a href="#album">Álbum</a></li>
+    <li><a href="#selecoes">Seleções</a></li>
+    <li><a href="#loja">Loja</a></li>
+  </ul>
+  <a href="#newsletter" class="nav-cta">Receber alertas</a>
+</nav>
+
+<!-- HERO -->
+<div class="hero">
+  <div class="hero-bg"></div>
+  <div class="hero-noise"></div>
+  <div class="hero-tag">Copa do Mundo FIFA 2026</div>
+  <h1 class="fade-in">
+    <span class="linha-verde">O MUNDO</span><br>
+    PARA<br>
+    <span class="linha-amarela">JUNHO.</span>
+  </h1>
+  <p class="hero-sub fade-in">Tudo sobre o Mundial de 2026 — jogos ao vivo, seleções, álbum Panini e os melhores produtos para você torcer com estilo.</p>
+  <div class="hero-actions fade-in">
+    <a href="#jogos" class="btn-primary">Ver jogos de hoje</a>
+    <a href="#noticias" class="btn-ghost">Últimas notícias</a>
+  </div>
+  <div class="hero-countdown fade-in" id="countdown">
+    <div class="countdown-item">
+      <div class="countdown-num" id="cd-dias">392</div>
+      <div class="countdown-label">Dias</div>
+    </div>
+    <div class="countdown-sep">:</div>
+    <div class="countdown-item">
+      <div class="countdown-num" id="cd-horas">00</div>
+      <div class="countdown-label">Horas</div>
+    </div>
+    <div class="countdown-sep">:</div>
+    <div class="countdown-item">
+      <div class="countdown-num" id="cd-min">00</div>
+      <div class="countdown-label">Min</div>
+    </div>
+    <div class="countdown-sep">:</div>
+    <div class="countdown-item">
+      <div class="countdown-num" id="cd-seg">00</div>
+      <div class="countdown-label">Seg</div>
+    </div>
+  </div>
+</div>
+
+<!-- FAIXA TICKER -->
+<div class="faixa">
+  <div class="faixa-inner" id="ticker">
+    <span>🇧🇷 Brasil na Copa 2026</span><span class="faixa-dot">◆</span>
+    <span>⚽ 48 seleções classificadas</span><span class="faixa-dot">◆</span>
+    <span>🇺🇸 Estados Unidos · 🇲🇽 México · 🇨🇦 Canadá</span><span class="faixa-dot">◆</span>
+    <span>📅 Junho e Julho de 2026</span><span class="faixa-dot">◆</span>
+    <span>🏆 16 cidades-sede</span><span class="faixa-dot">◆</span>
+    <span>📒 Álbum Panini já disponível</span><span class="faixa-dot">◆</span>
+    <span>🇧🇷 Brasil na Copa 2026</span><span class="faixa-dot">◆</span>
+    <span>⚽ 48 seleções classificadas</span><span class="faixa-dot">◆</span>
+    <span>🇺🇸 Estados Unidos · 🇲🇽 México · 🇨🇦 Canadá</span><span class="faixa-dot">◆</span>
+    <span>📅 Junho e Julho de 2026</span><span class="faixa-dot">◆</span>
+    <span>🏆 16 cidades-sede</span><span class="faixa-dot">◆</span>
+    <span>📒 Álbum Panini já disponível</span><span class="faixa-dot">◆</span>
+  </div>
+</div>
+
+<!-- JOGOS DO DIA -->
+<div class="jogos-section" id="jogos">
+  <div class="jogos-wrapper">
+    <div class="section-tag">Ao vivo e hoje</div>
+    <h2 class="section-title">Jogos do <span>Dia</span></h2>
+    <p class="section-desc">Acompanhe os placares em tempo real e os próximos confrontos da Copa 2026.</p>
+
+    <div class="jogos-lista">
+      <div class="jogo-item">
+        <div class="jogo-time">
+          <div class="bandeira">🇧🇷</div>
+          <span class="time-nome">Brasil</span>
+        </div>
+        <div class="jogo-centro">
+          <div class="placar">2 · 1</div>
+          <div style="margin-top:4px"><span class="badge-ao-vivo">Ao vivo · 67'</span></div>
+        </div>
+        <div class="jogo-time right">
+          <div class="bandeira">🇦🇷</div>
+          <span class="time-nome">Argentina</span>
+        </div>
+        <div class="jogo-info">
+          <div class="jogo-fase">Fase de grupos · Grupo A</div>
+          <div style="font-size:0.7rem;color:#666;margin-top:2px">MetLife Stadium</div>
+        </div>
+      </div>
+
+      <div class="jogo-item">
+        <div class="jogo-time">
+          <div class="bandeira">🇫🇷</div>
+          <span class="time-nome">França</span>
+        </div>
+        <div class="jogo-centro">
+          <div class="placar">— · —</div>
+          <div class="horario" style="margin-top:4px">16:00</div>
+        </div>
+        <div class="jogo-time right">
+          <div class="bandeira">🏴󠁧󠁢󠁥󠁮󠁧󠁿</div>
+          <span class="time-nome">Inglaterra</span>
+        </div>
+        <div class="jogo-info">
+          <div class="jogo-fase">Fase de grupos · Grupo C</div>
+          <div style="font-size:0.7rem;color:#666;margin-top:2px">SoFi Stadium</div>
+        </div>
+      </div>
+
+      <div class="jogo-item">
+        <div class="jogo-time">
+          <div class="bandeira">🇩🇪</div>
+          <span class="time-nome">Alemanha</span>
+        </div>
+        <div class="jogo-centro">
+          <div class="placar">— · —</div>
+          <div class="horario" style="margin-top:4px">19:00</div>
+        </div>
+        <div class="jogo-time right">
+          <div class="bandeira">🇪🇸</div>
+          <span class="time-nome">Espanha</span>
+        </div>
+        <div class="jogo-info">
+          <div class="jogo-fase">Fase de grupos · Grupo B</div>
+          <div style="font-size:0.7rem;color:#666;margin-top:2px">AT&T Stadium</div>
+        </div>
+      </div>
+
+      <div class="jogo-item">
+        <div class="jogo-time">
+          <div class="bandeira">🇵🇹</div>
+          <span class="time-nome">Portugal</span>
+        </div>
+        <div class="jogo-centro">
+          <div class="placar">— · —</div>
+          <div class="horario" style="margin-top:4px">22:00</div>
+        </div>
+        <div class="jogo-time right">
+          <div class="bandeira">🇺🇸</div>
+          <span class="time-nome">EUA</span>
+        </div>
+        <div class="jogo-info">
+          <div class="jogo-fase">Fase de grupos · Grupo D</div>
+          <div style="font-size:0.7rem;color:#666;margin-top:2px">Levi's Stadium</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- NOTICIAS -->
+<section id="noticias">
+  <div class="section-tag">Últimas</div>
+  <h2 class="section-title">Notícias da <span>Copa</span></h2>
+  <p class="section-desc">Análises, bastidores e tudo que está acontecendo no Mundial 2026.</p>
+
+  <div class="noticias-grid">
+    <div class="card-noticia destaque">
+      <div class="card-img-placeholder">⚽</div>
+      <div class="card-content">
+        <span class="card-categoria">Brasil</span>
+        <h3 class="card-titulo">Vini Jr. entra no segundo tempo e vira o placar contra a Argentina no Clássico das Américas</h3>
+        <div class="card-meta">
+          <span>Há 12 minutos</span>
+          <span>·</span>
+          <span>3 min de leitura</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="card-noticia">
+      <div class="card-img-placeholder">🏆</div>
+      <div class="card-content">
+        <span class="card-categoria amarelo">Análise</span>
+        <h3 class="card-titulo">Os 5 favoritos ao título segundo as odds antes da rodada</h3>
+        <div class="card-meta"><span>Há 1 hora</span></div>
+      </div>
+    </div>
+
+    <div class="card-noticia">
+      <div class="card-img-placeholder">📒</div>
+      <div class="card-content">
+        <span class="card-categoria azul">Álbum</span>
+        <h3 class="card-titulo">Figurinha do Mbappé já vale R$ 180 no mercado secundário</h3>
+        <div class="card-meta"><span>Há 2 horas</span></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ÁLBUM PANINI -->
+<section id="album" style="background: var(--cinza-escuro); max-width: 100%; padding: 5rem 2rem;">
+  <div style="max-width:1200px; margin:0 auto;">
+    <div class="section-tag">Colecionáveis</div>
+    <h2 class="section-title">Álbum <span>Panini</span></h2>
+    <p class="section-desc">Tudo sobre o álbum oficial da Copa do Mundo 2026. Dicas, raridades e onde comprar.</p>
+
+    <div class="album-grid">
+      <div class="album-card">
+        <span class="album-icon">📒</span>
+        <h3>Comprar álbum</h3>
+        <p>Onde encontrar o álbum oficial pelo melhor preço</p>
+      </div>
+      <div class="album-card">
+        <span class="album-icon">⭐</span>
+        <h3>Figurinhas raras</h3>
+        <p>As brilhantes e difíceis de achar desta edição</p>
+      </div>
+      <div class="album-card">
+        <span class="album-icon">🔄</span>
+        <h3>Grupo de trocas</h3>
+        <p>Entre no maior grupo de trocas do Brasil</p>
+      </div>
+      <div class="album-card">
+        <span class="album-icon">🧮</span>
+        <h3>Calculadora</h3>
+        <p>Quanto vai custar completar seu álbum</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- LOJA -->
+<section id="loja">
+  <div class="section-tag">Produtos oficiais</div>
+  <h2 class="section-title">Loja <span>Copa 2026</span></h2>
+  <p class="section-desc">Camisas, acessórios e itens colecionáveis para você torcer com estilo.</p>
+
+  <div class="loja-grid">
+    <div class="produto-card">
+      <div class="produto-img">🇧🇷</div>
+      <div class="produto-info">
+        <div class="produto-nome">Camisa Brasil 2026 — Oficial</div>
+        <div class="produto-preco">R$ 349 <small>via Netshoes</small></div>
+        <button class="btn-comprar">Ver oferta</button>
+      </div>
+    </div>
+    <div class="produto-card">
+      <div class="produto-img">📒</div>
+      <div class="produto-info">
+        <div class="produto-nome">Álbum Panini Copa 2026</div>
+        <div class="produto-preco">R$ 25 <small>via Amazon</small></div>
+        <button class="btn-comprar">Ver oferta</button>
+      </div>
+    </div>
+    <div class="produto-card">
+      <div class="produto-img">⚽</div>
+      <div class="produto-info">
+        <div class="produto-nome">Bola Oficial Adidas — Réplica</div>
+        <div class="produto-preco">R$ 199 <small>via Shopee</small></div>
+        <button class="btn-comprar">Ver oferta</button>
+      </div>
+    </div>
+    <div class="produto-card">
+      <div class="produto-img">🧢</div>
+      <div class="produto-info">
+        <div class="produto-nome">Kit do Torcedor — Boné + Cachecol</div>
+        <div class="produto-preco">R$ 89 <small>via Shopee</small></div>
+        <button class="btn-comprar">Ver oferta</button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- NEWSLETTER -->
+<div class="newsletter-section" id="newsletter">
+  <div class="newsletter-wrapper">
+    <div>
+      <div class="section-tag">Fique por dentro</div>
+      <h2 class="newsletter-titulo">Alerta de <span>gol</span> no seu e-mail.</h2>
+      <p style="color:var(--cinza-texto); font-size:0.95rem; margin-top:0.8rem;">Receba escalações, resultados e ofertas da loja antes de todo mundo.</p>
+    </div>
+    <div>
+      <div class="newsletter-form">
+        <input type="email" class="newsletter-input" placeholder="seu@email.com">
+        <button class="btn-newsletter">Quero receber</button>
+      </div>
+      <p style="font-size:0.75rem; color:var(--cinza-texto); margin-top:0.8rem;">Sem spam. Só o que importa. Cancele quando quiser.</p>
+    </div>
+  </div>
+</div>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-logo">Copa<span>2026</span></div>
+  <div class="footer-links">
+    <a href="#">Sobre</a>
+    <a href="#">Política de privacidade</a>
+    <a href="#">Anunciar</a>
+    <a href="#">Contato</a>
+  </div>
+  <div class="footer-copy">© 2026 Copa2026.com.br</div>
+</footer>
+
+<script>
+  // Countdown para 11 de junho de 2026
+  function updateCountdown() {
+    const copa = new Date('2026-06-11T00:00:00');
+    const agora = new Date();
+    const diff = copa - agora;
+    if (diff <= 0) return;
+    const dias = Math.floor(diff / 86400000);
+    const horas = Math.floor((diff % 86400000) / 3600000);
+    const min = Math.floor((diff % 3600000) / 60000);
+    const seg = Math.floor((diff % 60000) / 1000);
+    document.getElementById('cd-dias').textContent = String(dias).padStart(3,'0');
+    document.getElementById('cd-horas').textContent = String(horas).padStart(2,'0');
+    document.getElementById('cd-min').textContent = String(min).padStart(2,'0');
+    document.getElementById('cd-seg').textContent = String(seg).padStart(2,'0');
+  }
+  updateCountdown();
+  setInterval(updateCountdown, 1000);
+</script>
+</body>
+</html>

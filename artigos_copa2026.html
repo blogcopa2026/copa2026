@@ -1,0 +1,619 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Artigos — Copa 2026</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Barlow:ital,wght@0,400;0,600;0,700;1,400&family=Barlow+Condensed:wght@500;700&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  :root {
+    --verde: #00C853; --amarelo: #FFD600; --azul: #0D47A1;
+    --preto: #0A0A0A; --cinza-escuro: #141414; --cinza-mid: #1E1E1E;
+    --cinza-texto: #9E9E9E; --branco: #F5F5F5;
+  }
+  body { background: var(--preto); color: var(--branco); font-family: 'Barlow', sans-serif; line-height: 1.7; }
+
+  /* TABS */
+  .tabs-nav {
+    position: sticky; top: 0; z-index: 50;
+    background: rgba(10,10,10,0.95); backdrop-filter: blur(10px);
+    border-bottom: 1px solid rgba(255,255,255,0.07);
+    display: flex; overflow-x: auto; gap: 0;
+  }
+  .tab-btn {
+    padding: 1rem 1.5rem; background: none; border: none;
+    color: var(--cinza-texto); font-family: 'Barlow Condensed', sans-serif;
+    font-size: 0.8rem; font-weight: 700; letter-spacing: 1.5px;
+    text-transform: uppercase; cursor: pointer; white-space: nowrap;
+    border-bottom: 2px solid transparent; transition: color 0.2s, border-color 0.2s;
+  }
+  .tab-btn:hover { color: var(--branco); }
+  .tab-btn.ativo { color: var(--amarelo); border-bottom-color: var(--amarelo); }
+
+  .tab-content { display: none; }
+  .tab-content.ativo { display: block; }
+
+  /* ARTIGO */
+  .artigo {
+    max-width: 760px; margin: 0 auto; padding: 4rem 2rem 6rem;
+  }
+  .artigo-categoria {
+    display: inline-block;
+    background: var(--verde); color: var(--preto);
+    font-size: 0.65rem; font-weight: 700; letter-spacing: 2px;
+    text-transform: uppercase; padding: 4px 12px; border-radius: 2px;
+    margin-bottom: 1.2rem;
+  }
+  .artigo-categoria.amarelo { background: var(--amarelo); }
+  .artigo-categoria.azul { background: #2979FF; color: #fff; }
+  .artigo-categoria.vermelho { background: #E53935; color: #fff; }
+
+  .artigo h1 {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: clamp(2.5rem, 6vw, 4rem);
+    line-height: 1; letter-spacing: 1px;
+    margin-bottom: 1rem;
+  }
+  .artigo-lead {
+    font-size: 1.15rem; color: var(--cinza-texto);
+    font-style: italic; border-left: 3px solid var(--verde);
+    padding-left: 1rem; margin-bottom: 2.5rem; line-height: 1.6;
+  }
+  .artigo-meta {
+    display: flex; gap: 1.5rem; font-size: 0.75rem;
+    color: var(--cinza-texto); letter-spacing: 1px;
+    text-transform: uppercase; margin-bottom: 2.5rem;
+    padding-bottom: 1.5rem;
+    border-bottom: 1px solid rgba(255,255,255,0.07);
+  }
+  .artigo h2 {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 1.6rem; font-weight: 700; margin: 2.5rem 0 1rem;
+    color: var(--amarelo);
+  }
+  .artigo h3 {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 1.2rem; font-weight: 700; margin: 1.8rem 0 0.6rem;
+    color: var(--branco);
+  }
+  .artigo p { margin-bottom: 1.2rem; font-size: 1rem; }
+  .artigo ul, .artigo ol { padding-left: 1.4rem; margin-bottom: 1.2rem; }
+  .artigo li { margin-bottom: 0.5rem; font-size: 1rem; }
+  .artigo strong { color: var(--branco); font-weight: 700; }
+
+  .destaque-box {
+    background: var(--cinza-escuro);
+    border: 1px solid rgba(255,214,0,0.2);
+    border-left: 3px solid var(--amarelo);
+    border-radius: 8px; padding: 1.2rem 1.5rem;
+    margin: 2rem 0; font-size: 0.95rem;
+  }
+  .destaque-box.verde {
+    border-left-color: var(--verde);
+    border-color: rgba(0,200,83,0.2);
+  }
+  .destaque-box strong { display: block; margin-bottom: 0.4rem; font-size: 0.75rem; letter-spacing: 2px; text-transform: uppercase; color: var(--amarelo); }
+  .destaque-box.verde strong { color: var(--verde); }
+
+  .tabela {
+    width: 100%; border-collapse: collapse; margin: 1.5rem 0; font-size: 0.9rem;
+  }
+  .tabela th {
+    background: var(--cinza-escuro); color: var(--amarelo);
+    font-family: 'Barlow Condensed', sans-serif; font-size: 0.75rem;
+    letter-spacing: 2px; text-transform: uppercase;
+    padding: 0.8rem 1rem; text-align: left; border-bottom: 1px solid rgba(255,255,255,0.1);
+  }
+  .tabela td {
+    padding: 0.7rem 1rem; border-bottom: 1px solid rgba(255,255,255,0.05);
+    color: var(--cinza-texto);
+  }
+  .tabela tr:hover td { background: rgba(255,255,255,0.02); color: var(--branco); }
+
+  .cta-produto {
+    display: flex; align-items: center; justify-content: space-between;
+    background: var(--cinza-escuro); border: 1px solid rgba(255,255,255,0.08);
+    border-radius: 10px; padding: 1.2rem 1.5rem; margin: 1.5rem 0;
+    gap: 1rem; flex-wrap: wrap;
+  }
+  .cta-produto-info { flex: 1; }
+  .cta-produto-nome { font-family: 'Barlow Condensed', sans-serif; font-size: 1.1rem; font-weight: 700; }
+  .cta-produto-detalhe { font-size: 0.8rem; color: var(--cinza-texto); margin-top: 2px; }
+  .btn-cta {
+    background: var(--amarelo); color: var(--preto);
+    padding: 0.6rem 1.3rem; border-radius: 4px;
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 0.8rem; font-weight: 700; letter-spacing: 1px;
+    text-transform: uppercase; text-decoration: none; white-space: nowrap;
+    transition: background 0.2s;
+  }
+  .btn-cta:hover { background: #fff; }
+  .btn-cta.verde { background: var(--verde); }
+  .btn-cta.verde:hover { background: #00E676; }
+
+  .numero-destaque {
+    display: grid; grid-template-columns: repeat(auto-fit, minmax(130px, 1fr));
+    gap: 1rem; margin: 2rem 0;
+  }
+  .num-card {
+    background: var(--cinza-escuro); border-radius: 8px;
+    padding: 1rem; text-align: center;
+  }
+  .num-card strong {
+    display: block; font-family: 'Bebas Neue', sans-serif;
+    font-size: 2.2rem; color: var(--amarelo); line-height: 1;
+  }
+  .num-card span { font-size: 0.75rem; color: var(--cinza-texto); }
+
+  .separador {
+    height: 1px; background: rgba(255,255,255,0.06);
+    margin: 3rem 0;
+  }
+</style>
+</head>
+<body>
+
+<div class="tabs-nav">
+  <button class="tab-btn ativo" onclick="mostrarTab('album', this)">📒 Álbum Panini</button>
+  <button class="tab-btn" onclick="mostrarTab('selecoes', this)">🇧🇷 Seleções</button>
+  <button class="tab-btn" onclick="mostrarTab('jogos', this)">⚽ Dia de Jogo</button>
+  <button class="tab-btn" onclick="mostrarTab('viagem', this)">✈️ Guia do Viajante</button>
+</div>
+
+<!-- ===================== ARTIGO 1: ÁLBUM PANINI ===================== -->
+<div id="tab-album" class="tab-content ativo">
+<div class="artigo">
+  <span class="artigo-categoria">Álbum Panini</span>
+  <h1>Álbum de Figurinhas da Copa 2026: Guia Completo</h1>
+  <p class="artigo-lead">980 cromos, 48 seleções e os maiores craques do mundo num só álbum. Tudo o que você precisa saber antes de abrir o primeiro envelope.</p>
+  <div class="artigo-meta">
+    <span>Copa 2026</span>
+    <span>·</span>
+    <span>Atualizado em maio de 2026</span>
+    <span>·</span>
+    <span>7 min de leitura</span>
+  </div>
+
+  <p>O álbum Panini da Copa do Mundo já é tradição há mais de 50 anos. E em 2026, a edição promete ser a maior de todas — literalmente. Com 48 seleções disputando o Mundial nos Estados Unidos, México e Canadá, o catálogo cresceu, os cromos ficaram mais bonitos e a gente de novo está aqui, catando figurinha repetida no fundo do armário.</p>
+
+  <p>Se você quer começar do jeito certo — sem gastar mais do que o necessário e sem ficar faltando as malditas figurinhas raras do Brasil — esse guia é pra você.</p>
+
+  <div class="numero-destaque">
+    <div class="num-card"><strong>980</strong><span>Cromos no total</span></div>
+    <div class="num-card"><strong>68</strong><span>Figurinhas especiais</span></div>
+    <div class="num-card"><strong>48</strong><span>Seleções</span></div>
+    <div class="num-card"><strong>864</strong><span>Jogadores</span></div>
+  </div>
+
+  <h2>O que tem nesse álbum?</h2>
+  <p>O álbum oficial da Panini para a Copa 2026 reúne todas as 48 seleções classificadas, com espaço dedicado a cada elenco, aos estádios das cidades-sede e à identidade visual do torneio. No total são 980 cromos — e 68 deles são especiais, ou seja, brilhantes, holográficos ou edição limitada.</p>
+
+  <p>Uma coisa interessante dessa edição: alguns jogadores estão no álbum mesmo sem jogar a Copa. Rodrygo e Éder Militão, por exemplo, foram fotografados para a coleção mas ficaram fora por lesão. Neymar, que muita gente esperava, não aparece em nenhuma figurinha.</p>
+
+  <div class="destaque-box verde">
+    <strong>Vale saber</strong>
+    Além do álbum físico, a Panini tem uma versão digital pelo aplicativo oficial. Parceria com a Coca-Cola dá pacotes gratuitos pra quem se cadastrar. Vale usar os dois ao mesmo tempo.
+  </div>
+
+  <h2>Qual versão comprar?</h2>
+  <p>O álbum existe em três versões. A diferença é basicamente no acabamento da capa e no que vem junto.</p>
+
+  <table class="tabela">
+    <thead>
+      <tr>
+        <th>Versão</th>
+        <th>Acabamento</th>
+        <th>O que vem junto</th>
+        <th>Pra quem é</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><strong style="color:var(--branco)">Capa simples</strong></td>
+        <td>Padrão</td>
+        <td>Só o álbum</td>
+        <td>Quem quer gastar menos</td>
+      </tr>
+      <tr>
+        <td><strong style="color:var(--branco)">Capa dura prata</strong></td>
+        <td>Metalizado prata</td>
+        <td>Álbum + 40 envelopes</td>
+        <td>Melhor custo-benefício</td>
+      </tr>
+      <tr>
+        <td><strong style="color:var(--branco)">Capa dura ouro</strong></td>
+        <td>Metalizado ouro</td>
+        <td>Álbum premium</td>
+        <td>Colecionador sério</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <div class="cta-produto">
+    <div class="cta-produto-info">
+      <div class="cta-produto-nome">Álbum Capa Dura Prata + 40 Envelopes</div>
+      <div class="cta-produto-detalhe">Panini oficial · Disponível na Amazon</div>
+    </div>
+    <a href="#" class="btn-cta">Ver na Amazon →</a>
+  </div>
+
+  <div class="cta-produto">
+    <div class="cta-produto-info">
+      <div class="cta-produto-nome">Álbum Capa Dura Ouro</div>
+      <div class="cta-produto-detalhe">Panini oficial · Site da Panini</div>
+    </div>
+    <a href="#" class="btn-cta">Ver na Panini →</a>
+  </div>
+
+  <h2>Quanto custa completar o álbum?</h2>
+  <p>Essa é a pergunta que todo mundo faz e ninguém quer saber a resposta. A matemática é cruel: com 980 figurinhas e uma taxa crescente de repetição conforme você completa o álbum, a conta vai longe.</p>
+
+  <p>Considerando que cada envelope tem 5 figurinhas e custa em média R$ 4,50, pra completar <strong>sem trocar nenhuma</strong> você precisaria de cerca de 6.800 envelopes — uns R$ 30.000. Absurdo, né? É por isso que a troca existe.</p>
+
+  <p>Na prática, completando com trocas ativas, a maioria das pessoas gasta entre R$ 1.500 e R$ 3.000. Quem começa cedo, troca bastante e usa grupos online tende a ficar na parte mais baixa dessa faixa.</p>
+
+  <div class="destaque-box">
+    <strong>Estratégia que funciona</strong>
+    Compre seus primeiros 100 envelopes de uma vez. Isso te dá base pra começar a trocar. Depois compre em lotes menores e resolva o que falta com trocas. Nos últimos 50 cromos, compre diretamente no mercado de figurinhas avulsas.
+  </div>
+
+  <h2>As figurinhas mais raras</h2>
+  <p>As figurinhas especiais — brilhantes, holográficas e as de abertura de álbum — são as mais difíceis de encontrar. Historicamente, as que valem mais no mercado secundário são as dos grandes craques em versão especial.</p>
+
+  <p>Nessa edição, fique de olho nas figurinhas de Vinicius Jr., Mbappé, Bellingham e Lamine Yamal nas versões holográficas. Em Copas anteriores, figurinhas assim chegaram a R$ 200-300 no mercado de avulsos.</p>
+
+  <h2>Onde trocar figurinhas online</h2>
+  <p>Não fica só na troca com o vizinho. Tem muita gente organizada na internet:</p>
+  <ul>
+    <li><strong>Grupos no WhatsApp e Telegram</strong> — pesquise "troca figurinha Copa 2026" e entre nos grupos da sua cidade ou do Brasil</li>
+    <li><strong>Enjoei e OLX</strong> — ótimos pra comprar avulsos das figurinhas que faltam</li>
+    <li><strong>App oficial da Panini</strong> — tem sistema de troca digital integrado</li>
+    <li><strong>Pontos de troca Coca-Cola</strong> — a parceria com a Copa criou pontos físicos em várias cidades</li>
+  </ul>
+
+  <div class="separador"></div>
+  <p style="font-size:0.85rem; color:var(--cinza-texto);">Os links de compra neste artigo são links de afiliado. Se você comprar através deles, o blog recebe uma pequena comissão sem custo adicional pra você. Isso ajuda a manter o conteúdo gratuito.</p>
+</div>
+</div>
+
+<!-- ===================== ARTIGO 2: SELEÇÕES ===================== -->
+<div id="tab-selecoes" class="tab-content">
+<div class="artigo">
+  <span class="artigo-categoria amarelo">Seleções</span>
+  <h1>Brasil na Copa 2026: Elenco, Jogadores e Chances de Título</h1>
+  <p class="artigo-lead">Depois do vexame de 2022, a Seleção chega pra esse Mundial com sede de vingança, um elenco renovado e a maior expectativa do mundo sobre os ombros.</p>
+  <div class="artigo-meta">
+    <span>Seleção Brasileira</span>
+    <span>·</span>
+    <span>Atualizado em maio de 2026</span>
+    <span>·</span>
+    <span>8 min de leitura</span>
+  </div>
+
+  <p>O Brasil não conquista uma Copa do Mundo desde 2002. São 24 anos de frustração, eliminações dolorosas e gerações que não viram o hexa acontecer. Em 2026, com um elenco que mistura experiência e juventude explosiva, a Seleção finalmente parece ter o material humano pra acabar com esse jejum.</p>
+
+  <p>Mas não é fácil. Nunca foi. E nessa Copa, com 48 seleções e mais jogos pra vencer, o caminho até a taça é mais longo e mais traiçoeiro do que nunca.</p>
+
+  <h2>O elenco convocado</h2>
+  <p>A convocação do Brasil para a Copa 2026 trouxe algumas novidades e confirmou os nomes que vinham se destacando nas Eliminatórias. O ponto alto é um ataque assustador, com qualidade individual entre as melhores do mundo.</p>
+
+  <h3>Goleiros</h3>
+  <p>Alisson Becker segue como titular absoluto. Com 33 anos na Copa, chega no momento mais maduro da carreira. Ederson é a reserva confiável que todo técnico quer ter.</p>
+
+  <h3>Defesa</h3>
+  <p>A zaga passou por renovação forçada pelas lesões de Militão e outros nomes. Marquinhos, o capitão, continua sendo o líder defensivo. Danilo e Vanderson disputam a lateral direita, enquanto Renan Lodi se consolidou na esquerda.</p>
+
+  <h3>Meio-campo</h3>
+  <p>Bruno Guimarães é o motor do time — um dos melhores volantes do mundo hoje. Casemiro, mesmo com a chegada dos 34 anos, ainda tem lugar no grupo. Lucas Paquetá é o camisa 10 que tenta ser decisivo quando a seleção mais precisa.</p>
+
+  <h3>Ataque</h3>
+  <p>Vinicius Júnior é o craque. Simples assim. Dois anos seguidos brigando pelo prêmio de melhor do mundo, com galões no Real Madrid, chega pra essa Copa como o maior nome do torneio ao lado de Mbappé. Rodrygo ficou fora por lesão — duro golpe. Rafael Leão e Savinho entram com potencial pra surpreender.</p>
+
+  <div class="destaque-box verde">
+    <strong>Fique de olho</strong>
+    Estevão, do Chelsea, é o nome mais jovem e empolgante da lista. Com 18 anos, pode ser a revelação da Copa da mesma forma que Pelé foi em 1958. O talento existe — a Copa vai mostrar se a cabeça também está pronta.
+  </div>
+
+  <h2>Qual é o grupo do Brasil?</h2>
+  <p>Com 48 seleções, a fase de grupos mudou de formato. Agora são 12 grupos de 4 times, e os dois primeiros de cada grupo avançam, mais os melhores terceiros colocados. Isso facilita um pouco a classificação, mas não elimina o perigo dos clássicos logo no início.</p>
+
+  <div class="numero-destaque">
+    <div class="num-card"><strong>5</strong><span>Títulos mundiais</span></div>
+    <div class="num-card"><strong>24</strong><span>Anos sem título</span></div>
+    <div class="num-card"><strong>7</strong><span>Jogos pra vencer</span></div>
+    <div class="num-card"><strong>1</strong><span>Objetivo</span></div>
+  </div>
+
+  <h2>Os principais rivais do Brasil</h2>
+
+  <h3>França</h3>
+  <p>O favorito número um das casas de apostas. Com Mbappé no auge, Tchouaméni e Camavinga no meio, e uma estrutura defensiva sólida, a França é o time que todo mundo quer evitar. Campeã em 2018, finalista em 2022 — a equipe sabe ganhar Copa.</p>
+
+  <h3>Argentina</h3>
+  <p>Campeã em 2022 e com Messi ainda no elenco para sua última Copa (ele vai com 38 anos), a Argentina chega como atual campeã com o peso de defender o título. O elenco segue forte mesmo com a ausência de Flaco López, que não foi convocado.</p>
+
+  <h3>Inglaterra</h3>
+  <p>A geração Bellingham-Saka-Foden chegou no pico. Depois de duas finais perdidas em Eurocopas, a Inglaterra está com fome. No papel, é o time mais completo da Europa.</p>
+
+  <h2>Quanto custa a camisa do Brasil 2026?</h2>
+  <p>A camisa oficial da Seleção para a Copa 2026 já está disponível e a demanda foi enorme no lançamento. A versão jogador — a mais parecida com a que os atletas usam em campo — custa em torno de R$ 499. A versão torcedor é mais acessível, na faixa dos R$ 299-349.</p>
+
+  <div class="cta-produto">
+    <div class="cta-produto-info">
+      <div class="cta-produto-nome">Camisa Oficial Brasil Copa 2026 — Nike</div>
+      <div class="cta-produto-detalhe">Versão torcedor · Netshoes e Nike.com.br</div>
+    </div>
+    <a href="#" class="btn-cta verde">Ver oferta →</a>
+  </div>
+
+  <h2>Conclusão: o Brasil vai ser campeão?</h2>
+  <p>Difícil falar com certeza. A Copa do Mundo é o torneio mais imprevisível do futebol — Marrocos chegou na semifinal em 2022, lembra? Mas esse elenco brasileiro é, objetivamente, um dos três ou quatro mais talentosos desse Mundial.</p>
+
+  <p>Se Vini Jr. estiver no nível que vem sendo no Real Madrid, se o meio-campo encaixar, e se o Brasil tiver a sorte que toda seleção precisa numa Copa — o hexa é possível. É mais do que possível. É esperado.</p>
+</div>
+</div>
+
+<!-- ===================== ARTIGO 3: DIA DE JOGO ===================== -->
+<div id="tab-jogos" class="tab-content">
+<div class="artigo">
+  <span class="artigo-categoria azul">Cobertura ao vivo</span>
+  <h1>Como Acompanhar os Jogos da Copa 2026: Horários, Canais e Tudo ao Vivo</h1>
+  <p class="artigo-lead">Com jogos em três países e fusos diferentes, entender quando e onde assistir é mais importante do que nunca. Aqui está tudo organizado pra você não perder nenhum.</p>
+  <div class="artigo-meta">
+    <span>Guia de transmissão</span>
+    <span>·</span>
+    <span>Copa 2026</span>
+    <span>·</span>
+    <span>5 min de leitura</span>
+  </div>
+
+  <p>A Copa do Mundo de 2026 tem uma particularidade que vai exigir atenção do torcedor brasileiro: os jogos vão acontecer em três países com fusos diferentes — Estados Unidos, México e Canadá. Isso significa que alguns jogos vão rolar de manhã, outros à tarde, e uma boa parte à noite.</p>
+
+  <p>Pra você não se perder no meio de tanta informação, a gente montou o guia completo de transmissão, horários e como acompanhar cada rodada.</p>
+
+  <h2>Onde assistir a Copa 2026 no Brasil?</h2>
+  <p>A Copa 2026 terá transmissão aberta e fechada no Brasil. O contrato de direitos ainda está em processo de confirmação para algumas emissoras, mas a situação até agora é essa:</p>
+
+  <table class="tabela">
+    <thead>
+      <tr>
+        <th>Canal</th>
+        <th>Tipo</th>
+        <th>Jogos</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><strong style="color:var(--branco)">Globo</strong></td>
+        <td>TV aberta</td>
+        <td>Jogos do Brasil + finais</td>
+      </tr>
+      <tr>
+        <td><strong style="color:var(--branco)">SporTV</strong></td>
+        <td>TV por assinatura</td>
+        <td>Cobertura completa</td>
+      </tr>
+      <tr>
+        <td><strong style="color:var(--branco)">Globoplay</strong></td>
+        <td>Streaming</td>
+        <td>Ao vivo + replay</td>
+      </tr>
+      <tr>
+        <td><strong style="color:var(--branco)">CazéTV</strong></td>
+        <td>YouTube (gratuito)</td>
+        <td>A confirmar</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <div class="destaque-box verde">
+    <strong>Dica de ouro</strong>
+    A CazéTV transmitiu a Copa 2022 pelo YouTube de graça e fez enorme sucesso. Fique de olho no canal deles para confirmação dos direitos de 2026 — pode ser a forma mais fácil de assistir sem precisar de TV por assinatura.
+  </div>
+
+  <h2>Os horários dos jogos no Brasil</h2>
+  <p>Por causa do fuso horário, os jogos da Copa 2026 vão acontecer em diferentes horários aqui no Brasil. As cidades americanas como Nova York têm apenas 4 horas de diferença, enquanto Los Angeles tem 7 horas a menos.</p>
+
+  <p>Na prática, espere jogos às:</p>
+  <ul>
+    <li><strong>12h — 14h:</strong> jogos do Leste americano (Nova York, Miami, Atlanta)</li>
+    <li><strong>15h — 17h:</strong> jogos do Centro (Dallas, Houston)</li>
+    <li><strong>16h — 18h:</strong> jogos no México e Canadá</li>
+    <li><strong>19h — 22h:</strong> jogos da Costa Oeste americana (Los Angeles, Seattle)</li>
+  </ul>
+
+  <h2>O formato da Copa 2026</h2>
+  <p>Com 48 seleções, a Copa expandiu o formato. Entenda como funciona:</p>
+
+  <h3>Fase de grupos</h3>
+  <p>12 grupos de 4 times. Os dois primeiros de cada grupo avançam automaticamente. Os 8 melhores terceiros colocados também avançam, completando 32 times nas oitavas de final.</p>
+
+  <h3>Fase eliminatória</h3>
+  <p>A partir das oitavas, o formato clássico: perde, vai embora. Oitavas, quartas, semifinais e final. Sete vitórias separam uma seleção do título.</p>
+
+  <div class="numero-destaque">
+    <div class="num-card"><strong>104</strong><span>Jogos no total</span></div>
+    <div class="num-card"><strong>16</strong><span>Cidades-sede</span></div>
+    <div class="num-card"><strong>39</strong><span>Dias de Copa</span></div>
+    <div class="num-card"><strong>48</strong><span>Seleções</span></div>
+  </div>
+
+  <h2>Como montar seu calendário de jogos</h2>
+  <p>A dica mais prática é adicionar os jogos do Brasil na sua agenda com alarme. O calendário completo está disponível no site oficial da FIFA — e aqui no blog a gente vai publicar um artigo antes de cada jogo com escalação provável, análise do adversário e dicas de onde apostar se quiser.</p>
+
+  <div class="destaque-box">
+    <strong>Não perca nenhum jogo</strong>
+    Cadastre seu e-mail na nossa newsletter e receba alerta antes de cada partida com escalação, curiosidades e link de transmissão. É de graça.
+  </div>
+
+  <h2>Os jogos imperdíveis da fase de grupos</h2>
+  <p>Mesmo sem saber os grupos completos, alguns clássicos são quase certos na fase inicial. Brasil x Argentina num possível duelo de grupos seria histórico. França x Inglaterra, Alemanha x Espanha — esses confrontos movimentam o mundo inteiro e costumam definir o rumo do torneio.</p>
+
+  <p>Fique de olho no sorteio dos grupos — vai acontecer com antecedência e a gente vai cobrir aqui no blog com análise completa de cada chave.</p>
+</div>
+</div>
+
+<!-- ===================== ARTIGO 4: GUIA DO VIAJANTE ===================== -->
+<div id="tab-viagem" class="tab-content">
+<div class="artigo">
+  <span class="artigo-categoria vermelho">Guia do viajante</span>
+  <h1>Copa 2026: Como Ir ao Mundial e Quanto Vai Custar</h1>
+  <p class="artigo-lead">Sonho de todo torcedor, a Copa 2026 acontece em três países ao mesmo tempo. Ingressos, passagens, hotéis — tudo o que você precisa saber pra transformar esse sonho em plano.</p>
+  <div class="artigo-meta">
+    <span>Viagem</span>
+    <span>·</span>
+    <span>Copa 2026 · EUA · México · Canadá</span>
+    <span>·</span>
+    <span>10 min de leitura</span>
+  </div>
+
+  <p>A Copa do Mundo de 2026 vai ser diferente de tudo o que já vimos. Pela primeira vez na história, três países vão sediar o torneio juntos: Estados Unidos, México e Canadá. São 16 cidades espalhadas por um continente inteiro, com estádios grandiosos e uma estrutura turística de primeiro mundo.</p>
+
+  <p>Pra quem quer ir pessoalmente, a notícia boa é que os EUA têm voos diretos de várias cidades brasileiras. A notícia não tão boa é que o custo de vida por lá é salgado. Mas com planejamento, dá pra fazer.</p>
+
+  <h2>As cidades-sede</h2>
+  <p>Dos três países, os EUA concentram a maior parte dos jogos — 11 cidades americanas, 3 no México e 2 no Canadá. As cidades americanas que vão receber os jogos mais importantes são:</p>
+
+  <table class="tabela">
+    <thead>
+      <tr>
+        <th>Cidade</th>
+        <th>Estádio</th>
+        <th>Capacidade</th>
+        <th>Jogos especiais</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><strong style="color:var(--branco)">Nova York/NJ</strong></td>
+        <td>MetLife Stadium</td>
+        <td>82.500</td>
+        <td>Final do Mundial</td>
+      </tr>
+      <tr>
+        <td><strong style="color:var(--branco)">Los Angeles</strong></td>
+        <td>SoFi Stadium</td>
+        <td>70.000</td>
+        <td>Semifinais</td>
+      </tr>
+      <tr>
+        <td><strong style="color:var(--branco)">Dallas</strong></td>
+        <td>AT&T Stadium</td>
+        <td>80.000</td>
+        <td>Quartas de final</td>
+      </tr>
+      <tr>
+        <td><strong style="color:var(--branco)">Miami</strong></td>
+        <td>Hard Rock Stadium</td>
+        <td>65.000</td>
+        <td>Fase de grupos</td>
+      </tr>
+      <tr>
+        <td><strong style="color:var(--branco)">Cidade do México</strong></td>
+        <td>Estádio Azteca</td>
+        <td>87.500</td>
+        <td>Jogo de abertura</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <h2>Como comprar ingressos</h2>
+  <p>Os ingressos da Copa 2026 são vendidos exclusivamente pelo site oficial da FIFA (fifa.com). Não existe outro canal oficial — qualquer outra plataforma está revendendo com ágio ou é golpe.</p>
+
+  <p>O processo funciona em fases de sorteio. Você se cadastra, seleciona os jogos que quer, paga e entra num sorteio entre todos que pediram o mesmo jogo. Não é primeiro a chegar, primeiro a ser atendido — é sorteio. Isso é bom porque você não precisa ficar na fila virtual às 3 da manhã.</p>
+
+  <h3>Valores aproximados dos ingressos</h3>
+  <ul>
+    <li><strong>Fase de grupos:</strong> US$ 80 a US$ 300</li>
+    <li><strong>Oitavas e quartas:</strong> US$ 200 a US$ 600</li>
+    <li><strong>Semifinais:</strong> US$ 400 a US$ 1.500</li>
+    <li><strong>Final:</strong> US$ 1.000 a US$ 5.000+</li>
+  </ul>
+
+  <div class="destaque-box">
+    <strong>Atenção ao câmbio</strong>
+    Com o dólar oscilando, o preço em reais muda bastante. Um ingresso de fase de grupos a US$ 150 pode custar entre R$ 800 e R$ 1.100 dependendo do dia. Compre pelo cartão internacional e fique de olho na cotação.
+  </div>
+
+  <h2>Passagens aéreas e hospedagem</h2>
+  <p>Nova York, Miami e Los Angeles têm voos diretos do Brasil saindo de São Paulo, Rio e outros hubs. As passagens para período de Copa tendem a subir muito — o ideal é comprar com 6 a 8 meses de antecedência.</p>
+
+  <h3>Estimativa de custo de viagem (por pessoa)</h3>
+  <table class="tabela">
+    <thead>
+      <tr>
+        <th>Item</th>
+        <th>Valor estimado</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>Passagem ida e volta (São Paulo → NYC)</td>
+        <td>R$ 4.000 a R$ 8.000</td>
+      </tr>
+      <tr>
+        <td>Hotel (7 noites, quarto duplo dividido)</td>
+        <td>R$ 3.500 a R$ 7.000</td>
+      </tr>
+      <tr>
+        <td>Ingressos (3 jogos de grupos)</td>
+        <td>R$ 2.500 a R$ 5.000</td>
+      </tr>
+      <tr>
+        <td>Alimentação e transporte</td>
+        <td>R$ 2.000 a R$ 4.000</td>
+      </tr>
+      <tr>
+        <td><strong style="color:var(--amarelo)">Total estimado</strong></td>
+        <td><strong style="color:var(--amarelo)">R$ 12.000 a R$ 24.000</strong></td>
+      </tr>
+    </tbody>
+  </table>
+
+  <div class="cta-produto">
+    <div class="cta-produto-info">
+      <div class="cta-produto-nome">Pesquisar hotéis para a Copa 2026</div>
+      <div class="cta-produto-detalhe">Booking.com · Melhores preços com cancelamento gratuito</div>
+    </div>
+    <a href="#" class="btn-cta verde">Pesquisar no Booking →</a>
+  </div>
+
+  <div class="cta-produto">
+    <div class="cta-produto-info">
+      <div class="cta-produto-nome">Comparar passagens para os EUA</div>
+      <div class="cta-produto-detalhe">Decolar · Google Flights · Kayak</div>
+    </div>
+    <a href="#" class="btn-cta">Comparar voos →</a>
+  </div>
+
+  <h2>Documentação necessária</h2>
+  <p>Para entrar nos EUA, brasileiros precisam de visto americano (tipo B-2, de turismo). O processo pode demorar meses, então comece o quanto antes. Para México e Canadá, o passaporte brasileiro normalmente é suficiente — mas confirme no site do consulado antes de viajar.</p>
+
+  <div class="destaque-box verde">
+    <strong>Comece agora</strong>
+    O visto americano pode demorar de 2 a 6 meses dependendo da fila consular. Se você quer ir à Copa, esse é o primeiro passo — antes dos ingressos, antes da passagem. Acesse o site do consulado americano e agende sua entrevista.
+  </div>
+
+  <h2>Vale a pena ir?</h2>
+  <p>Se você tem condição financeira pra isso, a resposta é sim sem hesitar. Uma Copa do Mundo nos EUA vai acontecer uma vez na sua vida. O país tem infraestrutura impecável, os estádios são os maiores do mundo, e a experiência de torcer presencialmente com 80.000 pessoas é algo que não tem preço.</p>
+
+  <p>Se o orçamento apertar, focar em Miami ou Dallas sai mais barato do que Nova York ou Los Angeles — mesma Copa, custo de vida mais acessível.</p>
+
+  <div class="separador"></div>
+  <p style="font-size:0.85rem; color:var(--cinza-texto);">Os links de hotel e passagem neste artigo são links de afiliado. Ao fazer uma reserva através deles, o blog recebe uma comissão sem custo adicional. Isso ajuda a manter o conteúdo gratuito.</p>
+</div>
+</div>
+
+<script>
+function mostrarTab(id, btn) {
+  document.querySelectorAll('.tab-content').forEach(t => t.classList.remove('ativo'));
+  document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('ativo'));
+  document.getElementById('tab-' + id).classList.add('ativo');
+  btn.classList.add('ativo');
+  window.scrollTo({ top: 0, behavior: 'smooth' });
+}
+</script>
+</body>
+</html>

@@ -1,0 +1,546 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Brasil na Copa 2026 — Grupo C, Calendário e Adversários</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Barlow:ital,wght@0,400;0,600;0,700;1,400&family=Barlow+Condensed:wght@500;700&display=swap" rel="stylesheet">
+<style>
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+:root {
+  --verde: #00C853; --amarelo: #FFD600; --azul: #1565C0;
+  --preto: #0A0A0A; --cinza-escuro: #141414; --cinza-mid: #1E1E1E;
+  --cinza-texto: #9E9E9E; --branco: #F5F5F5;
+}
+html { scroll-behavior: smooth; }
+body { background: var(--preto); color: var(--branco); font-family: 'Barlow', sans-serif; line-height: 1.7; overflow-x: hidden; }
+
+/* NAV */
+nav {
+  position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+  display: flex; align-items: center; justify-content: space-between;
+  padding: 1rem 2rem;
+  background: rgba(10,10,10,0.95); backdrop-filter: blur(12px);
+  border-bottom: 1px solid rgba(255,214,0,0.12);
+}
+.nav-logo { font-family: 'Bebas Neue', sans-serif; font-size: 1.5rem; letter-spacing: 2px; color: var(--amarelo); }
+.nav-logo span { color: var(--verde); }
+.nav-back { font-size: 0.75rem; color: var(--cinza-texto); text-decoration: none; letter-spacing: 1px; text-transform: uppercase; transition: color 0.2s; }
+.nav-back:hover { color: var(--branco); }
+
+/* HERO */
+.hero {
+  min-height: 60vh; display: flex; flex-direction: column; justify-content: flex-end;
+  padding: 7rem 2rem 3rem; position: relative; overflow: hidden;
+}
+.hero-bg {
+  position: absolute; inset: 0;
+  background: radial-gradient(ellipse 70% 60% at 30% 60%, rgba(0,200,83,0.1) 0%, transparent 65%),
+              radial-gradient(ellipse 50% 50% at 80% 30%, rgba(255,214,0,0.06) 0%, transparent 60%);
+}
+.hero-stripe {
+  position: absolute; top: 0; right: 0;
+  width: 40%; height: 100%;
+  background: repeating-linear-gradient(
+    -45deg, transparent, transparent 8px,
+    rgba(255,214,0,0.015) 8px, rgba(255,214,0,0.015) 16px
+  );
+}
+.hero-inner { max-width: 1200px; margin: 0 auto; width: 100%; position: relative; z-index: 1; }
+.hero-categoria {
+  font-family: 'Barlow Condensed', sans-serif; font-size: 0.7rem;
+  font-weight: 700; letter-spacing: 3px; text-transform: uppercase;
+  color: var(--verde); margin-bottom: 1rem;
+  display: flex; align-items: center; gap: 8px;
+}
+.hero-categoria::before { content:''; width:28px; height:2px; background:var(--verde); }
+.hero h1 {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: clamp(3rem, 8vw, 7rem); line-height: 0.92; letter-spacing: 2px;
+}
+.hero h1 .verde { color: var(--verde); }
+.hero h1 .amarelo { color: var(--amarelo); }
+.hero-sub { font-size: 1.05rem; color: var(--cinza-texto); margin-top: 1rem; max-width: 560px; }
+
+/* JOGOS COUNTDOWN */
+.jogos-strip {
+  background: var(--cinza-escuro);
+  border-top: 1px solid rgba(255,255,255,0.05);
+  border-bottom: 1px solid rgba(255,255,255,0.05);
+}
+.jogos-strip-inner {
+  max-width: 1200px; margin: 0 auto; padding: 2rem;
+  display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 1px;
+  background: rgba(255,255,255,0.05);
+}
+.jogo-card {
+  background: var(--cinza-escuro); padding: 1.5rem 2rem;
+  display: flex; flex-direction: column; gap: 0.8rem;
+  cursor: pointer; transition: background 0.2s;
+}
+.jogo-card:hover { background: var(--cinza-mid); }
+.jogo-data {
+  font-family: 'Barlow Condensed', sans-serif; font-size: 0.7rem;
+  font-weight: 700; letter-spacing: 2px; text-transform: uppercase;
+  color: var(--cinza-texto);
+}
+.jogo-times {
+  display: flex; align-items: center; justify-content: space-between; gap: 1rem;
+}
+.jogo-time-info { display: flex; flex-direction: column; align-items: center; gap: 4px; }
+.jogo-bandeira { font-size: 2.2rem; }
+.jogo-time-nome { font-family: 'Barlow Condensed', sans-serif; font-size: 1rem; font-weight: 700; letter-spacing: 0.5px; }
+.jogo-vs {
+  font-family: 'Bebas Neue', sans-serif; font-size: 1.8rem;
+  color: rgba(255,255,255,0.2); letter-spacing: 2px;
+}
+.jogo-local { font-size: 0.75rem; color: var(--cinza-texto); }
+.jogo-horario {
+  font-family: 'Bebas Neue', sans-serif; font-size: 1.1rem;
+  color: var(--amarelo); letter-spacing: 2px;
+}
+.badge-risco {
+  display: inline-block; font-size: 0.6rem; font-weight: 700;
+  letter-spacing: 1.5px; text-transform: uppercase; padding: 3px 8px;
+  border-radius: 2px;
+}
+.risco-alto { background: rgba(229,57,53,0.2); color: #EF9A9A; }
+.risco-medio { background: rgba(255,214,0,0.15); color: var(--amarelo); }
+.risco-baixo { background: rgba(0,200,83,0.15); color: var(--verde); }
+
+/* SEÇÕES */
+.secao { max-width: 1200px; margin: 0 auto; padding: 5rem 2rem; }
+.secao-tag {
+  font-family: 'Barlow Condensed', sans-serif; font-size: 0.7rem;
+  font-weight: 700; letter-spacing: 3px; text-transform: uppercase;
+  color: var(--verde); margin-bottom: 0.5rem;
+}
+.secao-titulo {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: clamp(2.2rem, 4vw, 3.5rem); letter-spacing: 1px; line-height: 1;
+  margin-bottom: 0.7rem;
+}
+.secao-titulo span { color: var(--amarelo); }
+.secao-desc { color: var(--cinza-texto); max-width: 540px; margin-bottom: 2.5rem; font-size: 0.95rem; }
+
+/* ADVERSÁRIOS */
+.adversarios-grid {
+  display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 1.5rem;
+}
+.adversario-card {
+  background: var(--cinza-escuro); border: 1px solid rgba(255,255,255,0.06);
+  border-radius: 12px; overflow: hidden;
+  transition: transform 0.2s, border-color 0.2s;
+}
+.adversario-card:hover { transform: translateY(-4px); border-color: rgba(255,214,0,0.2); }
+.adversario-header {
+  padding: 1.5rem 1.5rem 1rem;
+  display: flex; align-items: center; gap: 1rem;
+  border-bottom: 1px solid rgba(255,255,255,0.05);
+}
+.adversario-flag { font-size: 3rem; line-height: 1; }
+.adversario-nome-wrap { flex: 1; }
+.adversario-nome {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: 1.8rem; letter-spacing: 1px; line-height: 1;
+}
+.adversario-ranking { font-size: 0.75rem; color: var(--cinza-texto); }
+.adversario-body { padding: 1.2rem 1.5rem; }
+.adversario-stat-row {
+  display: flex; justify-content: space-between; align-items: center;
+  padding: 0.5rem 0; border-bottom: 1px solid rgba(255,255,255,0.04);
+  font-size: 0.85rem;
+}
+.adversario-stat-row:last-of-type { border-bottom: none; }
+.stat-label { color: var(--cinza-texto); }
+.stat-val { font-weight: 600; color: var(--branco); }
+.adversario-analise {
+  margin-top: 1rem; font-size: 0.85rem; color: var(--cinza-texto);
+  line-height: 1.6; font-style: italic;
+  border-left: 2px solid var(--verde); padding-left: 0.8rem;
+}
+.adversario-footer {
+  padding: 1rem 1.5rem;
+  background: rgba(0,0,0,0.2); display: flex; justify-content: space-between; align-items: center;
+}
+.adversario-jogo-data { font-size: 0.75rem; color: var(--cinza-texto); }
+.adversario-jogo-data strong { color: var(--branco); display: block; font-size: 0.85rem; }
+
+/* ANCELOTTI QUOTE */
+.quote-block {
+  background: var(--cinza-escuro);
+  border-left: 3px solid var(--amarelo); border-radius: 0 10px 10px 0;
+  padding: 1.5rem 2rem; margin: 2.5rem 0; position: relative;
+}
+.quote-block::before {
+  content: '"'; font-family: 'Bebas Neue', sans-serif; font-size: 6rem;
+  color: rgba(255,214,0,0.08); position: absolute; top: -10px; left: 1rem;
+  line-height: 1;
+}
+.quote-text { font-size: 1.05rem; font-style: italic; line-height: 1.6; position: relative; z-index: 1; }
+.quote-autor { font-size: 0.75rem; color: var(--cinza-texto); margin-top: 0.8rem; letter-spacing: 1px; text-transform: uppercase; }
+.quote-autor strong { color: var(--amarelo); }
+
+/* CALENDÁRIO COMPLETO */
+.calendario-grid { display: flex; flex-direction: column; gap: 1px; background: rgba(255,255,255,0.05); border-radius: 12px; overflow: hidden; }
+.cal-row {
+  background: var(--cinza-escuro); display: grid;
+  grid-template-columns: 140px 1fr auto auto;
+  align-items: center; padding: 1rem 1.5rem; gap: 1.5rem;
+  transition: background 0.2s;
+}
+.cal-row:hover { background: var(--cinza-mid); }
+.cal-row.brasil { border-left: 3px solid var(--verde); }
+.cal-row.header {
+  background: var(--preto); font-family: 'Barlow Condensed', sans-serif;
+  font-size: 0.65rem; font-weight: 700; letter-spacing: 2px;
+  text-transform: uppercase; color: var(--cinza-texto);
+  cursor: default;
+}
+.cal-row.header:hover { background: var(--preto); }
+.cal-data { font-size: 0.8rem; color: var(--cinza-texto); }
+.cal-data strong { display: block; color: var(--branco); font-size: 0.9rem; }
+.cal-jogo { display: flex; align-items: center; gap: 0.6rem; font-family: 'Barlow Condensed', sans-serif; font-size: 1rem; font-weight: 700; }
+.cal-jogo .sep { color: rgba(255,255,255,0.2); font-size: 0.8rem; padding: 0 4px; }
+.cal-horario { font-size: 0.8rem; color: var(--cinza-texto); text-align: right; white-space: nowrap; }
+.cal-local { font-size: 0.75rem; color: var(--cinza-texto); text-align: right; white-space: nowrap; }
+.tag-fase {
+  display: inline-block; font-size: 0.6rem; font-weight: 700;
+  letter-spacing: 1px; text-transform: uppercase; padding: 2px 7px;
+  border-radius: 2px; background: rgba(255,255,255,0.07); color: var(--cinza-texto);
+  white-space: nowrap;
+}
+.tag-fase.grupos { background: rgba(0,200,83,0.1); color: var(--verde); }
+.tag-fase.mata-mata { background: rgba(255,214,0,0.1); color: var(--amarelo); }
+.tag-fase.semi { background: rgba(21,101,192,0.2); color: #90CAF9; }
+.tag-fase.final { background: rgba(229,57,53,0.15); color: #EF9A9A; }
+
+/* STATS BRASIL */
+.stats-brasil {
+  display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: 1rem; margin: 2.5rem 0;
+}
+.stat-card { background: var(--cinza-escuro); border-radius: 10px; padding: 1.2rem; text-align: center; }
+.stat-num { font-family: 'Bebas Neue', sans-serif; font-size: 2.5rem; color: var(--amarelo); line-height: 1; }
+.stat-desc { font-size: 0.72rem; color: var(--cinza-texto); margin-top: 4px; letter-spacing: 0.5px; }
+
+/* CAMINHO ATÉ A FINAL */
+.caminho { display: flex; gap: 0; overflow-x: auto; padding-bottom: 1rem; }
+.fase-bloco {
+  flex-shrink: 0; min-width: 180px;
+  background: var(--cinza-escuro); border: 1px solid rgba(255,255,255,0.06);
+  border-radius: 0; padding: 1.2rem; position: relative;
+}
+.fase-bloco:first-child { border-radius: 10px 0 0 10px; }
+.fase-bloco:last-child { border-radius: 0 10px 10px 0; }
+.fase-bloco::after {
+  content: '→'; position: absolute; right: -14px; top: 50%;
+  transform: translateY(-50%); color: var(--amarelo); font-size: 1.2rem; z-index: 2;
+}
+.fase-bloco:last-child::after { display: none; }
+.fase-nome { font-family: 'Barlow Condensed', sans-serif; font-size: 0.65rem; font-weight: 700; letter-spacing: 2px; text-transform: uppercase; color: var(--cinza-texto); margin-bottom: 0.5rem; }
+.fase-data { font-family: 'Bebas Neue', sans-serif; font-size: 1.2rem; color: var(--branco); line-height: 1; }
+.fase-rival { font-size: 0.75rem; color: var(--cinza-texto); margin-top: 4px; }
+
+/* FOOTER */
+footer {
+  border-top: 1px solid rgba(255,255,255,0.06);
+  padding: 2.5rem 2rem; text-align: center;
+  font-size: 0.8rem; color: var(--cinza-texto);
+  max-width: 1200px; margin: 0 auto;
+}
+
+@media (max-width: 768px) {
+  .cal-row { grid-template-columns: 1fr 1fr; gap: 0.5rem; }
+  .cal-local { display: none; }
+  .hero h1 { font-size: 3.5rem; }
+}
+</style>
+</head>
+<body>
+
+<nav>
+  <div class="nav-logo">Copa<span>2026</span></div>
+  <a href="#" class="nav-back">← Voltar ao blog</a>
+</nav>
+
+<!-- HERO -->
+<div class="hero">
+  <div class="hero-bg"></div>
+  <div class="hero-stripe"></div>
+  <div class="hero-inner">
+    <div class="hero-categoria">Grupo C · Copa do Mundo 2026</div>
+    <h1>
+      <span class="verde">BRASIL</span><br>
+      NO <span class="amarelo">MUNDIAL</span>
+    </h1>
+    <p class="hero-sub">Grupo C com Marrocos, Haiti e Escócia. Três jogos, três estádios americanos, uma missão: o hexacampeonato.</p>
+  </div>
+</div>
+
+<!-- JOGOS DA FASE DE GRUPOS -->
+<div class="jogos-strip">
+  <div class="jogos-strip-inner">
+
+    <div class="jogo-card">
+      <div class="jogo-data">🗓 13 jun (sáb) · 1ª rodada</div>
+      <div class="jogo-times">
+        <div class="jogo-time-info">
+          <div class="jogo-bandeira">🇧🇷</div>
+          <div class="jogo-time-nome">Brasil</div>
+        </div>
+        <div class="jogo-vs">VS</div>
+        <div class="jogo-time-info">
+          <div class="jogo-bandeira">🇲🇦</div>
+          <div class="jogo-time-nome">Marrocos</div>
+        </div>
+      </div>
+      <div class="jogo-horario">19h00 (Brasília)</div>
+      <div class="jogo-local">MetLife Stadium · Nova York/NJ</div>
+      <span class="badge-risco risco-alto">⚠ Risco alto</span>
+    </div>
+
+    <div class="jogo-card">
+      <div class="jogo-data">🗓 19 jun (sex) · 2ª rodada</div>
+      <div class="jogo-times">
+        <div class="jogo-time-info">
+          <div class="jogo-bandeira">🇧🇷</div>
+          <div class="jogo-time-nome">Brasil</div>
+        </div>
+        <div class="jogo-vs">VS</div>
+        <div class="jogo-time-info">
+          <div class="jogo-bandeira">🇭🇹</div>
+          <div class="jogo-time-nome">Haiti</div>
+        </div>
+      </div>
+      <div class="jogo-horario">21h30 (Brasília)</div>
+      <div class="jogo-local">Lincoln Financial Field · Filadélfia</div>
+      <span class="badge-risco risco-baixo">✓ Favorito</span>
+    </div>
+
+    <div class="jogo-card">
+      <div class="jogo-data">🗓 24 jun (qua) · 3ª rodada</div>
+      <div class="jogo-times">
+        <div class="jogo-time-info">
+          <div class="jogo-bandeira">🇧🇷</div>
+          <div class="jogo-time-nome">Brasil</div>
+        </div>
+        <div class="jogo-vs">VS</div>
+        <div class="jogo-time-info">
+          <div class="jogo-bandeira">🏴󠁧󠁢󠁳󠁣󠁴󠁿</div>
+          <div class="jogo-time-nome">Escócia</div>
+        </div>
+      </div>
+      <div class="jogo-horario">19h00 (Brasília)</div>
+      <div class="jogo-local">Hard Rock Stadium · Miami</div>
+      <span class="badge-risco risco-medio">~ Atenção</span>
+    </div>
+
+  </div>
+</div>
+
+<!-- ANÁLISE DOS ADVERSÁRIOS -->
+<section class="secao" id="adversarios">
+  <div class="secao-tag">Grupo C</div>
+  <h2 class="secao-titulo">Quem o <span>Brasil</span> vai enfrentar</h2>
+  <p class="secao-desc">Ancelotti já avisou: não tem jogo fácil. Mas o Brasil ainda é o time mais forte do grupo. Entenda cada adversário.</p>
+
+  <div class="quote-block">
+    <p class="quote-text">Acho um grupo difícil. O Marrocos teve um desempenho muito bom na última Copa do Mundo. A Escócia é uma equipe forte fisicamente. Temos que ter cuidado, respeitar nossos adversários e ganhar.</p>
+    <p class="quote-autor"><strong>Carlo Ancelotti</strong> — Técnico da Seleção Brasileira, após o sorteio</p>
+  </div>
+
+  <div class="adversarios-grid">
+
+    <!-- MARROCOS -->
+    <div class="adversario-card">
+      <div class="adversario-header">
+        <div class="adversario-flag">🇲🇦</div>
+        <div class="adversario-nome-wrap">
+          <div class="adversario-nome">Marrocos</div>
+          <div class="adversario-ranking">Top 10 ranking FIFA · 4º lugar em 2022</div>
+        </div>
+        <span class="badge-risco risco-alto">Perigo alto</span>
+      </div>
+      <div class="adversario-body">
+        <div class="adversario-stat-row"><span class="stat-label">Melhor resultado em Copas</span><span class="stat-val">4º lugar (2022)</span></div>
+        <div class="adversario-stat-row"><span class="stat-label">Forma recente</span><span class="stat-val">5V 1E nos últimos 6</span></div>
+        <div class="adversario-stat-row"><span class="stat-label">Histórico vs Brasil</span><span class="stat-val">1 jogo — Brasil 3×0 (1998)</span></div>
+        <div class="adversario-stat-row"><span class="stat-label">Estrela</span><span class="stat-val">Hakimi (PSG)</span></div>
+        <p class="adversario-analise">O adversário mais perigoso do grupo. Em 2022 eliminou Espanha e Portugal e chegou na semi. Mantém o mesmo esquema sólido e está no top 10 do ranking FIFA. Venceu o Brasil em amistoso em 2023 por 2×1.</p>
+      </div>
+      <div class="adversario-footer">
+        <div class="adversario-jogo-data"><strong>13 de junho · 19h</strong>MetLife Stadium, Nova York</div>
+        <span class="badge-risco risco-alto">1ª rodada</span>
+      </div>
+    </div>
+
+    <!-- HAITI -->
+    <div class="adversario-card">
+      <div class="adversario-header">
+        <div class="adversario-flag">🇭🇹</div>
+        <div class="adversario-nome-wrap">
+          <div class="adversario-nome">Haiti</div>
+          <div class="adversario-ranking">1ª Copa desde 1974 · Estreante da geração</div>
+        </div>
+        <span class="badge-risco risco-baixo">Favorito</span>
+      </div>
+      <div class="adversario-body">
+        <div class="adversario-stat-row"><span class="stat-label">Copas disputadas</span><span class="stat-val">2 (1974 e 2026)</span></div>
+        <div class="adversario-stat-row"><span class="stat-label">Última Copa</span><span class="stat-val">1974 — fase de grupos</span></div>
+        <div class="adversario-stat-row"><span class="stat-label">Histórico vs Brasil</span><span class="stat-val">Nunca se enfrentaram</span></div>
+        <div class="adversario-stat-row"><span class="stat-label">Classificação</span><span class="stat-val">Via eliminatórias da Concacaf</span></div>
+        <p class="adversario-analise">O jogo mais tranquilo no papel. Haiti volta a uma Copa após 52 anos e chega com o orgulho da classificação, mas sem experiência em Mundiais. É o jogo que o Brasil não pode perder.</p>
+      </div>
+      <div class="adversario-footer">
+        <div class="adversario-jogo-data"><strong>19 de junho · 21h30</strong>Lincoln Financial Field, Filadélfia</div>
+        <span class="badge-risco risco-baixo">2ª rodada</span>
+      </div>
+    </div>
+
+    <!-- ESCÓCIA -->
+    <div class="adversario-card">
+      <div class="adversario-header">
+        <div class="adversario-flag">🏴󠁧󠁢󠁳󠁣󠁴󠁿</div>
+        <div class="adversario-nome-wrap">
+          <div class="adversario-nome">Escócia</div>
+          <div class="adversario-ranking">Volta à Copa após 28 anos · Fisicamente forte</div>
+        </div>
+        <span class="badge-risco risco-medio">Atenção</span>
+      </div>
+      <div class="adversario-body">
+        <div class="adversario-stat-row"><span class="stat-label">Última Copa</span><span class="stat-val">1998 — fase de grupos</span></div>
+        <div class="adversario-stat-row"><span class="stat-label">Classificação</span><span class="stat-val">1ª lugar do grupo europeu</span></div>
+        <div class="adversario-stat-row"><span class="stat-label">Histórico vs Brasil</span><span class="stat-val">Nunca se enfrentaram na Copa</span></div>
+        <div class="adversario-stat-row"><span class="stat-label">Forma recente</span><span class="stat-val">2 derrotas nos últimos amistosos</span></div>
+        <p class="adversario-analise">Volta à Copa após 28 anos de ausência, o que cria uma motivação emocional enorme. É fisicamente forte e disciplinada taticamente. Perdeu para Japão e Costa do Marfim nos últimos amistosos, o que reduz o risco. Mas no jogo decisivo da fase de grupos, todo cuidado é pouco.</p>
+      </div>
+      <div class="adversario-footer">
+        <div class="adversario-jogo-data"><strong>24 de junho · 19h</strong>Hard Rock Stadium, Miami</div>
+        <span class="badge-risco risco-medio">3ª rodada</span>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- CALENDÁRIO COMPLETO -->
+<div style="background: var(--cinza-escuro); border-top: 1px solid rgba(255,255,255,0.04);">
+<section class="secao" id="calendario">
+  <div class="secao-tag">Do grupo à final</div>
+  <h2 class="secao-titulo">Calendário <span>Completo</span> do Brasil</h2>
+  <p class="secao-desc">Todos os jogos possíveis da Seleção — da estreia até a grande final no dia 19 de julho em Nova York.</p>
+
+  <div class="stats-brasil">
+    <div class="stat-card"><div class="stat-num">7</div><div class="stat-desc">vitórias pra ser campeão</div></div>
+    <div class="stat-card"><div class="stat-num">39</div><div class="stat-desc">dias de Copa</div></div>
+    <div class="stat-card"><div class="stat-num">3</div><div class="stat-desc">estádios na fase de grupos</div></div>
+    <div class="stat-card"><div class="stat-num">5</div><div class="stat-desc">títulos mundiais</div></div>
+  </div>
+
+  <div class="calendario-grid">
+    <div class="cal-row header">
+      <span>Data</span><span>Jogo</span><span>Horário</span><span>Local</span>
+    </div>
+
+    <div class="cal-row brasil">
+      <div class="cal-data"><strong>13 Jun · Sábado</strong>1ª rodada</div>
+      <div class="cal-jogo">🇧🇷 Brasil <span class="sep">vs</span> Marrocos 🇲🇦 <span class="tag-fase grupos">Grupo C</span></div>
+      <div class="cal-horario">19h00</div>
+      <div class="cal-local">MetLife · Nova York</div>
+    </div>
+
+    <div class="cal-row brasil">
+      <div class="cal-data"><strong>19 Jun · Sexta</strong>2ª rodada</div>
+      <div class="cal-jogo">🇧🇷 Brasil <span class="sep">vs</span> Haiti 🇭🇹 <span class="tag-fase grupos">Grupo C</span></div>
+      <div class="cal-horario">21h30</div>
+      <div class="cal-local">Lincoln Field · Filadélfia</div>
+    </div>
+
+    <div class="cal-row brasil">
+      <div class="cal-data"><strong>24 Jun · Quarta</strong>3ª rodada</div>
+      <div class="cal-jogo">🇧🇷 Brasil <span class="sep">vs</span> Escócia 🏴󠁧󠁢󠁳󠁣󠁴󠁿 <span class="tag-fase grupos">Grupo C</span></div>
+      <div class="cal-horario">19h00</div>
+      <div class="cal-local">Hard Rock · Miami</div>
+    </div>
+
+    <div class="cal-row">
+      <div class="cal-data"><strong>29 Jun · Segunda</strong>Oitavas de final</div>
+      <div class="cal-jogo">🇧🇷 Brasil <span class="sep">vs</span> 1º ou 2º do Grupo F <span class="tag-fase mata-mata">Mata-mata</span></div>
+      <div class="cal-horario">A definir</div>
+      <div class="cal-local">A definir</div>
+    </div>
+
+    <div class="cal-row">
+      <div class="cal-data" style="font-size:0.7rem;color:var(--cinza-texto)">Grupo F — possíveis adversários</div>
+      <div class="cal-jogo" style="font-size:0.8rem;color:var(--cinza-texto)">🇳🇱 Holanda · 🇯🇵 Japão · 🇹🇳 Tunísia · 🇸🇪 Suécia</div>
+      <div class="cal-horario"></div>
+      <div class="cal-local"></div>
+    </div>
+
+    <div class="cal-row">
+      <div class="cal-data"><strong>5–6 Jul · Fim de semana</strong>Quartas de final</div>
+      <div class="cal-jogo">🇧🇷 Brasil <span class="sep">vs</span> A definir <span class="tag-fase mata-mata">Possível: Inglaterra</span></div>
+      <div class="cal-horario">A definir</div>
+      <div class="cal-local">A definir</div>
+    </div>
+
+    <div class="cal-row">
+      <div class="cal-data"><strong>14–15 Jul · Terça ou Qua</strong>Semifinal</div>
+      <div class="cal-jogo">🇧🇷 Brasil <span class="sep">vs</span> A definir <span class="tag-fase semi">Possível: Argentina</span></div>
+      <div class="cal-horario">A definir</div>
+      <div class="cal-local">A definir</div>
+    </div>
+
+    <div class="cal-row">
+      <div class="cal-data"><strong>19 Jul · Domingo</strong>⭐ Grande Final</div>
+      <div class="cal-jogo">🇧🇷 Brasil <span class="sep">vs</span> A definir <span class="tag-fase final">MetLife · Nova York</span></div>
+      <div class="cal-horario">A definir</div>
+      <div class="cal-local">MetLife · Nova York</div>
+    </div>
+  </div>
+
+  <p style="font-size:0.78rem;color:var(--cinza-texto);margin-top:1rem;">* Jogos a partir das oitavas de final dependem da classificação. Horários e locais confirmados pela FIFA conforme o avanço da competição.</p>
+</section>
+</div>
+
+<!-- CAMINHO ATÉ A FINAL -->
+<section class="secao">
+  <div class="secao-tag">Projeção</div>
+  <h2 class="secao-titulo">Caminho até o <span>Hexa</span></h2>
+  <p class="secao-desc" style="margin-bottom:1.5rem">Se o Brasil terminar em 1º do grupo, esse é o caminho projetado pelos analistas.</p>
+  <div class="caminho">
+    <div class="fase-bloco">
+      <div class="fase-nome">Fase de grupos</div>
+      <div class="fase-data">13–24 Jun</div>
+      <div class="fase-rival">Marrocos · Haiti · Escócia</div>
+    </div>
+    <div class="fase-bloco">
+      <div class="fase-nome">Oitavas</div>
+      <div class="fase-data">29 Jun</div>
+      <div class="fase-rival">1º ou 2º Grupo F</div>
+    </div>
+    <div class="fase-bloco">
+      <div class="fase-nome">Quartas</div>
+      <div class="fase-data">5–6 Jul</div>
+      <div class="fase-rival">Possível: Inglaterra</div>
+    </div>
+    <div class="fase-bloco">
+      <div class="fase-nome">Semifinal</div>
+      <div class="fase-data">14–15 Jul</div>
+      <div class="fase-rival">Possível: Argentina</div>
+    </div>
+    <div class="fase-bloco" style="border-color:rgba(255,214,0,0.3)">
+      <div class="fase-nome" style="color:var(--amarelo)">Final ⭐</div>
+      <div class="fase-data" style="color:var(--amarelo)">19 Jul</div>
+      <div class="fase-rival">MetLife · Nova York</div>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <p>© 2026 Copa2026.com.br · Conteúdo informativo · Dados baseados no sorteio oficial da FIFA realizado em Washington em maio de 2026</p>
+</footer>
+
+</body>
+</html>
