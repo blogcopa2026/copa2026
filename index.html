@@ -558,8 +558,51 @@
     to { opacity: 1; transform: translateY(0); }
   }
 
+  /* HAMBURGUER */
+  .hamburguer {
+    display: none;
+    flex-direction: column; gap: 5px; cursor: pointer;
+    padding: 4px; z-index: 200;
+  }
+  .hamburguer span {
+    display: block; width: 24px; height: 2px;
+    background: var(--branco); border-radius: 2px;
+    transition: all 0.3s;
+  }
+  .hamburguer.ativo span:nth-child(1) { transform: translateY(7px) rotate(45deg); }
+  .hamburguer.ativo span:nth-child(2) { opacity: 0; }
+  .hamburguer.ativo span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
+
+  .menu-mobile {
+    display: none;
+    position: fixed; top: 0; left: 0; right: 0; bottom: 0;
+    background: rgba(10,10,10,0.98);
+    z-index: 150;
+    flex-direction: column;
+    align-items: center; justify-content: center;
+    gap: 0;
+  }
+  .menu-mobile.aberto { display: flex; }
+  .menu-mobile a {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 2.5rem; letter-spacing: 3px;
+    color: var(--branco); text-decoration: none;
+    padding: 1rem 2rem; width: 100%; text-align: center;
+    border-bottom: 1px solid rgba(255,255,255,0.06);
+    transition: color 0.2s, background 0.2s;
+  }
+  .menu-mobile a:hover { color: var(--amarelo); background: rgba(255,214,0,0.05); }
+  .menu-mobile a:first-child { border-top: 1px solid rgba(255,255,255,0.06); }
+  .menu-mobile .fechar {
+    position: absolute; top: 1.2rem; right: 1.5rem;
+    font-size: 1.8rem; color: var(--cinza-texto);
+    cursor: pointer; background: none; border: none;
+    font-family: 'Barlow', sans-serif;
+  }
+
   @media (max-width: 768px) {
     .nav-links { display: none; }
+    .hamburguer { display: flex; }
     .noticias-grid { grid-template-columns: 1fr; }
     .card-noticia.destaque { grid-row: auto; }
     .newsletter-wrapper { grid-template-columns: 1fr; }
@@ -567,6 +610,48 @@
     .jogo-item { grid-template-columns: 1fr auto 1fr; }
     .jogo-info { display: none; }
     footer { flex-direction: column; text-align: center; }
+
+    /* HERO MOBILE */
+    .hero { padding: 5rem 1.5rem 3rem; min-height: 100svh; }
+    .hero h1 { font-size: clamp(3.5rem, 18vw, 6rem); }
+    .hero-sub { font-size: 1rem; }
+    .hero-actions { flex-direction: column; gap: 0.8rem; }
+    .btn-primary, .btn-ghost {
+      width: 100%; text-align: center;
+      padding: 1rem 1.5rem; font-size: 1rem;
+    }
+    .hero-countdown {
+      gap: 0.8rem; margin-top: 2rem;
+      background: rgba(255,255,255,0.04);
+      border-radius: 12px; padding: 1.2rem;
+      justify-content: center;
+    }
+    .countdown-num { font-size: 2.2rem; }
+    .countdown-sep { font-size: 2.2rem; }
+    .countdown-label { font-size: 0.65rem; }
+
+    /* FAIXA MOBILE */
+    .faixa { font-size: 0.75rem; }
+
+    /* JOGOS MOBILE */
+    .time-nome { font-size: 0.9rem; }
+    .placar { font-size: 1.5rem; }
+
+    /* FILTROS MOBILE */
+    #filtros-selecoes { gap: 0.4rem; }
+    .filtro-btn { font-size: 0.72rem; padding: 0.35rem 0.7rem; }
+
+    /* LOJA MOBILE */
+    .loja-grid { grid-template-columns: repeat(2, 1fr); gap: 1rem; }
+    .produto-img { height: 140px; }
+    .produto-nome { font-size: 0.9rem; }
+    .produto-preco { font-size: 1.2rem; }
+
+    /* ÁLBUM MOBILE */
+    .album-grid { grid-template-columns: 1fr 1fr; }
+
+    /* SELEÇÕES MOBILE */
+    .selecoes-row { grid-template-columns: repeat(2, 1fr); }
   }
 </style>
 </head>
@@ -581,9 +666,25 @@
     <li><a href="#album">Álbum</a></li>
     <li><a href="#selecoes">Seleções</a></li>
     <li><a href="#loja">Loja</a></li>
+    <li><a href="sobre.html">Sobre</a></li>
   </ul>
   <a href="#newsletter" class="nav-cta">Receber alertas</a>
+  <div class="hamburguer" id="hamburguer" onclick="toggleMenu()">
+    <span></span><span></span><span></span>
+  </div>
 </nav>
+
+<!-- MENU MOBILE -->
+<div class="menu-mobile" id="menuMobile">
+  <button class="fechar" onclick="toggleMenu()">✕</button>
+  <a href="#jogos" onclick="toggleMenu()">Jogos</a>
+  <a href="#noticias" onclick="toggleMenu()">Notícias</a>
+  <a href="#album" onclick="toggleMenu()">Álbum</a>
+  <a href="#selecoes" onclick="toggleMenu()">Seleções</a>
+  <a href="#loja" onclick="toggleMenu()">Loja</a>
+  <a href="sobre.html" onclick="toggleMenu()">Sobre</a>
+  <a href="privacidade.html" onclick="toggleMenu()" style="font-size:1.2rem;color:var(--cinza-texto);letter-spacing:1px;">Política de Privacidade</a>
+</div>
 
 <!-- HERO -->
 <div class="hero">
@@ -1358,23 +1459,6 @@ function filtrarJogos(pais) {
 
   <div class="loja-grid">
     <div class="produto-card">
-      <div class="produto-img"><img src="https://blogcopa2026.github.io/copa2026/imgCAMISA_AMARELA.webp" alt="Camisa Brasil Amarela" loading="lazy"></div>
-      <div class="produto-info">
-        <div class="produto-nome">Camisa Brasil Amarela — Copa 2026</div>
-        <div class="produto-preco">R$ 29,70 <small>via Shopee</small></div>
-        <a class="btn-comprar" href="https://s.shopee.com.br/809oVn0z3y" target="_blank" rel="noopener">Ver oferta</a>
-      </div>
-    </div>
-
-    <div class="produto-card">
-      <div class="produto-img"><img src="https://blogcopa2026.github.io/copa2026/imgCAMISA_NIKE.jpg" alt="Camisa Brasil Nike Oficial" loading="lazy"></div>
-      <div class="produto-info">
-        <div class="produto-nome">Camisa Brasil Nike — Oficial</div>
-        <div class="produto-preco">R$ 449,90 <small>via Amazon</small></div>
-        <a class="btn-comprar" href="https://amzn.to/4tWF11W" target="_blank" rel="noopener">Ver oferta</a>
-      </div>
-    </div>
-    <div class="produto-card">
       <div class="produto-img"><img src="https://blogcopa2026.github.io/copa2026/imgKIT_ALBUM.webp" alt="Álbum Panini Copa 2026" loading="lazy"></div>
       <div class="produto-info">
         <div class="produto-nome">Álbum Panini Copa 2026</div>
@@ -1383,35 +1467,59 @@ function filtrarJogos(pais) {
       </div>
     </div>
     <div class="produto-card">
-      <div class="produto-img"><img src="https://blogcopa2026.github.io/copa2026/imgBOLA.webp" alt="Bola Copa 2026" loading="lazy"></div>
+      <div class="produto-img"><img src="https://blogcopa2026.github.io/copa2026/imgKIT_ALBUM.webp" alt="Álbum Panini Copa 2026" loading="lazy"></div>
       <div class="produto-info">
-        <div class="produto-nome">Bola Futebol Copa 2026</div>
-        <div class="produto-preco">R$ 37,33 <small>via Shopee</small></div>
-        <a class="btn-comprar" href="https://s.shopee.com.br/1BJUNOdawO" target="_blank" rel="noopener">Ver oferta</a>
+        <div class="produto-nome">Álbum Oficial + 10 Envelopes Panini</div>
+        <div class="produto-preco">R$ 34,61 <small>via Shopee</small></div>
+        <a class="btn-comprar" href="https://s.shopee.com.br/9KfC6tVaIP" target="_blank" rel="noopener">Ver oferta</a>
       </div>
     </div>
     <div class="produto-card">
-      <div class="produto-img"><img src="https://blogcopa2026.github.io/copa2026/imgCOPO.jpg" alt="Copo Térmico Brasil" loading="lazy"></div>
+      <div class="produto-img"><img src="https://blogcopa2026.github.io/copa2026/imgKIT_ALBUM.webp" alt="Álbum Panini Copa 2026" loading="lazy"></div>
       <div class="produto-info">
-        <div class="produto-nome">Copo Térmico Brasil — Copa</div>
-        <div class="produto-preco">R$ 37,99 <small>via Shopee</small></div>
-        <a class="btn-comprar" href="https://s.shopee.com.br/BQxBRgRrw" target="_blank" rel="noopener">Ver oferta</a>
+        <div class="produto-nome">Álbum + 70 Figurinhas 10 Pacotes Copa</div>
+        <div class="produto-preco">R$ 38,90 <small>via Shopee</small></div>
+        <a class="btn-comprar" href="https://s.shopee.com.br/7VDXvvyE20" target="_blank" rel="noopener">Ver oferta</a>
       </div>
     </div>
     <div class="produto-card">
-      <div class="produto-img"><img src="https://blogcopa2026.github.io/copa2026/imgBANDEIRA.webp" alt="Bandeira do Brasil" loading="lazy"></div>
+      <div class="produto-img"><img src="https://blogcopa2026.github.io/copa2026/imgKIT_ALBUM_FIG.webp" alt="Kit Álbum + Figurinhas Pacotes Copa 2026" loading="lazy"></div>
       <div class="produto-info">
-        <div class="produto-nome">Bandeira do Brasil 180x120cm</div>
-        <div class="produto-preco">R$ 34,99 <small>via Shopee</small></div>
-        <a class="btn-comprar" href="https://s.shopee.com.br/8KmeuBW2mC" target="_blank" rel="noopener">Ver oferta</a>
+        <div class="produto-nome">Kit Álbum + Figurinhas Pacotes Copa 2026</div>
+        <div class="produto-preco">R$ 37,90 <small>via Shopee</small></div>
+        <a class="btn-comprar" href="https://s.shopee.com.br/40dfl8lVuH" target="_blank" rel="noopener">Ver oferta</a>
       </div>
     </div>
     <div class="produto-card">
-      <div class="produto-img"><img src="https://blogcopa2026.github.io/copa2026/imgBONES.webp" alt="Kit Bonés Brasil" loading="lazy"></div>
+      <div class="produto-img"><img src="https://blogcopa2026.github.io/copa2026/imgALBUM_10ENV.webp" alt="100 Envelopes Panini" loading="lazy"></div>
       <div class="produto-info">
-        <div class="produto-nome">Kit Bonés Brasil — Torcedor</div>
-        <div class="produto-preco">R$ 19,82 <small>via Shopee</small></div>
-        <a class="btn-comprar" href="https://s.shopee.com.br/70HHJnvEAH" target="_blank" rel="noopener">Ver oferta</a>
+        <div class="produto-nome">100 Envelopes Panini Copa 2026</div>
+        <div class="produto-preco">R$ 585,95 <small>via Shopee</small></div>
+        <a class="btn-comprar" href="https://s.shopee.com.br/7pqOJwtxaP" target="_blank" rel="noopener">Ver oferta</a>
+      </div>
+    </div>
+    <div class="produto-card">
+      <div class="produto-img"><img src="https://blogcopa2026.github.io/copa2026/imgKIT_50ENV.webp" alt="Kit 50 Envelopes + Figurinha Lendária" loading="lazy"></div>
+      <div class="produto-info">
+        <div class="produto-nome">Kit 50 Envelopes + Figurinha Lendária</div>
+        <div class="produto-preco">R$ 79,90 <small>via Shopee</small></div>
+        <a class="btn-comprar" href="https://s.shopee.com.br/6feQw4UuvL" target="_blank" rel="noopener">Ver oferta</a>
+      </div>
+    </div>
+    <div class="produto-card">
+      <div class="produto-img"><img src="https://blogcopa2026.github.io/copa2026/imgFIGURINHA.webp" alt="Envelope Figurinha Panini" loading="lazy"></div>
+      <div class="produto-info">
+        <div class="produto-nome">Envelope Figurinha Panini — 7 cromos</div>
+        <div class="produto-preco">R$ 7 <small>via Shopee</small></div>
+        <a class="btn-comprar" href="https://s.shopee.com.br/4Ax5xHtJoc" target="_blank" rel="noopener">Ver oferta</a>
+      </div>
+    </div>
+    <div class="produto-card">
+      <div class="produto-img"><img src="https://blogcopa2026.github.io/copa2026/imgCARDS_BAFO.webp" alt="Kit 200 Cards Bater Bafo Copa 2026" loading="lazy"></div>
+      <div class="produto-info">
+        <div class="produto-nome">Kit 200 Cards Bater Bafo Copa 2026</div>
+        <div class="produto-preco">R$ 29,60 <small>via Shopee</small></div>
+        <a class="btn-comprar" href="https://s.shopee.com.br/6pxr8SkTsm" target="_blank" rel="noopener">Ver oferta</a>
       </div>
     </div>
     <div class="produto-card">
@@ -1423,6 +1531,30 @@ function filtrarJogos(pais) {
       </div>
     </div>
     <div class="produto-card">
+      <div class="produto-img"><img src="https://blogcopa2026.github.io/copa2026/imgPORTA_FIG.webp" alt="Porta Figurinha" loading="lazy"></div>
+      <div class="produto-info">
+        <div class="produto-nome">Porta Figurinha Organizador — Álbum</div>
+        <div class="produto-preco">R$ 22,80 <small>via Shopee</small></div>
+        <a class="btn-comprar" href="https://s.shopee.com.br/AAEJ6coa7E" target="_blank" rel="noopener">Ver oferta</a>
+      </div>
+    </div>
+    <div class="produto-card">
+      <div class="produto-img"><img src="https://blogcopa2026.github.io/copa2026/imgCAMISA_AMARELA.webp" alt="Camisa Brasil Amarela" loading="lazy"></div>
+      <div class="produto-info">
+        <div class="produto-nome">Camisa Brasil Amarela — Copa 2026</div>
+        <div class="produto-preco">R$ 29,70 <small>via Shopee</small></div>
+        <a class="btn-comprar" href="https://s.shopee.com.br/809oVn0z3y" target="_blank" rel="noopener">Ver oferta</a>
+      </div>
+    </div>
+    <div class="produto-card">
+      <div class="produto-img"><img src="https://blogcopa2026.github.io/copa2026/imgCAMISA_NIKE.jpg" alt="Camisa Brasil Nike Oficial" loading="lazy"></div>
+      <div class="produto-info">
+        <div class="produto-nome">Camisa Brasil Nike — Oficial</div>
+        <div class="produto-preco">R$ 449,90 <small>via Amazon</small></div>
+        <a class="btn-comprar" href="https://amzn.to/4tWF11W" target="_blank" rel="noopener">Ver oferta</a>
+      </div>
+    </div>
+    <div class="produto-card">
       <div class="produto-img"><img src="https://blogcopa2026.github.io/copa2026/imgBLUSA_FEM.webp" alt="Blusa Feminina Brasil" loading="lazy"></div>
       <div class="produto-info">
         <div class="produto-nome">Blusa Feminina Brasil — Copa 2026</div>
@@ -1430,7 +1562,6 @@ function filtrarJogos(pais) {
         <a class="btn-comprar" href="https://s.shopee.com.br/7VDXvAm4Lb" target="_blank" rel="noopener">Ver oferta</a>
       </div>
     </div>
-
     <div class="produto-card">
       <div class="produto-img"><img src="https://blogcopa2026.github.io/copa2026/imgKIT_CASAL.webp" alt="Kit Casal Brasil" loading="lazy"></div>
       <div class="produto-info">
@@ -1448,22 +1579,6 @@ function filtrarJogos(pais) {
       </div>
     </div>
     <div class="produto-card">
-      <div class="produto-img"><img src="https://blogcopa2026.github.io/copa2026/imgALBUM_10ENV.webp" alt="100 Envelopes Panini" loading="lazy"></div>
-      <div class="produto-info">
-        <div class="produto-nome">100 Envelopes Panini Copa 2026</div>
-        <div class="produto-preco">R$ 585,95 <small>via Shopee</small></div>
-        <a class="btn-comprar" href="https://s.shopee.com.br/7pqOJwtxaP" target="_blank" rel="noopener">Ver oferta</a>
-      </div>
-    </div>
-    <div class="produto-card">
-      <div class="produto-img"><img src="https://blogcopa2026.github.io/copa2026/imgFIGURINHA.webp" alt="Envelope Figurinha Panini" loading="lazy"></div>
-      <div class="produto-info">
-        <div class="produto-nome">Envelope Figurinha Panini — 7 cromos</div>
-        <div class="produto-preco">R$ 7 <small>via Shopee</small></div>
-        <a class="btn-comprar" href="https://s.shopee.com.br/4Ax5xHtJoc" target="_blank" rel="noopener">Ver oferta</a>
-      </div>
-    </div>
-    <div class="produto-card">
       <div class="produto-img"><img src="https://blogcopa2026.github.io/copa2026/imgKIT_FAMILIA.webp" alt="Kit Família Brasil" loading="lazy"></div>
       <div class="produto-info">
         <div class="produto-nome">Kit Família Brasil — Copa 2026</div>
@@ -1472,59 +1587,19 @@ function filtrarJogos(pais) {
       </div>
     </div>
     <div class="produto-card">
-      <div class="produto-img"><img src="https://blogcopa2026.github.io/copa2026/imgCHINELO.webp" alt="Chinelo Brasil" loading="lazy"></div>
+      <div class="produto-img"><img src="https://blogcopa2026.github.io/copa2026/imgBOLA.webp" alt="Bola Copa 2026" loading="lazy"></div>
       <div class="produto-info">
-        <div class="produto-nome">Chinelo Brasil Bandeirinha — Copa</div>
-        <div class="produto-preco">R$ 19 <small>via Shopee</small></div>
-        <a class="btn-comprar" href="https://s.shopee.com.br/902LiEqcui" target="_blank" rel="noopener">Ver oferta</a>
+        <div class="produto-nome">Bola Futebol Copa 2026</div>
+        <div class="produto-preco">R$ 37,33 <small>via Shopee</small></div>
+        <a class="btn-comprar" href="https://s.shopee.com.br/1BJUNOdawO" target="_blank" rel="noopener">Ver oferta</a>
       </div>
     </div>
     <div class="produto-card">
-      <div class="produto-img"><img src="https://blogcopa2026.github.io/copa2026/imgKIT_ALBUM.webp" alt="Álbum Panini Copa 2026" loading="lazy"></div>
+      <div class="produto-img"><img src="https://blogcopa2026.github.io/copa2026/imgBANDEIRA.webp" alt="Bandeira do Brasil" loading="lazy"></div>
       <div class="produto-info">
-        <div class="produto-nome">Álbum Oficial + 10 Envelopes Panini</div>
-        <div class="produto-preco">R$ 34,61 <small>via Shopee</small></div>
-        <a class="btn-comprar" href="https://s.shopee.com.br/9KfC6tVaIP" target="_blank" rel="noopener">Ver oferta</a>
-      </div>
-    </div>
-    <div class="produto-card">
-      <div class="produto-img"><img src="https://blogcopa2026.github.io/copa2026/imgKIT_ALBUM_FIG.webp" alt="Kit Álbum + Figurinhas Pacotes Copa 2026" loading="lazy"></div>
-      <div class="produto-info">
-        <div class="produto-nome">Kit Álbum + Figurinhas Pacotes Copa 2026</div>
-        <div class="produto-preco">R$ 37,90 <small>via Shopee</small></div>
-        <a class="btn-comprar" href="https://s.shopee.com.br/40dfl8lVuH" target="_blank" rel="noopener">Ver oferta</a>
-      </div>
-    </div>
-    <div class="produto-card">
-      <div class="produto-img"><img src="https://blogcopa2026.github.io/copa2026/imgKIT_50ENV.webp" alt="Kit 50 Envelopes + Figurinha Lendária" loading="lazy"></div>
-      <div class="produto-info">
-        <div class="produto-nome">Kit 50 Envelopes + Figurinha Lendária</div>
-        <div class="produto-preco">R$ 79,90 <small>via Shopee</small></div>
-        <a class="btn-comprar" href="https://s.shopee.com.br/6feQw4UuvL" target="_blank" rel="noopener">Ver oferta</a>
-      </div>
-    </div>
-    <div class="produto-card">
-      <div class="produto-img"><img src="https://blogcopa2026.github.io/copa2026/imgCARDS_BAFO.webp" alt="Kit 200 Cards Bater Bafo Copa 2026" loading="lazy"></div>
-      <div class="produto-info">
-        <div class="produto-nome">Kit 200 Cards Bater Bafo Copa 2026</div>
-        <div class="produto-preco">R$ 29,60 <small>via Shopee</small></div>
-        <a class="btn-comprar" href="https://s.shopee.com.br/6pxr8SkTsm" target="_blank" rel="noopener">Ver oferta</a>
-      </div>
-    </div>
-    <div class="produto-card">
-      <div class="produto-img"><img src="https://blogcopa2026.github.io/copa2026/imgPORTA_FIG.webp" alt="Porta Figurinha" loading="lazy"></div>
-      <div class="produto-info">
-        <div class="produto-nome">Porta Figurinha Organizador — Álbum</div>
-        <div class="produto-preco">R$ 22,80 <small>via Shopee</small></div>
-        <a class="btn-comprar" href="https://s.shopee.com.br/AAEJ6coa7E" target="_blank" rel="noopener">Ver oferta</a>
-      </div>
-    </div>
-    <div class="produto-card">
-      <div class="produto-img"><img src="https://blogcopa2026.github.io/copa2026/imgDECORACÃO.webp" alt="Kit Decoração Brasil — Painel Copa" loading="lazy"></div>
-      <div class="produto-info">
-        <div class="produto-nome">Kit Decoração Brasil — Painel Copa</div>
-        <div class="produto-preco">R$ 48,50 <small>via Shopee</small></div>
-        <a class="btn-comprar" href="https://s.shopee.com.br/8fPVJy4Rsl" target="_blank" rel="noopener">Ver oferta</a>
+        <div class="produto-nome">Bandeira do Brasil 180x120cm</div>
+        <div class="produto-preco">R$ 34,99 <small>via Shopee</small></div>
+        <a class="btn-comprar" href="https://s.shopee.com.br/8KmeuBW2mC" target="_blank" rel="noopener">Ver oferta</a>
       </div>
     </div>
     <div class="produto-card">
@@ -1536,14 +1611,38 @@ function filtrarJogos(pais) {
       </div>
     </div>
     <div class="produto-card">
-      <div class="produto-img"><img src="https://blogcopa2026.github.io/copa2026/imgKIT_ALBUM.webp" alt="Álbum Panini Copa 2026" loading="lazy"></div>
+      <div class="produto-img"><img src="https://blogcopa2026.github.io/copa2026/imgDECORACÃO.webp" alt="Kit Decoração Brasil — Painel Copa" loading="lazy"></div>
       <div class="produto-info">
-        <div class="produto-nome">Álbum + 70 Figurinhas 10 Pacotes Copa</div>
-        <div class="produto-preco">R$ 38,90 <small>via Shopee</small></div>
-        <a class="btn-comprar" href="https://s.shopee.com.br/7VDXvvyE20" target="_blank" rel="noopener">Ver oferta</a>
+        <div class="produto-nome">Kit Decoração Brasil — Painel Copa</div>
+        <div class="produto-preco">R$ 48,50 <small>via Shopee</small></div>
+        <a class="btn-comprar" href="https://s.shopee.com.br/8fPVJy4Rsl" target="_blank" rel="noopener">Ver oferta</a>
       </div>
     </div>
-  </div>
+    <div class="produto-card">
+      <div class="produto-img"><img src="https://blogcopa2026.github.io/copa2026/imgBONES.webp" alt="Kit Bonés Brasil" loading="lazy"></div>
+      <div class="produto-info">
+        <div class="produto-nome">Kit Bonés Brasil — Torcedor</div>
+        <div class="produto-preco">R$ 19,82 <small>via Shopee</small></div>
+        <a class="btn-comprar" href="https://s.shopee.com.br/70HHJnvEAH" target="_blank" rel="noopener">Ver oferta</a>
+      </div>
+    </div>
+    <div class="produto-card">
+      <div class="produto-img"><img src="https://blogcopa2026.github.io/copa2026/imgCOPO.jpg" alt="Copo Térmico Brasil" loading="lazy"></div>
+      <div class="produto-info">
+        <div class="produto-nome">Copo Térmico Brasil — Copa</div>
+        <div class="produto-preco">R$ 37,99 <small>via Shopee</small></div>
+        <a class="btn-comprar" href="https://s.shopee.com.br/BQxBRgRrw" target="_blank" rel="noopener">Ver oferta</a>
+      </div>
+    </div>
+    <div class="produto-card">
+      <div class="produto-img"><img src="https://blogcopa2026.github.io/copa2026/imgCHINELO.webp" alt="Chinelo Brasil" loading="lazy"></div>
+      <div class="produto-info">
+        <div class="produto-nome">Chinelo Brasil Bandeirinha — Copa</div>
+        <div class="produto-preco">R$ 19 <small>via Shopee</small></div>
+        <a class="btn-comprar" href="https://s.shopee.com.br/902LiEqcui" target="_blank" rel="noopener">Ver oferta</a>
+      </div>
+    </div>
+    </div>
 </section>
 
 <!-- NEWSLETTER -->
@@ -1568,15 +1667,31 @@ function filtrarJogos(pais) {
 <footer>
   <div class="footer-logo">Copa<span>2026</span></div>
   <div class="footer-links">
-    <a href="#">Sobre</a>
-    <a href="#">Política de privacidade</a>
-    <a href="#">Anunciar</a>
-    <a href="#">Contato</a>
+    <a href="sobre.html">Sobre</a>
+    <a href="privacidade.html">Política de Privacidade</a>
+    <a href="mailto:blogcopa2026@gmail.com">Anunciar</a>
+    <a href="mailto:blogcopa2026@gmail.com">Contato</a>
   </div>
   <div class="footer-copy">© 2026 Copa2026.com.br</div>
 </footer>
 
 <script>
+  function toggleMenu() {
+    const menu = document.getElementById('menuMobile');
+    const btn = document.getElementById('hamburguer');
+    menu.classList.toggle('aberto');
+    btn.classList.toggle('ativo');
+    document.body.style.overflow = menu.classList.contains('aberto') ? 'hidden' : '';
+  }
+  // Fechar menu ao redimensionar para desktop
+  window.addEventListener('resize', () => {
+    if (window.innerWidth > 768) {
+      document.getElementById('menuMobile').classList.remove('aberto');
+      document.getElementById('hamburguer').classList.remove('ativo');
+      document.body.style.overflow = '';
+    }
+  });
+
   // Countdown para 11 de junho de 2026
   function updateCountdown() {
     const copa = new Date('2026-06-11T00:00:00');
