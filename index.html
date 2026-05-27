@@ -1678,9 +1678,56 @@ function filtrarJogos(pais) {
     <div class="section-tag" style="justify-content:center;">Fique por dentro</div>
     <h2 class="newsletter-titulo">Alerta de <span>gol</span> no seu e-mail.</h2>
     <p style="color:var(--cinza-texto); font-size:0.95rem; margin-top:0.8rem; margin-bottom:2rem;">Receba escalações, resultados e ofertas da loja antes de todo mundo.</p>
-    <div style="max-width:600px; margin:0 auto; border-radius:12px; overflow:hidden;">
-      <iframe width="540" height="305" src="https://d445941c.sibforms.com/serve/MUIFAFoKykgVfwgjJai83qyenSxb9LR00rl7MfNPMQK2ZZ0dvda7kw8eSbP25rf8DQQVhIx3QF1RxenIdJMgB8aKy4yQ_O1sx4jwnOPNpsqdOQrNXGsTyB5HBkJe6OCA_54W9WJj6b9YU9pu6af70crzXruNuyDSsuKy0Hi0Gfwat7ZQpdU96PzgATjA_uVSowTYZZC3mKRK4W_yag==" frameborder="0" scrolling="auto" allowfullscreen style="display:block;margin-left:auto;margin-right:auto;max-width:100%;border-radius:12px;"></iframe>
+    <div style="max-width:540px; margin:0 auto;">
+      <div style="display:flex; gap:0.5rem; flex-wrap:wrap; justify-content:center;">
+        <input type="email" id="brevo-email" placeholder="seu@email.com" style="flex:1;min-width:220px;background:rgba(255,255,255,0.06);border:1px solid rgba(255,255,255,0.15);border-radius:4px;padding:0.9rem 1.2rem;color:#F5F5F5;font-family:'Barlow',sans-serif;font-size:0.95rem;outline:none;transition:border-color 0.2s;" onfocus="this.style.borderColor='#00C853'" onblur="this.style.borderColor='rgba(255,255,255,0.15)'">
+        <button onclick="assinarBrevo()" id="btn-brevo" style="background:#00C853;color:#0A0A0A;border:none;padding:0.9rem 1.8rem;border-radius:4px;cursor:pointer;font-family:'Barlow Condensed',sans-serif;font-weight:700;font-size:0.95rem;letter-spacing:1px;text-transform:uppercase;transition:background 0.2s;white-space:nowrap;">Quero receber</button>
+      </div>
+      <div id="brevo-msg" style="margin-top:1rem;font-size:0.9rem;min-height:1.2rem;"></div>
     </div>
+
+    <script>
+    function assinarBrevo() {
+      const email = document.getElementById('brevo-email').value;
+      const btn = document.getElementById('btn-brevo');
+      const msg = document.getElementById('brevo-msg');
+
+      if (!email || !email.includes('@')) {
+        msg.innerHTML = '<span style="color:#ff5252;">Por favor, insira um email válido.</span>';
+        return;
+      }
+
+      btn.textContent = 'Enviando...';
+      btn.disabled = true;
+
+      // Usa o endpoint do Brevo via iframe oculto (contorna CORS)
+      const form = document.createElement('form');
+      form.method = 'POST';
+      form.action = 'https://d445941c.sibforms.com/serve/MUIFAFoKykgVfwgjJai83qyenSxb9LR00rl7MfNPMQK2ZZ0dvda7kw8eSbP25rf8DQQVhIx3QF1RxenIdJMgB8aKy4yQ_O1sx4jwnOPNpsqdOQrNXGsTyB5HBkJe6OCA_54W9WJj6b9YU9pu6af70crzXruNuyDSsuKy0Hi0Gfwat7ZQpdU96PzgATjA_uVSowTYZZC3mKRK4W_yag==';
+      form.target = 'brevo-frame';
+      form.style.display = 'none';
+
+      const emailInput = document.createElement('input');
+      emailInput.name = 'EMAIL';
+      emailInput.value = email;
+      form.appendChild(emailInput);
+
+      const iframe = document.createElement('iframe');
+      iframe.name = 'brevo-frame';
+      iframe.style.display = 'none';
+      document.body.appendChild(iframe);
+      document.body.appendChild(form);
+      form.submit();
+
+      setTimeout(() => {
+        btn.textContent = '✓ Inscrito!';
+        btn.style.background = '#00C853';
+        msg.innerHTML = '<span style="color:#00C853;">🎉 Você está inscrito! Fique de olho no seu email.</span>';
+        document.getElementById('brevo-email').value = '';
+        setTimeout(() => { btn.textContent = 'Quero receber'; btn.disabled = false; }, 4000);
+      }, 1500);
+    }
+    </script>
     <p style="font-size:0.75rem; color:var(--cinza-texto); margin-top:1rem;">Sem spam. Só o que importa. Cancele quando quiser.</p>
   </div>
 </div>
