@@ -74,8 +74,88 @@
   .hero-bg {
     position: absolute; inset: 0;
     background:
-      radial-gradient(ellipse 60% 50% at 80% 50%, rgba(0,200,83,0.08) 0%, transparent 70%),
-      radial-gradient(ellipse 40% 60% at 20% 80%, rgba(13,71,161,0.12) 0%, transparent 70%);
+      linear-gradient(to right, rgba(10,10,10,1) 35%, rgba(10,10,10,0.7) 60%, rgba(10,10,10,0.3) 100%),
+      linear-gradient(to bottom, rgba(10,10,10,0.3) 0%, transparent 30%, transparent 70%, rgba(10,10,10,0.5) 100%);
+  }
+  .hero-stadium {
+    position: absolute; inset: 0;
+    overflow: hidden;
+  }
+  .hero-stadium::before {
+    content: '';
+    position: absolute; inset: 0;
+    background:
+      radial-gradient(ellipse 80% 60% at 75% 50%, rgba(0,200,83,0.12) 0%, transparent 60%),
+      radial-gradient(ellipse 50% 80% at 85% 80%, rgba(255,214,0,0.07) 0%, transparent 50%),
+      radial-gradient(ellipse 30% 40% at 60% 20%, rgba(0,200,83,0.06) 0%, transparent 50%);
+  }
+  .hero-stadium::after {
+    content: '';
+    position: absolute;
+    right: -100px; top: 50%;
+    transform: translateY(-50%);
+    width: 700px; height: 700px;
+    border-radius: 50%;
+    border: 1px solid rgba(0,200,83,0.08);
+    box-shadow:
+      0 0 0 60px rgba(0,200,83,0.03),
+      0 0 0 120px rgba(0,200,83,0.02),
+      0 0 0 200px rgba(255,214,0,0.015),
+      0 0 200px 80px rgba(0,200,83,0.04);
+  }
+  /* Linhas de campo de futebol decorativas */
+  .hero-field {
+    position: absolute;
+    right: 0; top: 0; bottom: 0;
+    width: 55%;
+    opacity: 0.04;
+    background:
+      /* Círculo central */
+      radial-gradient(circle 120px at 50% 50%, transparent 118px, rgba(255,255,255,1) 119px, rgba(255,255,255,1) 122px, transparent 123px),
+      /* Ponto central */
+      radial-gradient(circle 4px at 50% 50%, rgba(255,255,255,1) 100%, transparent),
+      /* Linha do meio */
+      linear-gradient(to bottom, transparent 49.5%, rgba(255,255,255,1) 49.5%, rgba(255,255,255,1) 50.5%, transparent 50.5%),
+      /* Área grande esquerda */
+      linear-gradient(to right, rgba(255,255,255,1) 0px, rgba(255,255,255,1) 2px, transparent 2px) 5% 20% / 22% 60% no-repeat,
+      linear-gradient(to bottom, rgba(255,255,255,1) 0px, rgba(255,255,255,1) 2px, transparent 2px) 5% 20% / 22% 2px no-repeat,
+      linear-gradient(to bottom, rgba(255,255,255,1) 0px, rgba(255,255,255,1) 2px, transparent 2px) 5% 78% / 22% 2px no-repeat,
+      /* Borda do campo */
+      linear-gradient(to right, rgba(255,255,255,1) 0px, rgba(255,255,255,1) 2px, transparent 2px) 3% 5% / 94% 90% no-repeat,
+      linear-gradient(to bottom, rgba(255,255,255,1) 0px, rgba(255,255,255,1) 2px, transparent 2px) 3% 5% / 94% 2px no-repeat,
+      linear-gradient(to bottom, rgba(255,255,255,1) 0px, rgba(255,255,255,1) 2px, transparent 2px) 3% 95% / 94% 2px no-repeat;
+  }
+  /* Bola animada */
+  .hero-ball {
+    position: absolute;
+    right: 12%; top: 50%;
+    transform: translateY(-50%);
+    width: 180px; height: 180px;
+    opacity: 0.04;
+    border-radius: 50%;
+    border: 2px solid rgba(255,255,255,0.8);
+    background: 
+      radial-gradient(circle at 35% 35%, rgba(255,255,255,0.5), transparent 60%),
+      repeating-conic-gradient(rgba(255,255,255,0.3) 0deg 30deg, transparent 30deg 60deg);
+    animation: rotateBall 20s linear infinite;
+  }
+  @keyframes rotateBall {
+    from { transform: translateY(-50%) rotate(0deg); }
+    to { transform: translateY(-50%) rotate(360deg); }
+  }
+  /* Número 2026 decorativo */
+  .hero-year {
+    position: absolute;
+    right: -20px; top: 50%;
+    transform: translateY(-50%);
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: clamp(200px, 22vw, 320px);
+    color: transparent;
+    -webkit-text-stroke: 1px rgba(0,200,83,0.08);
+    line-height: 1;
+    user-select: none;
+    pointer-events: none;
+    letter-spacing: -10px;
   }
   .hero-noise {
     position: absolute; inset: 0; opacity: 0.03;
@@ -234,7 +314,7 @@
     position: absolute; inset: 0;
     background: linear-gradient(135deg, #1a2a1a 0%, #0d1a0d 100%);
     display: flex; align-items: center; justify-content: center;
-    font-size: 5rem; opacity: 0.15;
+    font-size: 5rem; opacity: 1;
   }
   .card-noticia.destaque .card-img-placeholder { font-size: 10rem; }
   .card-content { position: relative; z-index: 2; }
@@ -282,7 +362,7 @@
     width: 42px; height: 28px; border-radius: 3px;
     display: flex; align-items: center; justify-content: center;
     font-size: 1.3rem; background: var(--cinza-mid);
-    flex-shrink: 0;
+    flex-shrink: 0; overflow: hidden;
   }
   .time-nome {
     font-family: 'Barlow Condensed', sans-serif;
@@ -507,6 +587,11 @@
 
 <!-- HERO -->
 <div class="hero">
+  <div class="hero-stadium">
+    <div class="hero-field"></div>
+    <div class="hero-ball"></div>
+    <div class="hero-year">2026</div>
+  </div>
   <div class="hero-bg"></div>
   <div class="hero-noise"></div>
   <div class="hero-tag">Copa do Mundo FIFA 2026</div>
@@ -546,15 +631,15 @@
 <!-- FAIXA TICKER -->
 <div class="faixa">
   <div class="faixa-inner" id="ticker">
-    <span>🇧🇷 Brasil na Copa 2026</span><span class="faixa-dot">◆</span>
+    <span><img src="https://flagcdn.com/w40/br.png" alt="Brasil" style="width:18px;height:auto;border-radius:3px;"> Brasil na Copa 2026</span><span class="faixa-dot">◆</span>
     <span>⚽ 48 seleções classificadas</span><span class="faixa-dot">◆</span>
-    <span>🇺🇸 Estados Unidos · 🇲🇽 México · 🇨🇦 Canadá</span><span class="faixa-dot">◆</span>
+    <span><img src="https://flagcdn.com/w40/us.png" alt="EUA" style="width:18px;height:auto;border-radius:3px;"> Estados Unidos · <img src="https://flagcdn.com/w40/mx.png" alt="México" style="width:18px;height:auto;border-radius:3px;"> México · <img src="https://flagcdn.com/w40/ca.png" alt="Canadá" style="width:18px;height:auto;border-radius:3px;"> Canadá</span><span class="faixa-dot">◆</span>
     <span>📅 Junho e Julho de 2026</span><span class="faixa-dot">◆</span>
     <span>🏆 16 cidades-sede</span><span class="faixa-dot">◆</span>
     <span>📒 Álbum Panini já disponível</span><span class="faixa-dot">◆</span>
-    <span>🇧🇷 Brasil na Copa 2026</span><span class="faixa-dot">◆</span>
+    <span><img src="https://flagcdn.com/w40/br.png" alt="Brasil" style="width:18px;height:auto;border-radius:3px;"> Brasil na Copa 2026</span><span class="faixa-dot">◆</span>
     <span>⚽ 48 seleções classificadas</span><span class="faixa-dot">◆</span>
-    <span>🇺🇸 Estados Unidos · 🇲🇽 México · 🇨🇦 Canadá</span><span class="faixa-dot">◆</span>
+    <span><img src="https://flagcdn.com/w40/us.png" alt="EUA" style="width:18px;height:auto;border-radius:3px;"> Estados Unidos · <img src="https://flagcdn.com/w40/mx.png" alt="México" style="width:18px;height:auto;border-radius:3px;"> México · <img src="https://flagcdn.com/w40/ca.png" alt="Canadá" style="width:18px;height:auto;border-radius:3px;"> Canadá</span><span class="faixa-dot">◆</span>
     <span>📅 Junho e Julho de 2026</span><span class="faixa-dot">◆</span>
     <span>🏆 16 cidades-sede</span><span class="faixa-dot">◆</span>
     <span>📒 Álbum Panini já disponível</span><span class="faixa-dot">◆</span>
@@ -564,90 +649,434 @@
 <!-- JOGOS DO DIA -->
 <div class="jogos-section" id="jogos">
   <div class="jogos-wrapper">
-    <div class="section-tag">Próximos jogos</div>
-    <h2 class="section-title">Jogos do <span>Dia</span></h2>
-    <p class="section-desc">A Copa do Mundo começa em 11 de junho de 2026. Acompanhe aqui todos os jogos.</p>
+    <div class="section-tag">Fase de Grupos — Calendário Completo</div>
+    <h2 class="section-title">Jogos da <span>Copa 2026</span></h2>
+    <p class="section-desc">Todos os 36 jogos da fase de grupos. Filtre por seleção.</p>
 
-    <div class="jogos-lista">
-      <div class="jogo-item">
-        <div class="jogo-time">
-          <div class="bandeira">🇧🇷</div>
-          <span class="time-nome">Brasil</span>
-        </div>
-        <div class="jogo-centro">
-          <div class="placar">— · —</div>
-          <div class="horario" style="margin-top:4px">13 JUN · 19h</div>
-        </div>
-        <div class="jogo-time right">
-          <div class="bandeira">🇦🇷</div>
-          <span class="time-nome">Argentina</span>
-        </div>
-        <div class="jogo-info">
-          <div class="jogo-fase">Fase de grupos · Grupo A</div>
-          <div style="font-size:0.7rem;color:#666;margin-top:2px">MetLife Stadium</div>
-        </div>
+    <!-- FILTROS POR SELEÇÃO -->
+    <div id="filtros-selecoes" style="display:flex;flex-wrap:wrap;gap:0.5rem;margin-bottom:2rem;">
+      <button class="filtro-btn ativo" onclick="filtrarJogos('todos')" data-pais="todos">🌍 Todos</button>
+      <button class="filtro-btn" onclick="filtrarJogos('Brasil')" data-pais="Brasil"><img src="https://flagcdn.com/w40/br.png" alt="Brasil" style="width:18px;height:auto;border-radius:3px;"> Brasil</button>
+      <button class="filtro-btn" onclick="filtrarJogos('Argentina')" data-pais="Argentina"><img src="https://flagcdn.com/w40/ar.png" alt="Argentina" style="width:18px;height:auto;border-radius:3px;"> Argentina</button>
+      <button class="filtro-btn" onclick="filtrarJogos('França')" data-pais="França"><img src="https://flagcdn.com/w40/fr.png" alt="França" style="width:18px;height:auto;border-radius:3px;"> França</button>
+      <button class="filtro-btn" onclick="filtrarJogos('Alemanha')" data-pais="Alemanha"><img src="https://flagcdn.com/w40/de.png" alt="Alemanha" style="width:18px;height:auto;border-radius:3px;"> Alemanha</button>
+      <button class="filtro-btn" onclick="filtrarJogos('Espanha')" data-pais="Espanha"><img src="https://flagcdn.com/w40/es.png" alt="Espanha" style="width:18px;height:auto;border-radius:3px;"> Espanha</button>
+      <button class="filtro-btn" onclick="filtrarJogos('Portugal')" data-pais="Portugal"><img src="https://flagcdn.com/w40/pt.png" alt="Portugal" style="width:18px;height:auto;border-radius:3px;"> Portugal</button>
+      <button class="filtro-btn" onclick="filtrarJogos('Inglaterra')" data-pais="Inglaterra"><img src="https://flagcdn.com/w40/gb.png" alt="Inglaterra" style="width:18px;height:auto;border-radius:3px;"> Inglaterra</button>
+      <button class="filtro-btn" onclick="filtrarJogos('México')" data-pais="México"><img src="https://flagcdn.com/w40/mx.png" alt="México" style="width:18px;height:auto;border-radius:3px;"> México</button>
+      <button class="filtro-btn" onclick="filtrarJogos('EUA')" data-pais="EUA"><img src="https://flagcdn.com/w40/us.png" alt="EUA" style="width:18px;height:auto;border-radius:3px;"> EUA</button>
+      <button class="filtro-btn" onclick="filtrarJogos('Uruguai')" data-pais="Uruguai"><img src="https://flagcdn.com/w40/uy.png" alt="Uruguai" style="width:18px;height:auto;border-radius:3px;"> Uruguai</button>
+      <button class="filtro-btn" onclick="filtrarJogos('Colômbia')" data-pais="Colômbia"><img src="https://flagcdn.com/w40/co.png" alt="Colômbia" style="width:18px;height:auto;border-radius:3px;"> Colômbia</button>
+      <button class="filtro-btn" onclick="filtrarJogos('Marrocos')" data-pais="Marrocos"><img src="https://flagcdn.com/w40/ma.png" alt="Marrocos" style="width:18px;height:auto;border-radius:3px;"> Marrocos</button>
+      <button class="filtro-btn" onclick="filtrarJogos('Japão')" data-pais="Japão"><img src="https://flagcdn.com/w40/jp.png" alt="Japão" style="width:18px;height:auto;border-radius:3px;"> Japão</button>
+      <button class="filtro-btn" onclick="filtrarJogos('Coreia do Sul')" data-pais="Coreia do Sul"><img src="https://flagcdn.com/w40/kr.png" alt="Coreia do Sul" style="width:18px;height:auto;border-radius:3px;"> Coreia do Sul</button>
+    </div>
+
+    <style>
+      .filtro-btn {
+        background: var(--cinza-escuro); color: var(--cinza-texto);
+        border: 1px solid rgba(255,255,255,0.1); padding: 0.4rem 0.9rem;
+        border-radius: 20px; cursor: pointer; font-size: 0.8rem;
+        font-family: 'Barlow Condensed', sans-serif; font-weight: 600;
+        letter-spacing: 0.5px; transition: all 0.2s;
+      }
+      .filtro-btn:hover, .filtro-btn.ativo {
+        background: var(--amarelo); color: var(--preto);
+        border-color: var(--amarelo);
+      }
+      .jogo-oculto { display: none !important; }
+      .rodada-titulo {
+        font-family: 'Barlow Condensed', sans-serif;
+        font-size: 0.7rem; font-weight: 700; letter-spacing: 3px;
+        text-transform: uppercase; color: var(--verde);
+        padding: 1rem 2rem 0.5rem; background: var(--cinza-escuro);
+        border-top: 1px solid rgba(255,255,255,0.04);
+      }
+    </style>
+
+    <div class="jogos-lista" id="lista-jogos">
+
+      <div class="rodada-titulo">1ª Rodada — 11 a 17 de junho</div>
+
+      <div class="jogo-item" data-times="México|África do Sul">
+        <div class="jogo-time"><div class="bandeira"><img src="https://flagcdn.com/w40/mx.png" alt="México" style="width:28px;height:auto;border-radius:3px;"></div><span class="time-nome">México</span></div>
+        <div class="jogo-centro"><div class="placar">— · —</div><div class="horario" style="margin-top:4px">11 JUN · 16h</div></div>
+        <div class="jogo-time right"><div class="bandeira"><img src="https://flagcdn.com/w40/za.png" alt="África do Sul" style="width:28px;height:auto;border-radius:3px;"></div><span class="time-nome">África do Sul</span></div>
+        <div class="jogo-info"><div class="jogo-fase">Grupo A</div><div style="font-size:0.7rem;color:#666;margin-top:2px">Estádio Azteca · CDMX</div></div>
       </div>
 
-      <div class="jogo-item">
-        <div class="jogo-time">
-          <div class="bandeira">🇧🇷</div>
-          <span class="time-nome">Brasil</span>
-        </div>
-        <div class="jogo-centro">
-          <div class="placar">— · —</div>
-          <div class="horario" style="margin-top:4px">19 JUN · 21h30</div>
-        </div>
-        <div class="jogo-time right">
-          <div class="bandeira">🇲🇦</div>
-          <span class="time-nome">Marrocos</span>
-        </div>
-        <div class="jogo-info">
-          <div class="jogo-fase">Grupo C · 1ª Rodada</div>
-          <div style="font-size:0.7rem;color:#666;margin-top:2px">MetLife Stadium · Nova York</div>
-        </div>
+      <div class="jogo-item" data-times="Coreia do Sul|Tchéquia">
+        <div class="jogo-time"><div class="bandeira"><img src="https://flagcdn.com/w40/kr.png" alt="Coreia do Sul" style="width:28px;height:auto;border-radius:3px;"></div><span class="time-nome">Coreia do Sul</span></div>
+        <div class="jogo-centro"><div class="placar">— · —</div><div class="horario" style="margin-top:4px">11 JUN · 23h</div></div>
+        <div class="jogo-time right"><div class="bandeira"><img src="https://flagcdn.com/w40/cz.png" alt="Tchéquia" style="width:28px;height:auto;border-radius:3px;"></div><span class="time-nome">Tchéquia</span></div>
+        <div class="jogo-info"><div class="jogo-fase">Grupo A</div><div style="font-size:0.7rem;color:#666;margin-top:2px">Guadalajara</div></div>
       </div>
 
-      <div class="jogo-item">
-        <div class="jogo-time">
-          <div class="bandeira">🇧🇷</div>
-          <span class="time-nome">Brasil</span>
-        </div>
-        <div class="jogo-centro">
-          <div class="placar">— · —</div>
-          <div class="horario" style="margin-top:4px">24 JUN · 19h</div>
-        </div>
-        <div class="jogo-time right">
-          <div class="bandeira">🇭🇹</div>
-          <span class="time-nome">Haiti</span>
-        </div>
-        <div class="jogo-info">
-          <div class="jogo-fase">Grupo C · 2ª Rodada</div>
-          <div style="font-size:0.7rem;color:#666;margin-top:2px">Lincoln Field · Filadélfia</div>
-        </div>
+      <div class="jogo-item" data-times="Canadá|Bósnia-Herzegovina">
+        <div class="jogo-time"><div class="bandeira"><img src="https://flagcdn.com/w40/ca.png" alt="Canadá" style="width:28px;height:auto;border-radius:3px;"></div><span class="time-nome">Canadá</span></div>
+        <div class="jogo-centro"><div class="placar">— · —</div><div class="horario" style="margin-top:4px">12 JUN · 16h</div></div>
+        <div class="jogo-time right"><div class="bandeira"><img src="https://flagcdn.com/w40/ba.png" alt="Bósnia-Herzegovina" style="width:28px;height:auto;border-radius:3px;"></div><span class="time-nome">Bósnia-Herz.</span></div>
+        <div class="jogo-info"><div class="jogo-fase">Grupo B</div><div style="font-size:0.7rem;color:#666;margin-top:2px">Toronto</div></div>
       </div>
 
-      <div class="jogo-item">
-        <div class="jogo-time">
-          <div class="bandeira">🇧🇷</div>
-          <span class="time-nome">Brasil</span>
-        </div>
-        <div class="jogo-centro">
-          <div class="placar">— · —</div>
-          <div class="horario" style="margin-top:4px">24 JUN · 19h</div>
-        </div>
-        <div class="jogo-time right">
-          <div class="bandeira">🏴󠁧󠁢󠁳󠁣󠁴󠁿</div>
-          <span class="time-nome">Escócia</span>
-        </div>
-        <div class="jogo-info">
-          <div class="jogo-fase">Grupo C · 3ª Rodada</div>
-          <div style="font-size:0.7rem;color:#666;margin-top:2px">Hard Rock Stadium · Miami</div>
-        </div>
+      <div class="jogo-item" data-times="EUA|Paraguai">
+        <div class="jogo-time"><div class="bandeira"><img src="https://flagcdn.com/w40/us.png" alt="EUA" style="width:28px;height:auto;border-radius:3px;"></div><span class="time-nome">EUA</span></div>
+        <div class="jogo-centro"><div class="placar">— · —</div><div class="horario" style="margin-top:4px">12 JUN · 22h</div></div>
+        <div class="jogo-time right"><div class="bandeira"><img src="https://flagcdn.com/w40/py.png" alt="Paraguai" style="width:28px;height:auto;border-radius:3px;"></div><span class="time-nome">Paraguai</span></div>
+        <div class="jogo-info"><div class="jogo-fase">Grupo D</div><div style="font-size:0.7rem;color:#666;margin-top:2px">Los Angeles</div></div>
       </div>
+
+      <div class="jogo-item" data-times="Austrália|Turquia">
+        <div class="jogo-time"><div class="bandeira"><img src="https://flagcdn.com/w40/au.png" alt="Austrália" style="width:28px;height:auto;border-radius:3px;"></div><span class="time-nome">Austrália</span></div>
+        <div class="jogo-centro"><div class="placar">— · —</div><div class="horario" style="margin-top:4px">13 JUN · 1h</div></div>
+        <div class="jogo-time right"><div class="bandeira"><img src="https://flagcdn.com/w40/tr.png" alt="Turquia" style="width:28px;height:auto;border-radius:3px;"></div><span class="time-nome">Turquia</span></div>
+        <div class="jogo-info"><div class="jogo-fase">Grupo D</div><div style="font-size:0.7rem;color:#666;margin-top:2px">Vancouver</div></div>
+      </div>
+
+      <div class="jogo-item" data-times="Catar|Suíça">
+        <div class="jogo-time"><div class="bandeira"><img src="https://flagcdn.com/w40/qa.png" alt="Catar" style="width:28px;height:auto;border-radius:3px;"></div><span class="time-nome">Catar</span></div>
+        <div class="jogo-centro"><div class="placar">— · —</div><div class="horario" style="margin-top:4px">13 JUN · 16h</div></div>
+        <div class="jogo-time right"><div class="bandeira"><img src="https://flagcdn.com/w40/ch.png" alt="Suíça" style="width:28px;height:auto;border-radius:3px;"></div><span class="time-nome">Suíça</span></div>
+        <div class="jogo-info"><div class="jogo-fase">Grupo B</div><div style="font-size:0.7rem;color:#666;margin-top:2px">San Francisco</div></div>
+      </div>
+
+      <div class="jogo-item" data-times="Brasil|Marrocos" style="border-left:3px solid var(--amarelo)">
+        <div class="jogo-time"><div class="bandeira"><img src="https://flagcdn.com/w40/br.png" alt="Brasil" style="width:28px;height:auto;border-radius:3px;"></div><span class="time-nome">Brasil</span></div>
+        <div class="jogo-centro"><div class="placar">— · —</div><div class="horario" style="margin-top:4px">13 JUN · 19h</div></div>
+        <div class="jogo-time right"><div class="bandeira"><img src="https://flagcdn.com/w40/ma.png" alt="Marrocos" style="width:28px;height:auto;border-radius:3px;"></div><span class="time-nome">Marrocos</span></div>
+        <div class="jogo-info"><div class="jogo-fase">Grupo C</div><div style="font-size:0.7rem;color:#666;margin-top:2px">MetLife · Nova York</div></div>
+      </div>
+
+      <div class="jogo-item" data-times="Haiti|Escócia">
+        <div class="jogo-time"><div class="bandeira"><img src="https://flagcdn.com/w40/ht.png" alt="Haiti" style="width:28px;height:auto;border-radius:3px;"></div><span class="time-nome">Haiti</span></div>
+        <div class="jogo-centro"><div class="placar">— · —</div><div class="horario" style="margin-top:4px">13 JUN · 22h</div></div>
+        <div class="jogo-time right"><div class="bandeira"><img src="https://flagcdn.com/w40/gb.png" alt="Escócia" style="width:28px;height:auto;border-radius:3px;"></div><span class="time-nome">Escócia</span></div>
+        <div class="jogo-info"><div class="jogo-fase">Grupo C</div><div style="font-size:0.7rem;color:#666;margin-top:2px">Boston</div></div>
+      </div>
+
+      <div class="jogo-item" data-times="Alemanha|Curaçao">
+        <div class="jogo-time"><div class="bandeira"><img src="https://flagcdn.com/w40/de.png" alt="Alemanha" style="width:28px;height:auto;border-radius:3px;"></div><span class="time-nome">Alemanha</span></div>
+        <div class="jogo-centro"><div class="placar">— · —</div><div class="horario" style="margin-top:4px">14 JUN · 14h</div></div>
+        <div class="jogo-time right"><div class="bandeira"><img src="https://flagcdn.com/w40/cw.png" alt="Curaçao" style="width:28px;height:auto;border-radius:3px;"></div><span class="time-nome">Curaçao</span></div>
+        <div class="jogo-info"><div class="jogo-fase">Grupo E</div><div style="font-size:0.7rem;color:#666;margin-top:2px">Houston</div></div>
+      </div>
+
+      <div class="jogo-item" data-times="Países Baixos|Japão">
+        <div class="jogo-time"><div class="bandeira"><img src="https://flagcdn.com/w40/nl.png" alt="Holanda" style="width:28px;height:auto;border-radius:3px;"></div><span class="time-nome">Holanda</span></div>
+        <div class="jogo-centro"><div class="placar">— · —</div><div class="horario" style="margin-top:4px">14 JUN · 17h</div></div>
+        <div class="jogo-time right"><div class="bandeira"><img src="https://flagcdn.com/w40/jp.png" alt="Japão" style="width:28px;height:auto;border-radius:3px;"></div><span class="time-nome">Japão</span></div>
+        <div class="jogo-info"><div class="jogo-fase">Grupo F</div><div style="font-size:0.7rem;color:#666;margin-top:2px">Dallas</div></div>
+      </div>
+
+      <div class="jogo-item" data-times="Costa do Marfim|Equador">
+        <div class="jogo-time"><div class="bandeira"><img src="https://flagcdn.com/w40/ci.png" alt="Costa do Marfim" style="width:28px;height:auto;border-radius:3px;"></div><span class="time-nome">Costa do Marfim</span></div>
+        <div class="jogo-centro"><div class="placar">— · —</div><div class="horario" style="margin-top:4px">14 JUN · 20h</div></div>
+        <div class="jogo-time right"><div class="bandeira"><img src="https://flagcdn.com/w40/ec.png" alt="Equador" style="width:28px;height:auto;border-radius:3px;"></div><span class="time-nome">Equador</span></div>
+        <div class="jogo-info"><div class="jogo-fase">Grupo E</div><div style="font-size:0.7rem;color:#666;margin-top:2px">Filadélfia</div></div>
+      </div>
+
+      <div class="jogo-item" data-times="Suécia|Tunísia">
+        <div class="jogo-time"><div class="bandeira"><img src="https://flagcdn.com/w40/se.png" alt="Suécia" style="width:28px;height:auto;border-radius:3px;"></div><span class="time-nome">Suécia</span></div>
+        <div class="jogo-centro"><div class="placar">— · —</div><div class="horario" style="margin-top:4px">14 JUN · 23h</div></div>
+        <div class="jogo-time right"><div class="bandeira"><img src="https://flagcdn.com/w40/tn.png" alt="Tunísia" style="width:28px;height:auto;border-radius:3px;"></div><span class="time-nome">Tunísia</span></div>
+        <div class="jogo-info"><div class="jogo-fase">Grupo F</div><div style="font-size:0.7rem;color:#666;margin-top:2px">Monterrey</div></div>
+      </div>
+
+      <div class="jogo-item" data-times="Espanha|Cabo Verde">
+        <div class="jogo-time"><div class="bandeira"><img src="https://flagcdn.com/w40/es.png" alt="Espanha" style="width:28px;height:auto;border-radius:3px;"></div><span class="time-nome">Espanha</span></div>
+        <div class="jogo-centro"><div class="placar">— · —</div><div class="horario" style="margin-top:4px">15 JUN · 13h</div></div>
+        <div class="jogo-time right"><div class="bandeira"><img src="https://flagcdn.com/w40/cv.png" alt="Cabo Verde" style="width:28px;height:auto;border-radius:3px;"></div><span class="time-nome">Cabo Verde</span></div>
+        <div class="jogo-info"><div class="jogo-fase">Grupo H</div><div style="font-size:0.7rem;color:#666;margin-top:2px">Atlanta</div></div>
+      </div>
+
+      <div class="jogo-item" data-times="Bélgica|Egito">
+        <div class="jogo-time"><div class="bandeira"><img src="https://flagcdn.com/w40/be.png" alt="Bélgica" style="width:28px;height:auto;border-radius:3px;"></div><span class="time-nome">Bélgica</span></div>
+        <div class="jogo-centro"><div class="placar">— · —</div><div class="horario" style="margin-top:4px">15 JUN · 16h</div></div>
+        <div class="jogo-time right"><div class="bandeira"><img src="https://flagcdn.com/w40/eg.png" alt="Egito" style="width:28px;height:auto;border-radius:3px;"></div><span class="time-nome">Egito</span></div>
+        <div class="jogo-info"><div class="jogo-fase">Grupo G</div><div style="font-size:0.7rem;color:#666;margin-top:2px">Seattle</div></div>
+      </div>
+
+      <div class="jogo-item" data-times="Arábia Saudita|Uruguai">
+        <div class="jogo-time"><div class="bandeira"><img src="https://flagcdn.com/w40/sa.png" alt="Arábia Saudita" style="width:28px;height:auto;border-radius:3px;"></div><span class="time-nome">Arábia Saudita</span></div>
+        <div class="jogo-centro"><div class="placar">— · —</div><div class="horario" style="margin-top:4px">15 JUN · 19h</div></div>
+        <div class="jogo-time right"><div class="bandeira"><img src="https://flagcdn.com/w40/uy.png" alt="Uruguai" style="width:28px;height:auto;border-radius:3px;"></div><span class="time-nome">Uruguai</span></div>
+        <div class="jogo-info"><div class="jogo-fase">Grupo H</div><div style="font-size:0.7rem;color:#666;margin-top:2px">Miami</div></div>
+      </div>
+
+      <div class="jogo-item" data-times="Irã|Nova Zelândia">
+        <div class="jogo-time"><div class="bandeira"><img src="https://flagcdn.com/w40/ir.png" alt="Irã" style="width:28px;height:auto;border-radius:3px;"></div><span class="time-nome">Irã</span></div>
+        <div class="jogo-centro"><div class="placar">— · —</div><div class="horario" style="margin-top:4px">15 JUN · 22h</div></div>
+        <div class="jogo-time right"><div class="bandeira"><img src="https://flagcdn.com/w40/nz.png" alt="Nova Zelândia" style="width:28px;height:auto;border-radius:3px;"></div><span class="time-nome">Nova Zelândia</span></div>
+        <div class="jogo-info"><div class="jogo-fase">Grupo G</div><div style="font-size:0.7rem;color:#666;margin-top:2px">Los Angeles</div></div>
+      </div>
+
+      <div class="jogo-item" data-times="Áustria|Jordânia">
+        <div class="jogo-time"><div class="bandeira"><img src="https://flagcdn.com/w40/at.png" alt="Áustria" style="width:28px;height:auto;border-radius:3px;"></div><span class="time-nome">Áustria</span></div>
+        <div class="jogo-centro"><div class="placar">— · —</div><div class="horario" style="margin-top:4px">16 JUN · 1h</div></div>
+        <div class="jogo-time right"><div class="bandeira"><img src="https://flagcdn.com/w40/jo.png" alt="Jordânia" style="width:28px;height:auto;border-radius:3px;"></div><span class="time-nome">Jordânia</span></div>
+        <div class="jogo-info"><div class="jogo-fase">Grupo J</div><div style="font-size:0.7rem;color:#666;margin-top:2px">San Francisco</div></div>
+      </div>
+
+      <div class="jogo-item" data-times="França|Senegal">
+        <div class="jogo-time"><div class="bandeira"><img src="https://flagcdn.com/w40/fr.png" alt="França" style="width:28px;height:auto;border-radius:3px;"></div><span class="time-nome">França</span></div>
+        <div class="jogo-centro"><div class="placar">— · —</div><div class="horario" style="margin-top:4px">16 JUN · 16h</div></div>
+        <div class="jogo-time right"><div class="bandeira"><img src="https://flagcdn.com/w40/sn.png" alt="Senegal" style="width:28px;height:auto;border-radius:3px;"></div><span class="time-nome">Senegal</span></div>
+        <div class="jogo-info"><div class="jogo-fase">Grupo I</div><div style="font-size:0.7rem;color:#666;margin-top:2px">Nova York</div></div>
+      </div>
+
+      <div class="jogo-item" data-times="Iraque|Noruega">
+        <div class="jogo-time"><div class="bandeira"><img src="https://flagcdn.com/w40/iq.png" alt="Iraque" style="width:28px;height:auto;border-radius:3px;"></div><span class="time-nome">Iraque</span></div>
+        <div class="jogo-centro"><div class="placar">— · —</div><div class="horario" style="margin-top:4px">16 JUN · 19h</div></div>
+        <div class="jogo-time right"><div class="bandeira"><img src="https://flagcdn.com/w40/no.png" alt="Noruega" style="width:28px;height:auto;border-radius:3px;"></div><span class="time-nome">Noruega</span></div>
+        <div class="jogo-info"><div class="jogo-fase">Grupo I</div><div style="font-size:0.7rem;color:#666;margin-top:2px">Boston</div></div>
+      </div>
+
+      <div class="jogo-item" data-times="Argentina|Argélia">
+        <div class="jogo-time"><div class="bandeira"><img src="https://flagcdn.com/w40/ar.png" alt="Argentina" style="width:28px;height:auto;border-radius:3px;"></div><span class="time-nome">Argentina</span></div>
+        <div class="jogo-centro"><div class="placar">— · —</div><div class="horario" style="margin-top:4px">16 JUN · 22h</div></div>
+        <div class="jogo-time right"><div class="bandeira"><img src="https://flagcdn.com/w40/dz.png" alt="Argélia" style="width:28px;height:auto;border-radius:3px;"></div><span class="time-nome">Argélia</span></div>
+        <div class="jogo-info"><div class="jogo-fase">Grupo J</div><div style="font-size:0.7rem;color:#666;margin-top:2px">Kansas City</div></div>
+      </div>
+
+      <div class="jogo-item" data-times="Portugal|RD Congo">
+        <div class="jogo-time"><div class="bandeira"><img src="https://flagcdn.com/w40/pt.png" alt="Portugal" style="width:28px;height:auto;border-radius:3px;"></div><span class="time-nome">Portugal</span></div>
+        <div class="jogo-centro"><div class="placar">— · —</div><div class="horario" style="margin-top:4px">17 JUN · 14h</div></div>
+        <div class="jogo-time right"><div class="bandeira"><img src="https://flagcdn.com/w40/cd.png" alt="RD Congo" style="width:28px;height:auto;border-radius:3px;"></div><span class="time-nome">RD Congo</span></div>
+        <div class="jogo-info"><div class="jogo-fase">Grupo K</div><div style="font-size:0.7rem;color:#666;margin-top:2px">Houston</div></div>
+      </div>
+
+      <div class="jogo-item" data-times="Inglaterra|Croácia">
+        <div class="jogo-time"><div class="bandeira"><img src="https://flagcdn.com/w40/gb.png" alt="Inglaterra" style="width:28px;height:auto;border-radius:3px;"></div><span class="time-nome">Inglaterra</span></div>
+        <div class="jogo-centro"><div class="placar">— · —</div><div class="horario" style="margin-top:4px">17 JUN · 17h</div></div>
+        <div class="jogo-time right"><div class="bandeira"><img src="https://flagcdn.com/w40/hr.png" alt="Croácia" style="width:28px;height:auto;border-radius:3px;"></div><span class="time-nome">Croácia</span></div>
+        <div class="jogo-info"><div class="jogo-fase">Grupo L</div><div style="font-size:0.7rem;color:#666;margin-top:2px">Dallas</div></div>
+      </div>
+
+      <div class="jogo-item" data-times="Gana|Panamá">
+        <div class="jogo-time"><div class="bandeira"><img src="https://flagcdn.com/w40/gh.png" alt="Gana" style="width:28px;height:auto;border-radius:3px;"></div><span class="time-nome">Gana</span></div>
+        <div class="jogo-centro"><div class="placar">— · —</div><div class="horario" style="margin-top:4px">17 JUN · 20h</div></div>
+        <div class="jogo-time right"><div class="bandeira"><img src="https://flagcdn.com/w40/pa.png" alt="Panamá" style="width:28px;height:auto;border-radius:3px;"></div><span class="time-nome">Panamá</span></div>
+        <div class="jogo-info"><div class="jogo-fase">Grupo L</div><div style="font-size:0.7rem;color:#666;margin-top:2px">Toronto</div></div>
+      </div>
+
+      <div class="jogo-item" data-times="Uzbequistão|Colômbia">
+        <div class="jogo-time"><div class="bandeira"><img src="https://flagcdn.com/w40/uz.png" alt="Uzbequistão" style="width:28px;height:auto;border-radius:3px;"></div><span class="time-nome">Uzbequistão</span></div>
+        <div class="jogo-centro"><div class="placar">— · —</div><div class="horario" style="margin-top:4px">17 JUN · 23h</div></div>
+        <div class="jogo-time right"><div class="bandeira"><img src="https://flagcdn.com/w40/co.png" alt="Colômbia" style="width:28px;height:auto;border-radius:3px;"></div><span class="time-nome">Colômbia</span></div>
+        <div class="jogo-info"><div class="jogo-fase">Grupo K</div><div style="font-size:0.7rem;color:#666;margin-top:2px">Cidade do México</div></div>
+      </div>
+
+      <div class="rodada-titulo">2ª Rodada — 18 a 23 de junho</div>
+
+      <div class="jogo-item" data-times="Tchéquia|África do Sul">
+        <div class="jogo-time"><div class="bandeira"><img src="https://flagcdn.com/w40/cz.png" alt="Tchéquia" style="width:28px;height:auto;border-radius:3px;"></div><span class="time-nome">Tchéquia</span></div>
+        <div class="jogo-centro"><div class="placar">— · —</div><div class="horario" style="margin-top:4px">18 JUN · 13h</div></div>
+        <div class="jogo-time right"><div class="bandeira"><img src="https://flagcdn.com/w40/za.png" alt="África do Sul" style="width:28px;height:auto;border-radius:3px;"></div><span class="time-nome">África do Sul</span></div>
+        <div class="jogo-info"><div class="jogo-fase">Grupo A</div><div style="font-size:0.7rem;color:#666;margin-top:2px">Atlanta</div></div>
+      </div>
+
+      <div class="jogo-item" data-times="Suíça|Bósnia-Herzegovina">
+        <div class="jogo-time"><div class="bandeira"><img src="https://flagcdn.com/w40/ch.png" alt="Suíça" style="width:28px;height:auto;border-radius:3px;"></div><span class="time-nome">Suíça</span></div>
+        <div class="jogo-centro"><div class="placar">— · —</div><div class="horario" style="margin-top:4px">18 JUN · 16h</div></div>
+        <div class="jogo-time right"><div class="bandeira"><img src="https://flagcdn.com/w40/ba.png" alt="Bósnia-Herzegovina" style="width:28px;height:auto;border-radius:3px;"></div><span class="time-nome">Bósnia-Herz.</span></div>
+        <div class="jogo-info"><div class="jogo-fase">Grupo B</div><div style="font-size:0.7rem;color:#666;margin-top:2px">Los Angeles</div></div>
+      </div>
+
+      <div class="jogo-item" data-times="Canadá|Catar">
+        <div class="jogo-time"><div class="bandeira"><img src="https://flagcdn.com/w40/ca.png" alt="Canadá" style="width:28px;height:auto;border-radius:3px;"></div><span class="time-nome">Canadá</span></div>
+        <div class="jogo-centro"><div class="placar">— · —</div><div class="horario" style="margin-top:4px">18 JUN · 19h</div></div>
+        <div class="jogo-time right"><div class="bandeira"><img src="https://flagcdn.com/w40/qa.png" alt="Catar" style="width:28px;height:auto;border-radius:3px;"></div><span class="time-nome">Catar</span></div>
+        <div class="jogo-info"><div class="jogo-fase">Grupo B</div><div style="font-size:0.7rem;color:#666;margin-top:2px">Vancouver</div></div>
+      </div>
+
+      <div class="jogo-item" data-times="México|Coreia do Sul">
+        <div class="jogo-time"><div class="bandeira"><img src="https://flagcdn.com/w40/mx.png" alt="México" style="width:28px;height:auto;border-radius:3px;"></div><span class="time-nome">México</span></div>
+        <div class="jogo-centro"><div class="placar">— · —</div><div class="horario" style="margin-top:4px">18 JUN · 22h</div></div>
+        <div class="jogo-time right"><div class="bandeira"><img src="https://flagcdn.com/w40/kr.png" alt="Coreia do Sul" style="width:28px;height:auto;border-radius:3px;"></div><span class="time-nome">Coreia do Sul</span></div>
+        <div class="jogo-info"><div class="jogo-fase">Grupo A</div><div style="font-size:0.7rem;color:#666;margin-top:2px">Guadalajara</div></div>
+      </div>
+
+      <div class="jogo-item" data-times="Turquia|Paraguai">
+        <div class="jogo-time"><div class="bandeira"><img src="https://flagcdn.com/w40/tr.png" alt="Turquia" style="width:28px;height:auto;border-radius:3px;"></div><span class="time-nome">Turquia</span></div>
+        <div class="jogo-centro"><div class="placar">— · —</div><div class="horario" style="margin-top:4px">19 JUN · 1h</div></div>
+        <div class="jogo-time right"><div class="bandeira"><img src="https://flagcdn.com/w40/py.png" alt="Paraguai" style="width:28px;height:auto;border-radius:3px;"></div><span class="time-nome">Paraguai</span></div>
+        <div class="jogo-info"><div class="jogo-fase">Grupo D</div><div style="font-size:0.7rem;color:#666;margin-top:2px">San Francisco</div></div>
+      </div>
+
+      <div class="jogo-item" data-times="EUA|Austrália">
+        <div class="jogo-time"><div class="bandeira"><img src="https://flagcdn.com/w40/us.png" alt="EUA" style="width:28px;height:auto;border-radius:3px;"></div><span class="time-nome">EUA</span></div>
+        <div class="jogo-centro"><div class="placar">— · —</div><div class="horario" style="margin-top:4px">19 JUN · 16h</div></div>
+        <div class="jogo-time right"><div class="bandeira"><img src="https://flagcdn.com/w40/au.png" alt="Austrália" style="width:28px;height:auto;border-radius:3px;"></div><span class="time-nome">Austrália</span></div>
+        <div class="jogo-info"><div class="jogo-fase">Grupo D</div><div style="font-size:0.7rem;color:#666;margin-top:2px">Seattle</div></div>
+      </div>
+
+      <div class="jogo-item" data-times="Escócia|Marrocos">
+        <div class="jogo-time"><div class="bandeira"><img src="https://flagcdn.com/w40/gb.png" alt="Escócia" style="width:28px;height:auto;border-radius:3px;"></div><span class="time-nome">Escócia</span></div>
+        <div class="jogo-centro"><div class="placar">— · —</div><div class="horario" style="margin-top:4px">19 JUN · 19h</div></div>
+        <div class="jogo-time right"><div class="bandeira"><img src="https://flagcdn.com/w40/ma.png" alt="Marrocos" style="width:28px;height:auto;border-radius:3px;"></div><span class="time-nome">Marrocos</span></div>
+        <div class="jogo-info"><div class="jogo-fase">Grupo C</div><div style="font-size:0.7rem;color:#666;margin-top:2px">Boston</div></div>
+      </div>
+
+      <div class="jogo-item" data-times="Brasil|Haiti" style="border-left:3px solid var(--amarelo)">
+        <div class="jogo-time"><div class="bandeira"><img src="https://flagcdn.com/w40/br.png" alt="Brasil" style="width:28px;height:auto;border-radius:3px;"></div><span class="time-nome">Brasil</span></div>
+        <div class="jogo-centro"><div class="placar">— · —</div><div class="horario" style="margin-top:4px">19 JUN · 21h30</div></div>
+        <div class="jogo-time right"><div class="bandeira"><img src="https://flagcdn.com/w40/ht.png" alt="Haiti" style="width:28px;height:auto;border-radius:3px;"></div><span class="time-nome">Haiti</span></div>
+        <div class="jogo-info"><div class="jogo-fase">Grupo C</div><div style="font-size:0.7rem;color:#666;margin-top:2px">Lincoln Field · Filadélfia</div></div>
+      </div>
+
+      <div class="jogo-item" data-times="Alemanha|Costa do Marfim">
+        <div class="jogo-time"><div class="bandeira"><img src="https://flagcdn.com/w40/de.png" alt="Alemanha" style="width:28px;height:auto;border-radius:3px;"></div><span class="time-nome">Alemanha</span></div>
+        <div class="jogo-centro"><div class="placar">— · —</div><div class="horario" style="margin-top:4px">20 JUN · 17h</div></div>
+        <div class="jogo-time right"><div class="bandeira"><img src="https://flagcdn.com/w40/ci.png" alt="Costa do Marfim" style="width:28px;height:auto;border-radius:3px;"></div><span class="time-nome">Costa do Marfim</span></div>
+        <div class="jogo-info"><div class="jogo-fase">Grupo E</div><div style="font-size:0.7rem;color:#666;margin-top:2px">Toronto</div></div>
+      </div>
+
+      <div class="jogo-item" data-times="Países Baixos|Suécia">
+        <div class="jogo-time"><div class="bandeira"><img src="https://flagcdn.com/w40/nl.png" alt="Holanda" style="width:28px;height:auto;border-radius:3px;"></div><span class="time-nome">Holanda</span></div>
+        <div class="jogo-centro"><div class="placar">— · —</div><div class="horario" style="margin-top:4px">20 JUN · 14h</div></div>
+        <div class="jogo-time right"><div class="bandeira"><img src="https://flagcdn.com/w40/se.png" alt="Suécia" style="width:28px;height:auto;border-radius:3px;"></div><span class="time-nome">Suécia</span></div>
+        <div class="jogo-info"><div class="jogo-fase">Grupo F</div><div style="font-size:0.7rem;color:#666;margin-top:2px">Houston</div></div>
+      </div>
+
+      <div class="jogo-item" data-times="Espanha|Arábia Saudita">
+        <div class="jogo-time"><div class="bandeira"><img src="https://flagcdn.com/w40/es.png" alt="Espanha" style="width:28px;height:auto;border-radius:3px;"></div><span class="time-nome">Espanha</span></div>
+        <div class="jogo-centro"><div class="placar">— · —</div><div class="horario" style="margin-top:4px">21 JUN · 13h</div></div>
+        <div class="jogo-time right"><div class="bandeira"><img src="https://flagcdn.com/w40/sa.png" alt="Arábia Saudita" style="width:28px;height:auto;border-radius:3px;"></div><span class="time-nome">Arábia Saudita</span></div>
+        <div class="jogo-info"><div class="jogo-fase">Grupo H</div><div style="font-size:0.7rem;color:#666;margin-top:2px">Atlanta</div></div>
+      </div>
+
+      <div class="jogo-item" data-times="Uruguai|Cabo Verde">
+        <div class="jogo-time"><div class="bandeira"><img src="https://flagcdn.com/w40/uy.png" alt="Uruguai" style="width:28px;height:auto;border-radius:3px;"></div><span class="time-nome">Uruguai</span></div>
+        <div class="jogo-centro"><div class="placar">— · —</div><div class="horario" style="margin-top:4px">21 JUN · 19h</div></div>
+        <div class="jogo-time right"><div class="bandeira"><img src="https://flagcdn.com/w40/cv.png" alt="Cabo Verde" style="width:28px;height:auto;border-radius:3px;"></div><span class="time-nome">Cabo Verde</span></div>
+        <div class="jogo-info"><div class="jogo-fase">Grupo H</div><div style="font-size:0.7rem;color:#666;margin-top:2px">Miami</div></div>
+      </div>
+
+      <div class="jogo-item" data-times="França|Iraque">
+        <div class="jogo-time"><div class="bandeira"><img src="https://flagcdn.com/w40/fr.png" alt="França" style="width:28px;height:auto;border-radius:3px;"></div><span class="time-nome">França</span></div>
+        <div class="jogo-centro"><div class="placar">— · —</div><div class="horario" style="margin-top:4px">22 JUN · 18h</div></div>
+        <div class="jogo-time right"><div class="bandeira"><img src="https://flagcdn.com/w40/iq.png" alt="Iraque" style="width:28px;height:auto;border-radius:3px;"></div><span class="time-nome">Iraque</span></div>
+        <div class="jogo-info"><div class="jogo-fase">Grupo I</div><div style="font-size:0.7rem;color:#666;margin-top:2px">Filadélfia</div></div>
+      </div>
+
+      <div class="jogo-item" data-times="Argentina|Áustria">
+        <div class="jogo-time"><div class="bandeira"><img src="https://flagcdn.com/w40/ar.png" alt="Argentina" style="width:28px;height:auto;border-radius:3px;"></div><span class="time-nome">Argentina</span></div>
+        <div class="jogo-centro"><div class="placar">— · —</div><div class="horario" style="margin-top:4px">22 JUN · 14h</div></div>
+        <div class="jogo-time right"><div class="bandeira"><img src="https://flagcdn.com/w40/at.png" alt="Áustria" style="width:28px;height:auto;border-radius:3px;"></div><span class="time-nome">Áustria</span></div>
+        <div class="jogo-info"><div class="jogo-fase">Grupo J</div><div style="font-size:0.7rem;color:#666;margin-top:2px">Dallas</div></div>
+      </div>
+
+      <div class="jogo-item" data-times="Portugal|Uzbequistão">
+        <div class="jogo-time"><div class="bandeira"><img src="https://flagcdn.com/w40/pt.png" alt="Portugal" style="width:28px;height:auto;border-radius:3px;"></div><span class="time-nome">Portugal</span></div>
+        <div class="jogo-centro"><div class="placar">— · —</div><div class="horario" style="margin-top:4px">23 JUN · 14h</div></div>
+        <div class="jogo-time right"><div class="bandeira"><img src="https://flagcdn.com/w40/uz.png" alt="Uzbequistão" style="width:28px;height:auto;border-radius:3px;"></div><span class="time-nome">Uzbequistão</span></div>
+        <div class="jogo-info"><div class="jogo-fase">Grupo K</div><div style="font-size:0.7rem;color:#666;margin-top:2px">Houston</div></div>
+      </div>
+
+      <div class="jogo-item" data-times="Inglaterra|Gana">
+        <div class="jogo-time"><div class="bandeira"><img src="https://flagcdn.com/w40/gb.png" alt="Inglaterra" style="width:28px;height:auto;border-radius:3px;"></div><span class="time-nome">Inglaterra</span></div>
+        <div class="jogo-centro"><div class="placar">— · —</div><div class="horario" style="margin-top:4px">23 JUN · 17h</div></div>
+        <div class="jogo-time right"><div class="bandeira"><img src="https://flagcdn.com/w40/gh.png" alt="Gana" style="width:28px;height:auto;border-radius:3px;"></div><span class="time-nome">Gana</span></div>
+        <div class="jogo-info"><div class="jogo-fase">Grupo L</div><div style="font-size:0.7rem;color:#666;margin-top:2px">Boston</div></div>
+      </div>
+
+      <div class="jogo-item" data-times="Colômbia|RD Congo">
+        <div class="jogo-time"><div class="bandeira"><img src="https://flagcdn.com/w40/co.png" alt="Colômbia" style="width:28px;height:auto;border-radius:3px;"></div><span class="time-nome">Colômbia</span></div>
+        <div class="jogo-centro"><div class="placar">— · —</div><div class="horario" style="margin-top:4px">23 JUN · 23h</div></div>
+        <div class="jogo-time right"><div class="bandeira"><img src="https://flagcdn.com/w40/cd.png" alt="RD Congo" style="width:28px;height:auto;border-radius:3px;"></div><span class="time-nome">RD Congo</span></div>
+        <div class="jogo-info"><div class="jogo-fase">Grupo K</div><div style="font-size:0.7rem;color:#666;margin-top:2px">Guadalajara</div></div>
+      </div>
+
+      <div class="rodada-titulo">3ª Rodada — 24 a 27 de junho</div>
+
+      <div class="jogo-item" data-times="Escócia|Brasil" style="border-left:3px solid var(--amarelo)">
+        <div class="jogo-time"><div class="bandeira"><img src="https://flagcdn.com/w40/gb.png" alt="Escócia" style="width:28px;height:auto;border-radius:3px;"></div><span class="time-nome">Escócia</span></div>
+        <div class="jogo-centro"><div class="placar">— · —</div><div class="horario" style="margin-top:4px">24 JUN · 19h</div></div>
+        <div class="jogo-time right"><div class="bandeira"><img src="https://flagcdn.com/w40/br.png" alt="Brasil" style="width:28px;height:auto;border-radius:3px;"></div><span class="time-nome">Brasil</span></div>
+        <div class="jogo-info"><div class="jogo-fase">Grupo C</div><div style="font-size:0.7rem;color:#666;margin-top:2px">Hard Rock · Miami</div></div>
+      </div>
+
+      <div class="jogo-item" data-times="Marrocos|Haiti">
+        <div class="jogo-time"><div class="bandeira"><img src="https://flagcdn.com/w40/ma.png" alt="Marrocos" style="width:28px;height:auto;border-radius:3px;"></div><span class="time-nome">Marrocos</span></div>
+        <div class="jogo-centro"><div class="placar">— · —</div><div class="horario" style="margin-top:4px">24 JUN · 19h</div></div>
+        <div class="jogo-time right"><div class="bandeira"><img src="https://flagcdn.com/w40/ht.png" alt="Haiti" style="width:28px;height:auto;border-radius:3px;"></div><span class="time-nome">Haiti</span></div>
+        <div class="jogo-info"><div class="jogo-fase">Grupo C</div><div style="font-size:0.7rem;color:#666;margin-top:2px">Atlanta</div></div>
+      </div>
+
+      <div class="jogo-item" data-times="México|Tchéquia">
+        <div class="jogo-time"><div class="bandeira"><img src="https://flagcdn.com/w40/mx.png" alt="México" style="width:28px;height:auto;border-radius:3px;"></div><span class="time-nome">México</span></div>
+        <div class="jogo-centro"><div class="placar">— · —</div><div class="horario" style="margin-top:4px">24 JUN · 22h</div></div>
+        <div class="jogo-time right"><div class="bandeira"><img src="https://flagcdn.com/w40/cz.png" alt="Tchéquia" style="width:28px;height:auto;border-radius:3px;"></div><span class="time-nome">Tchéquia</span></div>
+        <div class="jogo-info"><div class="jogo-fase">Grupo A</div><div style="font-size:0.7rem;color:#666;margin-top:2px">Cidade do México</div></div>
+      </div>
+
+      <div class="jogo-item" data-times="Argentina|Jordânia">
+        <div class="jogo-time"><div class="bandeira"><img src="https://flagcdn.com/w40/ar.png" alt="Argentina" style="width:28px;height:auto;border-radius:3px;"></div><span class="time-nome">Argentina</span></div>
+        <div class="jogo-centro"><div class="placar">— · —</div><div class="horario" style="margin-top:4px">26 JUN · 22h</div></div>
+        <div class="jogo-time right"><div class="bandeira"><img src="https://flagcdn.com/w40/jo.png" alt="Jordânia" style="width:28px;height:auto;border-radius:3px;"></div><span class="time-nome">Jordânia</span></div>
+        <div class="jogo-info"><div class="jogo-fase">Grupo J</div><div style="font-size:0.7rem;color:#666;margin-top:2px">Dallas</div></div>
+      </div>
+
+      <div class="jogo-item" data-times="França|Noruega">
+        <div class="jogo-time"><div class="bandeira"><img src="https://flagcdn.com/w40/fr.png" alt="França" style="width:28px;height:auto;border-radius:3px;"></div><span class="time-nome">França</span></div>
+        <div class="jogo-centro"><div class="placar">— · —</div><div class="horario" style="margin-top:4px">26 JUN · 16h</div></div>
+        <div class="jogo-time right"><div class="bandeira"><img src="https://flagcdn.com/w40/no.png" alt="Noruega" style="width:28px;height:auto;border-radius:3px;"></div><span class="time-nome">Noruega</span></div>
+        <div class="jogo-info"><div class="jogo-fase">Grupo I</div><div style="font-size:0.7rem;color:#666;margin-top:2px">Boston</div></div>
+      </div>
+
+      <div class="jogo-item" data-times="Espanha|Uruguai">
+        <div class="jogo-time"><div class="bandeira"><img src="https://flagcdn.com/w40/es.png" alt="Espanha" style="width:28px;height:auto;border-radius:3px;"></div><span class="time-nome">Espanha</span></div>
+        <div class="jogo-centro"><div class="placar">— · —</div><div class="horario" style="margin-top:4px">27 JUN · 21h</div></div>
+        <div class="jogo-time right"><div class="bandeira"><img src="https://flagcdn.com/w40/uy.png" alt="Uruguai" style="width:28px;height:auto;border-radius:3px;"></div><span class="time-nome">Uruguai</span></div>
+        <div class="jogo-info"><div class="jogo-fase">Grupo H</div><div style="font-size:0.7rem;color:#666;margin-top:2px">Guadalajara</div></div>
+      </div>
+
+      <div class="jogo-item" data-times="Portugal|Colômbia">
+        <div class="jogo-time"><div class="bandeira"><img src="https://flagcdn.com/w40/pt.png" alt="Portugal" style="width:28px;height:auto;border-radius:3px;"></div><span class="time-nome">Portugal</span></div>
+        <div class="jogo-centro"><div class="placar">— · —</div><div class="horario" style="margin-top:4px">27 JUN · 20h30</div></div>
+        <div class="jogo-time right"><div class="bandeira"><img src="https://flagcdn.com/w40/co.png" alt="Colômbia" style="width:28px;height:auto;border-radius:3px;"></div><span class="time-nome">Colômbia</span></div>
+        <div class="jogo-info"><div class="jogo-fase">Grupo K</div><div style="font-size:0.7rem;color:#666;margin-top:2px">Miami</div></div>
+      </div>
+
+      <div class="jogo-item" data-times="Inglaterra|Panamá">
+        <div class="jogo-time"><div class="bandeira"><img src="https://flagcdn.com/w40/gb.png" alt="Inglaterra" style="width:28px;height:auto;border-radius:3px;"></div><span class="time-nome">Inglaterra</span></div>
+        <div class="jogo-centro"><div class="placar">— · —</div><div class="horario" style="margin-top:4px">27 JUN · 18h</div></div>
+        <div class="jogo-time right"><div class="bandeira"><img src="https://flagcdn.com/w40/pa.png" alt="Panamá" style="width:28px;height:auto;border-radius:3px;"></div><span class="time-nome">Panamá</span></div>
+        <div class="jogo-info"><div class="jogo-fase">Grupo L</div><div style="font-size:0.7rem;color:#666;margin-top:2px">Nova York</div></div>
+      </div>
+
     </div>
   </div>
 </div>
 
+<script>
+function filtrarJogos(pais) {
+  document.querySelectorAll('.filtro-btn').forEach(b => b.classList.remove('ativo'));
+  document.querySelector('[data-pais="'+pais+'"]').classList.add('ativo');
+  document.querySelectorAll('#lista-jogos .jogo-item').forEach(j => {
+    if (pais === 'todos') {
+      j.classList.remove('jogo-oculto');
+    } else {
+      const times = j.getAttribute('data-times') || '';
+      if (times.toLowerCase().includes(pais.toLowerCase())) {
+        j.classList.remove('jogo-oculto');
+      } else {
+        j.classList.add('jogo-oculto');
+      }
+    }
+  });
+  // Ocultar títulos de rodada se todos os jogos abaixo estiverem ocultos
+  document.querySelectorAll('.rodada-titulo').forEach(titulo => {
+    let next = titulo.nextElementSibling;
+    let temVisivel = false;
+    while (next && !next.classList.contains('rodada-titulo')) {
+      if (!next.classList.contains('jogo-oculto')) temVisivel = true;
+      next = next.nextElementSibling;
+    }
+    titulo.style.display = temVisivel ? '' : 'none';
+  });
+}
+</script>
 <!-- NOTICIAS -->
 <section id="noticias">
   <div class="section-tag">Últimas</div>
@@ -655,8 +1084,16 @@
   <p class="section-desc">Análises, bastidores e tudo que está acontecendo no Mundial 2026.</p>
 
   <div class="noticias-grid">
-    <div class="card-noticia destaque" onclick="window.open('https://www.cnnbrasil.com.br/esportes/futebol/selecao-brasileira/selecao-brasileira-veja-a-lista-de-convocados-para-a-copa-do-mundo/','_blank')" style="cursor:pointer">
-      <div class="card-img-placeholder">⚽</div>
+    <div class="card-noticia destaque" onclick="window.open('https://www.cnnbrasil.com.br/esportes/futebol/selecao-brasileira/selecao-brasileira-veja-a-lista-de-convocados-para-a-copa-do-mundo/','_blank')" style="cursor:pointer;background:linear-gradient(135deg,#0a3d1f,#1a5c2e,#0d7a3e) !important;">
+      <div class="card-img-placeholder" style="background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='800' height='500'%3E%3Crect fill='%230a3d0f' width='800' height='500'/%3E%3Crect fill='none' stroke='%23ffffff' stroke-width='2' stroke-opacity='0.15' x='30' y='20' width='740' height='460'/%3E%3Cline x1='400' y1='20' x2='400' y2='480' stroke='%23ffffff' stroke-width='2' stroke-opacity='0.15'/%3E%3Ccircle cx='400' cy='250' r='80' fill='none' stroke='%23ffffff' stroke-width='2' stroke-opacity='0.15'/%3E%3Ccircle cx='400' cy='250' r='4' fill='%23ffffff' fill-opacity='0.3'/%3E%3Crect fill='none' stroke='%23ffffff' stroke-width='2' stroke-opacity='0.15' x='30' y='155' width='120' height='190'/%3E%3Crect fill='none' stroke='%23ffffff' stroke-width='2' stroke-opacity='0.15' x='650' y='155' width='120' height='190'/%3E%3Crect fill='none' stroke='%23ffffff' stroke-width='2' stroke-opacity='0.15' x='30' y='200' width='55' height='100'/%3E%3Crect fill='none' stroke='%23ffffff' stroke-width='2' stroke-opacity='0.15' x='715' y='200' width='55' height='100'/%3E%3C/svg%3E");background-size:cover;background-color:#0a3d0f;background(160deg, rgba(0,0,0,0.7) 0%, rgba(0,0,0,0.3) 100%),
+      repeating-linear-gradient(90deg, rgba(255,255,255,0.03) 0px, rgba(255,255,255,0.03) 1px, transparent 1px, transparent 60px),
+      repeating-linear-gradient(0deg, rgba(255,255,255,0.03) 0px, rgba(255,255,255,0.03) 1px, transparent 1px, transparent 60px),
+      linear-gradient(135deg, #0a3d0f 0%, #1a5c1a 25%, #0f7a2e 50%, #1a5c1a 75%, #0a3d0f 100%);display:flex;align-items:center;justify-content:center;font-size:0;position:relative;overflow:hidden;">
+        <div style="position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;opacity:0.15;">
+          <div style="font-size:8rem;line-height:1;">⚽</div>
+        </div>
+        <div style="position:absolute;bottom:0;left:0;right:0;height:60%;background:linear-gradient(to top,rgba(0,0,0,0.8),transparent);"></div>
+      </div>
       <div class="card-content">
         <span class="card-categoria">Brasil</span>
         <h3 class="card-titulo">Ancelotti convoca 26 jogadores para a Copa 2026 — Neymar está na lista e Brasil se prepara para o hexa</h3>
@@ -668,8 +1105,15 @@
       </div>
     </div>
 
-    <div class="card-noticia" onclick="window.open('https://folhadolitoral.com.br/editorias/esporte/faltam-16-dias-para-a-copa-do-mundo-de-2026-veja-os-jogos-do-brasil-na-primeira-fase-e-entenda-os-direitos-do-trabalhador/','_blank')" style="cursor:pointer">
-      <div class="card-img-placeholder">🏆</div>
+    <div class="card-noticia" onclick="window.open('https://folhadolitoral.com.br/editorias/esporte/faltam-16-dias-para-a-copa-do-mundo-de-2026-veja-os-jogos-do-brasil-na-primeira-fase-e-entenda-os-direitos-do-trabalhador/','_blank')" style="cursor:pointer;background:linear-gradient(135deg,#050e2a,#0a1f5c,#0d3a8c) !important;">
+      <div style="position:absolute;inset:0;linear-gradient(160deg, rgba(0,0,0,0.6) 0%, rgba(0,0,0,0.2) 100%),
+      radial-gradient(ellipse at 50% 0%, rgba(255,255,255,0.08) 0%, transparent 60%),
+      linear-gradient(135deg, #050e2a 0%, #0a1f5c 30%, #0d3a8c 60%, #0a1f5c 100%);opacity:0.6;"></div>
+      <div class="card-img-placeholder" style="background:linear-gradient(160deg, rgba(0,0,0,0.6) 0%, rgba(0,0,0,0.2) 100%),
+      radial-gradient(ellipse at 50% 0%, rgba(255,255,255,0.08) 0%, transparent 60%),
+      linear-gradient(135deg, #050e2a 0%, #0a1f5c 30%, #0d3a8c 60%, #0a1f5c 100%);position:relative;overflow:hidden;">
+        <div style="position:absolute;inset:0;display:flex;align-items:center;justify-content:center;opacity:0.2;font-size:4rem;">🏟️</div>
+      </div>
       <div class="card-content">
         <span class="card-categoria amarelo">Análise</span>
         <h3 class="card-titulo">Faltam 16 dias: Brasil estreia dia 13 de junho contra Marrocos no MetLife Stadium</h3>
@@ -677,8 +1121,15 @@
       </div>
     </div>
 
-    <div class="card-noticia" onclick="window.open('https://br.soccerway.com/noticias/futebol-copa-do-mundo-fifa-chega-a-um-milhao-de-ingressos-vendidos-para-copa-brasil-e-o-6-em-demanda/pUJE1a0E','_blank')" style="cursor:pointer">
-      <div class="card-img-placeholder">🎫</div>
+    <div class="card-noticia" onclick="window.open('https://br.soccerway.com/noticias/futebol-copa-do-mundo-fifa-chega-a-um-milhao-de-ingressos-vendidos-para-copa-brasil-e-o-6-em-demanda/pUJE1a0E','_blank')" style="cursor:pointer;background:linear-gradient(135deg,#1a0f00,#4a2800,#7a4500) !important;">
+      <div style="position:absolute;inset:0;linear-gradient(160deg, rgba(0,0,0,0.6) 0%, rgba(0,0,0,0.2) 100%),
+      radial-gradient(ellipse at 60% 40%, rgba(255,200,0,0.15) 0%, transparent 60%),
+      linear-gradient(135deg, #1a0f00 0%, #4a2800 30%, #7a4500 60%, #4a2800 100%);opacity:0.6;"></div>
+      <div class="card-img-placeholder" style="background:linear-gradient(160deg, rgba(0,0,0,0.6) 0%, rgba(0,0,0,0.2) 100%),
+      radial-gradient(ellipse at 60% 40%, rgba(255,200,0,0.15) 0%, transparent 60%),
+      linear-gradient(135deg, #1a0f00 0%, #4a2800 30%, #7a4500 60%, #4a2800 100%);position:relative;overflow:hidden;">
+        <div style="position:absolute;inset:0;display:flex;align-items:center;justify-content:center;opacity:0.2;font-size:4rem;">🏆</div>
+      </div>
       <div class="card-content">
         <span class="card-categoria azul">Ingressos</span>
         <h3 class="card-titulo">FIFA bate 1 milhão de ingressos vendidos — Brasil é o 6º país com maior demanda</h3>
@@ -709,6 +1160,193 @@
 
 
     </div>
+  </div>
+</section>
+
+<!-- SELEÇÕES -->
+<section id="selecoes" style="background: var(--cinza-escuro); max-width: 100%; padding: 5rem 2rem;">
+  <div style="max-width:1200px; margin:0 auto;">
+    <div class="section-tag">48 Seleções — 12 Grupos</div>
+    <h2 class="section-title">Seleções da <span>Copa 2026</span></h2>
+    <p class="section-desc">Todas as 48 seleções classificadas para o primeiro Mundial com 48 países.</p>
+
+    <style>
+      .grupo-bloco { margin-bottom: 2.5rem; }
+      .grupo-label {
+        font-family: 'Bebas Neue', sans-serif;
+        font-size: 1.4rem; letter-spacing: 2px;
+        color: var(--amarelo); margin-bottom: 1rem;
+        display: flex; align-items: center; gap: 0.8rem;
+      }
+      .grupo-label::after {
+        content: ''; flex: 1; height: 1px;
+        background: rgba(255,214,0,0.2);
+      }
+      .selecoes-row {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+        gap: 0.8rem;
+      }
+      .selecao-card {
+        background: var(--preto);
+        border: 1px solid rgba(255,255,255,0.07);
+        border-radius: 8px;
+        padding: 1rem;
+        text-align: center;
+        transition: all 0.2s;
+        cursor: default;
+      }
+      .selecao-card:hover {
+        border-color: var(--verde);
+        transform: translateY(-2px);
+      }
+      .selecao-card.brasil {
+        border-color: var(--amarelo);
+        background: rgba(255,214,0,0.05);
+      }
+      .selecao-flag { font-size: 2rem; margin-bottom: 0.4rem; display: block; }
+      .selecao-nome {
+        font-family: 'Barlow Condensed', sans-serif;
+        font-size: 0.95rem; font-weight: 700;
+      }
+      .selecao-conf {
+        font-size: 0.65rem; color: var(--cinza-texto);
+        letter-spacing: 1px; text-transform: uppercase; margin-top: 2px;
+      }
+    </style>
+
+    <!-- GRUPO A -->
+    <div class="grupo-bloco">
+      <div class="grupo-label">Grupo A</div>
+      <div class="selecoes-row">
+        <div class="selecao-card"><span class="selecao-flag"><img src="https://flagcdn.com/w40/mx.png" alt="México" style="width:48px;height:auto;border-radius:3px;"></span><div class="selecao-nome">México</div><div class="selecao-conf">CONCACAF · Sede</div></div>
+        <div class="selecao-card"><span class="selecao-flag"><img src="https://flagcdn.com/w40/za.png" alt="África do Sul" style="width:48px;height:auto;border-radius:3px;"></span><div class="selecao-nome">África do Sul</div><div class="selecao-conf">CAF</div></div>
+        <div class="selecao-card"><span class="selecao-flag"><img src="https://flagcdn.com/w40/kr.png" alt="Coreia do Sul" style="width:48px;height:auto;border-radius:3px;"></span><div class="selecao-nome">Coreia do Sul</div><div class="selecao-conf">AFC</div></div>
+        <div class="selecao-card"><span class="selecao-flag"><img src="https://flagcdn.com/w40/cz.png" alt="Tchéquia" style="width:48px;height:auto;border-radius:3px;"></span><div class="selecao-nome">Tchéquia</div><div class="selecao-conf">UEFA</div></div>
+      </div>
+    </div>
+
+    <!-- GRUPO B -->
+    <div class="grupo-bloco">
+      <div class="grupo-label">Grupo B</div>
+      <div class="selecoes-row">
+        <div class="selecao-card"><span class="selecao-flag"><img src="https://flagcdn.com/w40/ca.png" alt="Canadá" style="width:48px;height:auto;border-radius:3px;"></span><div class="selecao-nome">Canadá</div><div class="selecao-conf">CONCACAF · Sede</div></div>
+        <div class="selecao-card"><span class="selecao-flag"><img src="https://flagcdn.com/w40/ba.png" alt="Bósnia-Herzegovina" style="width:48px;height:auto;border-radius:3px;"></span><div class="selecao-nome">Bósnia-Herz.</div><div class="selecao-conf">UEFA</div></div>
+        <div class="selecao-card"><span class="selecao-flag"><img src="https://flagcdn.com/w40/ch.png" alt="Suíça" style="width:48px;height:auto;border-radius:3px;"></span><div class="selecao-nome">Suíça</div><div class="selecao-conf">UEFA</div></div>
+        <div class="selecao-card"><span class="selecao-flag"><img src="https://flagcdn.com/w40/qa.png" alt="Catar" style="width:48px;height:auto;border-radius:3px;"></span><div class="selecao-nome">Catar</div><div class="selecao-conf">AFC</div></div>
+      </div>
+    </div>
+
+    <!-- GRUPO C -->
+    <div class="grupo-bloco">
+      <div class="grupo-label">Grupo C — Brasil</div>
+      <div class="selecoes-row">
+        <div class="selecao-card brasil"><span class="selecao-flag"><img src="https://flagcdn.com/w40/br.png" alt="Brasil" style="width:48px;height:auto;border-radius:3px;"></span><div class="selecao-nome">Brasil</div><div class="selecao-conf">CONMEBOL ⭐</div></div>
+        <div class="selecao-card"><span class="selecao-flag"><img src="https://flagcdn.com/w40/ma.png" alt="Marrocos" style="width:48px;height:auto;border-radius:3px;"></span><div class="selecao-nome">Marrocos</div><div class="selecao-conf">CAF</div></div>
+        <div class="selecao-card"><span class="selecao-flag"><img src="https://flagcdn.com/w40/ht.png" alt="Haiti" style="width:48px;height:auto;border-radius:3px;"></span><div class="selecao-nome">Haiti</div><div class="selecao-conf">CONCACAF</div></div>
+        <div class="selecao-card"><span class="selecao-flag"><img src="https://flagcdn.com/w40/gb.png" alt="Escócia" style="width:48px;height:auto;border-radius:3px;"></span><div class="selecao-nome">Escócia</div><div class="selecao-conf">UEFA</div></div>
+      </div>
+    </div>
+
+    <!-- GRUPO D -->
+    <div class="grupo-bloco">
+      <div class="grupo-label">Grupo D</div>
+      <div class="selecoes-row">
+        <div class="selecao-card"><span class="selecao-flag"><img src="https://flagcdn.com/w40/us.png" alt="EUA" style="width:48px;height:auto;border-radius:3px;"></span><div class="selecao-nome">EUA</div><div class="selecao-conf">CONCACAF · Sede</div></div>
+        <div class="selecao-card"><span class="selecao-flag"><img src="https://flagcdn.com/w40/py.png" alt="Paraguai" style="width:48px;height:auto;border-radius:3px;"></span><div class="selecao-nome">Paraguai</div><div class="selecao-conf">CONMEBOL</div></div>
+        <div class="selecao-card"><span class="selecao-flag"><img src="https://flagcdn.com/w40/au.png" alt="Austrália" style="width:48px;height:auto;border-radius:3px;"></span><div class="selecao-nome">Austrália</div><div class="selecao-conf">AFC</div></div>
+        <div class="selecao-card"><span class="selecao-flag"><img src="https://flagcdn.com/w40/tr.png" alt="Turquia" style="width:48px;height:auto;border-radius:3px;"></span><div class="selecao-nome">Turquia</div><div class="selecao-conf">UEFA</div></div>
+      </div>
+    </div>
+
+    <!-- GRUPO E -->
+    <div class="grupo-bloco">
+      <div class="grupo-label">Grupo E</div>
+      <div class="selecoes-row">
+        <div class="selecao-card"><span class="selecao-flag"><img src="https://flagcdn.com/w40/de.png" alt="Alemanha" style="width:48px;height:auto;border-radius:3px;"></span><div class="selecao-nome">Alemanha</div><div class="selecao-conf">UEFA</div></div>
+        <div class="selecao-card"><span class="selecao-flag"><img src="https://flagcdn.com/w40/cw.png" alt="Curaçao" style="width:48px;height:auto;border-radius:3px;"></span><div class="selecao-nome">Curaçao</div><div class="selecao-conf">CONCACAF</div></div>
+        <div class="selecao-card"><span class="selecao-flag"><img src="https://flagcdn.com/w40/ci.png" alt="Costa do Marfim" style="width:48px;height:auto;border-radius:3px;"></span><div class="selecao-nome">Costa do Marfim</div><div class="selecao-conf">CAF</div></div>
+        <div class="selecao-card"><span class="selecao-flag"><img src="https://flagcdn.com/w40/ec.png" alt="Equador" style="width:48px;height:auto;border-radius:3px;"></span><div class="selecao-nome">Equador</div><div class="selecao-conf">CONMEBOL</div></div>
+      </div>
+    </div>
+
+    <!-- GRUPO F -->
+    <div class="grupo-bloco">
+      <div class="grupo-label">Grupo F</div>
+      <div class="selecoes-row">
+        <div class="selecao-card"><span class="selecao-flag"><img src="https://flagcdn.com/w40/nl.png" alt="Holanda" style="width:48px;height:auto;border-radius:3px;"></span><div class="selecao-nome">Holanda</div><div class="selecao-conf">UEFA</div></div>
+        <div class="selecao-card"><span class="selecao-flag"><img src="https://flagcdn.com/w40/jp.png" alt="Japão" style="width:48px;height:auto;border-radius:3px;"></span><div class="selecao-nome">Japão</div><div class="selecao-conf">AFC</div></div>
+        <div class="selecao-card"><span class="selecao-flag"><img src="https://flagcdn.com/w40/tn.png" alt="Tunísia" style="width:48px;height:auto;border-radius:3px;"></span><div class="selecao-nome">Tunísia</div><div class="selecao-conf">CAF</div></div>
+        <div class="selecao-card"><span class="selecao-flag"><img src="https://flagcdn.com/w40/se.png" alt="Suécia" style="width:48px;height:auto;border-radius:3px;"></span><div class="selecao-nome">Suécia</div><div class="selecao-conf">UEFA</div></div>
+      </div>
+    </div>
+
+    <!-- GRUPO G -->
+    <div class="grupo-bloco">
+      <div class="grupo-label">Grupo G</div>
+      <div class="selecoes-row">
+        <div class="selecao-card"><span class="selecao-flag"><img src="https://flagcdn.com/w40/be.png" alt="Bélgica" style="width:48px;height:auto;border-radius:3px;"></span><div class="selecao-nome">Bélgica</div><div class="selecao-conf">UEFA</div></div>
+        <div class="selecao-card"><span class="selecao-flag"><img src="https://flagcdn.com/w40/eg.png" alt="Egito" style="width:48px;height:auto;border-radius:3px;"></span><div class="selecao-nome">Egito</div><div class="selecao-conf">CAF</div></div>
+        <div class="selecao-card"><span class="selecao-flag"><img src="https://flagcdn.com/w40/ir.png" alt="Irã" style="width:48px;height:auto;border-radius:3px;"></span><div class="selecao-nome">Irã</div><div class="selecao-conf">AFC</div></div>
+        <div class="selecao-card"><span class="selecao-flag"><img src="https://flagcdn.com/w40/nz.png" alt="Nova Zelândia" style="width:48px;height:auto;border-radius:3px;"></span><div class="selecao-nome">Nova Zelândia</div><div class="selecao-conf">OFC</div></div>
+      </div>
+    </div>
+
+    <!-- GRUPO H -->
+    <div class="grupo-bloco">
+      <div class="grupo-label">Grupo H</div>
+      <div class="selecoes-row">
+        <div class="selecao-card"><span class="selecao-flag"><img src="https://flagcdn.com/w40/es.png" alt="Espanha" style="width:48px;height:auto;border-radius:3px;"></span><div class="selecao-nome">Espanha</div><div class="selecao-conf">UEFA</div></div>
+        <div class="selecao-card"><span class="selecao-flag"><img src="https://flagcdn.com/w40/cv.png" alt="Cabo Verde" style="width:48px;height:auto;border-radius:3px;"></span><div class="selecao-nome">Cabo Verde</div><div class="selecao-conf">CAF</div></div>
+        <div class="selecao-card"><span class="selecao-flag"><img src="https://flagcdn.com/w40/sa.png" alt="Arábia Saudita" style="width:48px;height:auto;border-radius:3px;"></span><div class="selecao-nome">Arábia Saudita</div><div class="selecao-conf">AFC</div></div>
+        <div class="selecao-card"><span class="selecao-flag"><img src="https://flagcdn.com/w40/uy.png" alt="Uruguai" style="width:48px;height:auto;border-radius:3px;"></span><div class="selecao-nome">Uruguai</div><div class="selecao-conf">CONMEBOL</div></div>
+      </div>
+    </div>
+
+    <!-- GRUPO I -->
+    <div class="grupo-bloco">
+      <div class="grupo-label">Grupo I</div>
+      <div class="selecoes-row">
+        <div class="selecao-card"><span class="selecao-flag"><img src="https://flagcdn.com/w40/fr.png" alt="França" style="width:48px;height:auto;border-radius:3px;"></span><div class="selecao-nome">França</div><div class="selecao-conf">UEFA</div></div>
+        <div class="selecao-card"><span class="selecao-flag"><img src="https://flagcdn.com/w40/sn.png" alt="Senegal" style="width:48px;height:auto;border-radius:3px;"></span><div class="selecao-nome">Senegal</div><div class="selecao-conf">CAF</div></div>
+        <div class="selecao-card"><span class="selecao-flag"><img src="https://flagcdn.com/w40/no.png" alt="Noruega" style="width:48px;height:auto;border-radius:3px;"></span><div class="selecao-nome">Noruega</div><div class="selecao-conf">UEFA</div></div>
+        <div class="selecao-card"><span class="selecao-flag"><img src="https://flagcdn.com/w40/iq.png" alt="Iraque" style="width:48px;height:auto;border-radius:3px;"></span><div class="selecao-nome">Iraque</div><div class="selecao-conf">AFC</div></div>
+      </div>
+    </div>
+
+    <!-- GRUPO J -->
+    <div class="grupo-bloco">
+      <div class="grupo-label">Grupo J</div>
+      <div class="selecoes-row">
+        <div class="selecao-card"><span class="selecao-flag"><img src="https://flagcdn.com/w40/ar.png" alt="Argentina" style="width:48px;height:auto;border-radius:3px;"></span><div class="selecao-nome">Argentina</div><div class="selecao-conf">CONMEBOL</div></div>
+        <div class="selecao-card"><span class="selecao-flag"><img src="https://flagcdn.com/w40/dz.png" alt="Argélia" style="width:48px;height:auto;border-radius:3px;"></span><div class="selecao-nome">Argélia</div><div class="selecao-conf">CAF</div></div>
+        <div class="selecao-card"><span class="selecao-flag"><img src="https://flagcdn.com/w40/at.png" alt="Áustria" style="width:48px;height:auto;border-radius:3px;"></span><div class="selecao-nome">Áustria</div><div class="selecao-conf">UEFA</div></div>
+        <div class="selecao-card"><span class="selecao-flag"><img src="https://flagcdn.com/w40/jo.png" alt="Jordânia" style="width:48px;height:auto;border-radius:3px;"></span><div class="selecao-nome">Jordânia</div><div class="selecao-conf">AFC</div></div>
+      </div>
+    </div>
+
+    <!-- GRUPO K -->
+    <div class="grupo-bloco">
+      <div class="grupo-label">Grupo K</div>
+      <div class="selecoes-row">
+        <div class="selecao-card"><span class="selecao-flag"><img src="https://flagcdn.com/w40/pt.png" alt="Portugal" style="width:48px;height:auto;border-radius:3px;"></span><div class="selecao-nome">Portugal</div><div class="selecao-conf">UEFA</div></div>
+        <div class="selecao-card"><span class="selecao-flag"><img src="https://flagcdn.com/w40/uz.png" alt="Uzbequistão" style="width:48px;height:auto;border-radius:3px;"></span><div class="selecao-nome">Uzbequistão</div><div class="selecao-conf">AFC</div></div>
+        <div class="selecao-card"><span class="selecao-flag"><img src="https://flagcdn.com/w40/co.png" alt="Colômbia" style="width:48px;height:auto;border-radius:3px;"></span><div class="selecao-nome">Colômbia</div><div class="selecao-conf">CONMEBOL</div></div>
+        <div class="selecao-card"><span class="selecao-flag"><img src="https://flagcdn.com/w40/cd.png" alt="RD Congo" style="width:48px;height:auto;border-radius:3px;"></span><div class="selecao-nome">RD Congo</div><div class="selecao-conf">CAF</div></div>
+      </div>
+    </div>
+
+    <!-- GRUPO L -->
+    <div class="grupo-bloco">
+      <div class="grupo-label">Grupo L</div>
+      <div class="selecoes-row">
+        <div class="selecao-card"><span class="selecao-flag"><img src="https://flagcdn.com/w40/gb.png" alt="Inglaterra" style="width:48px;height:auto;border-radius:3px;"></span><div class="selecao-nome">Inglaterra</div><div class="selecao-conf">UEFA</div></div>
+        <div class="selecao-card"><span class="selecao-flag"><img src="https://flagcdn.com/w40/hr.png" alt="Croácia" style="width:48px;height:auto;border-radius:3px;"></span><div class="selecao-nome">Croácia</div><div class="selecao-conf">UEFA</div></div>
+        <div class="selecao-card"><span class="selecao-flag"><img src="https://flagcdn.com/w40/gh.png" alt="Gana" style="width:48px;height:auto;border-radius:3px;"></span><div class="selecao-nome">Gana</div><div class="selecao-conf">CAF</div></div>
+        <div class="selecao-card"><span class="selecao-flag"><img src="https://flagcdn.com/w40/pa.png" alt="Panamá" style="width:48px;height:auto;border-radius:3px;"></span><div class="selecao-nome">Panamá</div><div class="selecao-conf">CONCACAF</div></div>
+      </div>
+    </div>
+
   </div>
 </section>
 
@@ -919,7 +1557,7 @@
     <div>
       <div class="newsletter-form">
         <input type="email" class="newsletter-input" placeholder="seu@email.com">
-        <button class="btn-newsletter">Quero receber</button>
+        <button class="btn-newsletter" onclick="const e=this.previousElementSibling.value;if(e&&e.includes('@')){window.location.href='mailto:blogcopa2026@gmail.com?subject=Quero receber alertas&body=Meu email: '+e;this.textContent='✓ Enviado!';this.style.background='#00C853';}else{this.previousElementSibling.style.borderColor='red';}">Quero receber</button>
       </div>
       <p style="font-size:0.75rem; color:var(--cinza-texto); margin-top:0.8rem;">Sem spam. Só o que importa. Cancele quando quiser.</p>
     </div>
