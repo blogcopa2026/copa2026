@@ -748,6 +748,101 @@
   </div>
 </div>
 
+<!-- NOTICIAS -->
+<section id="noticias">
+  <div class="section-tag">Últimas</div>
+  <h2 class="section-title">Notícias da <span>Copa</span></h2>
+  <p class="section-desc">Análises, bastidores e tudo que está acontecendo no Mundial 2026.</p>
+
+  <style>
+    .noticias-grid-6 {
+      display: grid;
+      grid-template-columns: 2fr 1fr;
+      grid-template-rows: auto auto auto;
+      gap: 1.5px;
+      background: rgba(255,255,255,0.06);
+      border-radius: 12px;
+      overflow: hidden;
+    }
+    .noticias-secundarias {
+      display: flex; flex-direction: column; gap: 1.5px;
+    }
+    .noticias-grid-bottom {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 1.5px;
+      background: rgba(255,255,255,0.06);
+      border-radius: 12px;
+      overflow: hidden;
+      margin-top: 1.5px;
+    }
+    @media (max-width: 768px) {
+      .noticias-grid-6 { grid-template-columns: 1fr; }
+      .noticias-grid-bottom { grid-template-columns: 1fr; }
+    }
+  </style>
+
+  <div class="noticias-grid-6">
+    <!-- DESTAQUE PRINCIPAL -->
+    <div class="card-noticia destaque" onclick="window.open('https://trivela.com.br/copa-do-mundo/brasil-convocacao-ancelotti-neymar-respostas-duvidas/','_blank')" style="cursor:pointer;background:linear-gradient(160deg, rgba(0,0,0,0.7) 0%, rgba(0,0,0,0.3) 100%), repeating-linear-gradient(90deg, rgba(255,255,255,0.03) 0px, rgba(255,255,255,0.03) 1px, transparent 1px, transparent 60px), repeating-linear-gradient(0deg, rgba(255,255,255,0.03) 0px, rgba(255,255,255,0.03) 1px, transparent 1px, transparent 60px), linear-gradient(135deg, #0a3d0f 0%, #1a5c1a 25%, #0f7a2e 50%, #1a5c1a 75%, #0a3d0f 100%) !important;">
+      <div class="card-img-placeholder" style="font-size:0;opacity:0;"></div>
+      <div class="card-content">
+        <span class="card-categoria">Brasil</span>
+        <h3 class="card-titulo">Rodrygo e Estêvão fora — Neymar, Vini Jr e Raphinha lideram lista de 26 convocados de Ancelotti para o hexa</h3>
+        <div class="card-meta">
+          <span>Há 9 dias</span>
+          <span>·</span>
+          <span>4 min de leitura</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- SECUNDÁRIAS DIREITA -->
+    <div class="noticias-secundarias">
+      <div class="card-noticia" onclick="window.open('https://www.terra.com.br/esportes/futebol/copa-2026/com-memphis-selecao-da-holanda-e-convocada-para-a-copa-do-mundo-2026,a8067fa8dc997e8ef5c096b12367eeacviydjpji.html','_blank')" style="cursor:pointer;background:linear-gradient(135deg,#050e2a,#0a1f5c,#0d3a8c) !important;">
+        <div class="card-content">
+          <span class="card-categoria azul">Internacional</span>
+          <h3 class="card-titulo">Memphis Depay, do Corinthians, é convocado pela Holanda para a Copa 2026</h3>
+          <div class="card-meta"><span>Hoje · 10h10</span></div>
+        </div>
+      </div>
+      <div class="card-noticia" onclick="window.open('https://www.goal.com/br/listas/lista-completa-convocados-todas-selecoes-copa-mundo-2026/bltff8de6ee6ca1e9e6','_blank')" style="cursor:pointer;background:linear-gradient(135deg,#1a0f00,#4a2800,#7a4500) !important;">
+        <div class="card-content">
+          <span class="card-categoria amarelo">Convocações</span>
+          <h3 class="card-titulo">Lista completa de convocados de todas as seleções para a Copa 2026</h3>
+          <div class="card-meta"><span>Ontem · 16h40</span></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 3 CARDS INFERIORES -->
+  <div class="noticias-grid-bottom">
+    <div class="card-noticia" onclick="window.open('https://folhadolitoral.com.br/editorias/esporte/faltam-16-dias-para-a-copa-do-mundo-de-2026-veja-os-jogos-do-brasil-na-primeira-fase-e-entenda-os-direitos-do-trabalhador/','_blank')" style="cursor:pointer;background:linear-gradient(135deg,#050e2a,#0a1f5c,#0d3a8c) !important;">
+      <div class="card-content">
+        <span class="card-categoria amarelo">Contagem</span>
+        <h3 class="card-titulo">Faltam 15 dias: veja os jogos do Brasil na 1ª fase e os direitos do trabalhador nos dias de jogo</h3>
+        <div class="card-meta"><span>Hoje</span></div>
+      </div>
+    </div>
+    <div class="card-noticia" onclick="window.open('https://br.soccerway.com/noticias/futebol-copa-do-mundo-fifa-chega-a-um-milhao-de-ingressos-vendidos-para-copa-brasil-e-o-6-em-demanda/pUJE1a0E','_blank')" style="cursor:pointer;background:linear-gradient(135deg,#1a0f00,#4a2800,#7a4500) !important;">
+      <div class="card-content">
+        <span class="card-categoria azul">Ingressos</span>
+        <h3 class="card-titulo">FIFA supera 1 milhão de ingressos vendidos — Brasil é o 6º país com maior demanda</h3>
+        <div class="card-meta"><span>Recente</span></div>
+      </div>
+    </div>
+    <div class="card-noticia" onclick="window.open('https://br.soccerway.com/noticias/futebol-copa-do-mundo-copa-do-mundo-de-2026-todos-os-estadios-nos-eua-canada-e-mexico/GS25OB35','_blank')" style="cursor:pointer;background:linear-gradient(135deg,#0a3d0f,#1a5c1a,#0f7a2e) !important;">
+      <div class="card-content">
+        <span class="card-categoria">Estrutura</span>
+        <h3 class="card-titulo">Conheça os 16 estádios da Copa 2026 — do Azteca ao MetLife, passando por Miami e Dallas</h3>
+        <div class="card-meta"><span>Recente</span></div>
+      </div>
+    </div>
+  </div>
+
+</section>
+
 <!-- JOGOS DO DIA -->
 <div class="jogos-section" id="jogos">
   <div class="jogos-wrapper">
@@ -1179,68 +1274,6 @@ function filtrarJogos(pais) {
   });
 }
 </script>
-<!-- NOTICIAS -->
-<section id="noticias">
-  <div class="section-tag">Últimas</div>
-  <h2 class="section-title">Notícias da <span>Copa</span></h2>
-  <p class="section-desc">Análises, bastidores e tudo que está acontecendo no Mundial 2026.</p>
-
-  <div class="noticias-grid">
-    <div class="card-noticia destaque" onclick="window.open('https://www.cnnbrasil.com.br/esportes/futebol/selecao-brasileira/selecao-brasileira-veja-a-lista-de-convocados-para-a-copa-do-mundo/','_blank')" style="cursor:pointer;background:linear-gradient(135deg,#0a3d1f,#1a5c2e,#0d7a3e) !important;">
-      <div class="card-img-placeholder" style="background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='800' height='500'%3E%3Crect fill='%230a3d0f' width='800' height='500'/%3E%3Crect fill='none' stroke='%23ffffff' stroke-width='2' stroke-opacity='0.15' x='30' y='20' width='740' height='460'/%3E%3Cline x1='400' y1='20' x2='400' y2='480' stroke='%23ffffff' stroke-width='2' stroke-opacity='0.15'/%3E%3Ccircle cx='400' cy='250' r='80' fill='none' stroke='%23ffffff' stroke-width='2' stroke-opacity='0.15'/%3E%3Ccircle cx='400' cy='250' r='4' fill='%23ffffff' fill-opacity='0.3'/%3E%3Crect fill='none' stroke='%23ffffff' stroke-width='2' stroke-opacity='0.15' x='30' y='155' width='120' height='190'/%3E%3Crect fill='none' stroke='%23ffffff' stroke-width='2' stroke-opacity='0.15' x='650' y='155' width='120' height='190'/%3E%3Crect fill='none' stroke='%23ffffff' stroke-width='2' stroke-opacity='0.15' x='30' y='200' width='55' height='100'/%3E%3Crect fill='none' stroke='%23ffffff' stroke-width='2' stroke-opacity='0.15' x='715' y='200' width='55' height='100'/%3E%3C/svg%3E");background-size:cover;background-color:#0a3d0f;background(160deg, rgba(0,0,0,0.7) 0%, rgba(0,0,0,0.3) 100%),
-      repeating-linear-gradient(90deg, rgba(255,255,255,0.03) 0px, rgba(255,255,255,0.03) 1px, transparent 1px, transparent 60px),
-      repeating-linear-gradient(0deg, rgba(255,255,255,0.03) 0px, rgba(255,255,255,0.03) 1px, transparent 1px, transparent 60px),
-      linear-gradient(135deg, #0a3d0f 0%, #1a5c1a 25%, #0f7a2e 50%, #1a5c1a 75%, #0a3d0f 100%);display:flex;align-items:center;justify-content:center;font-size:0;position:relative;overflow:hidden;">
-        <div style="position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;opacity:0.15;">
-          <div style="font-size:8rem;line-height:1;">⚽</div>
-        </div>
-        <div style="position:absolute;bottom:0;left:0;right:0;height:60%;background:linear-gradient(to top,rgba(0,0,0,0.8),transparent);"></div>
-      </div>
-      <div class="card-content">
-        <span class="card-categoria">Brasil</span>
-        <h3 class="card-titulo">Ancelotti convoca 26 jogadores para a Copa 2026 — Neymar está na lista e Brasil se prepara para o hexa</h3>
-        <div class="card-meta">
-          <span>Há 8 dias</span>
-          <span>·</span>
-          <span>3 min de leitura</span>
-        </div>
-      </div>
-    </div>
-
-    <div class="card-noticia" onclick="window.open('https://folhadolitoral.com.br/editorias/esporte/faltam-16-dias-para-a-copa-do-mundo-de-2026-veja-os-jogos-do-brasil-na-primeira-fase-e-entenda-os-direitos-do-trabalhador/','_blank')" style="cursor:pointer;background:linear-gradient(135deg,#050e2a,#0a1f5c,#0d3a8c) !important;">
-      <div style="position:absolute;inset:0;linear-gradient(160deg, rgba(0,0,0,0.6) 0%, rgba(0,0,0,0.2) 100%),
-      radial-gradient(ellipse at 50% 0%, rgba(255,255,255,0.08) 0%, transparent 60%),
-      linear-gradient(135deg, #050e2a 0%, #0a1f5c 30%, #0d3a8c 60%, #0a1f5c 100%);opacity:0.6;"></div>
-      <div class="card-img-placeholder" style="background:linear-gradient(160deg, rgba(0,0,0,0.6) 0%, rgba(0,0,0,0.2) 100%),
-      radial-gradient(ellipse at 50% 0%, rgba(255,255,255,0.08) 0%, transparent 60%),
-      linear-gradient(135deg, #050e2a 0%, #0a1f5c 30%, #0d3a8c 60%, #0a1f5c 100%);position:relative;overflow:hidden;">
-        <div style="position:absolute;inset:0;display:flex;align-items:center;justify-content:center;opacity:0.2;font-size:4rem;">🏟️</div>
-      </div>
-      <div class="card-content">
-        <span class="card-categoria amarelo">Análise</span>
-        <h3 class="card-titulo">Faltam 16 dias: Brasil estreia dia 13 de junho contra Marrocos no MetLife Stadium</h3>
-        <div class="card-meta"><span>Hoje</span></div>
-      </div>
-    </div>
-
-    <div class="card-noticia" onclick="window.open('https://br.soccerway.com/noticias/futebol-copa-do-mundo-fifa-chega-a-um-milhao-de-ingressos-vendidos-para-copa-brasil-e-o-6-em-demanda/pUJE1a0E','_blank')" style="cursor:pointer;background:linear-gradient(135deg,#1a0f00,#4a2800,#7a4500) !important;">
-      <div style="position:absolute;inset:0;linear-gradient(160deg, rgba(0,0,0,0.6) 0%, rgba(0,0,0,0.2) 100%),
-      radial-gradient(ellipse at 60% 40%, rgba(255,200,0,0.15) 0%, transparent 60%),
-      linear-gradient(135deg, #1a0f00 0%, #4a2800 30%, #7a4500 60%, #4a2800 100%);opacity:0.6;"></div>
-      <div class="card-img-placeholder" style="background:linear-gradient(160deg, rgba(0,0,0,0.6) 0%, rgba(0,0,0,0.2) 100%),
-      radial-gradient(ellipse at 60% 40%, rgba(255,200,0,0.15) 0%, transparent 60%),
-      linear-gradient(135deg, #1a0f00 0%, #4a2800 30%, #7a4500 60%, #4a2800 100%);position:relative;overflow:hidden;">
-        <div style="position:absolute;inset:0;display:flex;align-items:center;justify-content:center;opacity:0.2;font-size:4rem;">🏆</div>
-      </div>
-      <div class="card-content">
-        <span class="card-categoria azul">Ingressos</span>
-        <h3 class="card-titulo">FIFA bate 1 milhão de ingressos vendidos — Brasil é o 6º país com maior demanda</h3>
-        <div class="card-meta"><span>Recente</span></div>
-      </div>
-    </div>
-  </div>
-</section>
-
 <!-- ÁLBUM PANINI -->
 <section id="album" style="background: var(--cinza-escuro); max-width: 100%; padding: 5rem 2rem;">
   <div style="max-width:1200px; margin:0 auto;">
